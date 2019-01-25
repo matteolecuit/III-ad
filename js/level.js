@@ -62,10 +62,7 @@ class Level {
                 let otherXEnd = other.pos.x + other.size.x;
                 let otherYStart = other.pos.y;
                 let otherYEnd = other.pos.y + other.size.y;
-                if (xEnd < otherXEnd && xEnd > otherXStart && yEnd < otherYEnd && yEnd > otherYStart ||
-                    xEnd < otherXEnd && xEnd > otherXStart && yStart < otherYEnd && yStart > otherYEnd ||
-                    xStart < otherXStart && xStart > otherXEnd && yStart < otherYEnd && yStart > otherYEnd ||
-                    xStart < otherXStart && xStart > otherXEnd && yEnd < otherYEnd && yEnd > otherYStart) {
+                if (!(otherXStart > xEnd || otherXEnd < xStart || otherYStart > yEnd || otherYEnd < yStart)) {
                     result = other;
                 }
             });
