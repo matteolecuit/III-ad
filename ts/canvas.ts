@@ -34,6 +34,19 @@ class CanvasDisplay {
 		}
 	}
 
+	public ifPlayerDied = (): void => {
+		let player = this.level.actors[0]
+		if (player instanceof Player && player.status === "dead") {
+			this.level.actors.splice(0, this.level.actors.length);
+			this.level.actors.push(new Player(new Vector2D(16, 30), new Vector2D(1, 1), "player"));
+			this.level.gameOver = true;
+		}
+		if (player instanceof Player &&  this.level.gameOver === true) {
+			this.cx.font = "60px";
+			this.cx.fillText("Game Over", 420/2, 460/2);
+		}
+	}
+
 	public drawFrame = (step: number): void => {
 		this.animationTime += step;
 		this.preShake();
@@ -42,6 +55,7 @@ class CanvasDisplay {
 		this.drawSKy();
 		this.drawHUD();
 		this.postShake();
+		this.ifPlayerDied();
 	}
 
 	public drawSKy = (): void => {
@@ -67,7 +81,7 @@ class CanvasDisplay {
 
 		this.cx.drawImage(background,
 			0, 0, 976, 448,
-			scale*6, -scale * 10, scale * 28, scale * 10);
+			scale * 6, -scale * 10, scale * 28, scale * 10);
 
 		this.cx.globalAlpha = 1;
 

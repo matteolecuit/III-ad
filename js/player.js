@@ -130,10 +130,10 @@ class Player extends Actor {
                     }
                 }
             }
-            else if (this.status === "dead") {
-                this.pos.x = -2;
-                this.pos.y = -2;
-            }
+            // else if (this.status === "dead") {
+            // 	this.pos.x = new Vector2D(16, 30)
+            // 	this.pos.y = -2;
+            // }
         };
     }
 }
