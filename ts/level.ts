@@ -24,31 +24,20 @@ class Level {
 	}
 	
     public act = (): void => {
-		if ((Math.round(this.time*100)/100)%5 === 0) {
-            this.changeWind(this.actors[0]);
-        }
-		if (Math.round(this.time*100)/100 === 3) {
-			this.actors.push(new Enemy(new Vector2D(3, -2), new Vector2D(3, 3), "enemy", "crook", 1));
-			this.actors.push(new Enemy(new Vector2D(33, -6), new Vector2D(3, 3), "enemy", "crook", -1));
-			this.actors.push(new Enemy(new Vector2D(3, -10), new Vector2D(3, 3), "enemy", "crook", 1));
-			this.actors.push(new Enemy(new Vector2D(33, -15), new Vector2D(3, 3), "enemy", "crook", -1));
+		if (Math.round(this.time*100)/100 === 2) {
+			console.log("mobTrash");
+			this.actors.push(new Enemy(new Vector2D(1.5, -2), new Vector2D(1, 1), "enemy", "mobTrash", 1));
+			console.log("mobZigzag");
+			this.actors.push(new Enemy(new Vector2D(2.5, -5), new Vector2D(1, 1), "enemy", "mobZigzag", 1));
+			console.log("mobTank");
+			this.actors.push(new Enemy(new Vector2D(3, -2), new Vector2D(1, 1), "enemy", "mobTank", 1));
+			console.log("mobDistance");
+			this.actors.push(new Enemy(new Vector2D(2.5, -6), new Vector2D(1, 1), "enemy", "mobDistance", -1));
+
 		}
-		else if (Math.round(this.time*100)/100 === 10) {
-			this.actors.push(new Enemy(new Vector2D(18, -2), new Vector2D(6, 6), "enemy", "boss"));
-		}
-		else if (Math.round(this.time*100)/100 === 15) {
-			this.actors.push(new Enemy(new Vector2D(0, -2), new Vector2D(4, 4), "enemy", "crook", 1));
-			this.actors.push(new Enemy(new Vector2D(6, -6), new Vector2D(4, 4), "enemy", "crook", 1));
-			this.actors.push(new Enemy(new Vector2D(12, -10), new Vector2D(4, 4), "enemy", "crook", 1));
-			this.actors.push(new Enemy(new Vector2D(18, -14), new Vector2D(4, 4), "enemy", "crook", 1));
-			this.actors.push(new Enemy(new Vector2D(24, -18), new Vector2D(4, 4), "enemy", "crook", 1));
-		}
-		else if (Math.round(this.time*100)/100 === 20) {
-			this.actors.push(new Enemy(new Vector2D(2.5, -6), new Vector2D(4, 4), "enemy", "crook", -1));
-			this.actors.push(new Enemy(new Vector2D(4, -5), new Vector2D(4, 4), "enemy", "crook", -1));
-			this.actors.push(new Enemy(new Vector2D(5.5, -4), new Vector2D(4, 4), "enemy", "crook", -1));
-			this.actors.push(new Enemy(new Vector2D(7, -3), new Vector2D(4, 4), "enemy", "crook", -1));
-			this.actors.push(new Enemy(new Vector2D(8.5, -2), new Vector2D(4, 4), "enemy", "crook", -1));
+		else if (Math.round(this.time*100)/100 === 3) {
+			console.log("mobBoss");
+			this.actors.push(new Enemy(new Vector2D(6, 2), new Vector2D(1, 1), "enemy", "mobBoss"));
 		}
 		
 	}
