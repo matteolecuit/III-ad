@@ -15,8 +15,6 @@ class CanvasDisplay {
         this.drawSKy = () => {
             var background = document.createElement("img");
             background.src = "img/island.png";
-            var house = document.createElement("img");
-            house.src = "img/island2.png";
             var cloud = document.createElement("img");
             cloud.src = "img/cloud.png";
             var compass = document.createElement("img");
@@ -28,11 +26,10 @@ class CanvasDisplay {
             gradient.addColorStop(1, "rgba(100, 200, 212, 1)");
             this.cx.fillStyle = gradient;
             this.cx.fillRect(0, -scale * 12, scale * 36, scale * 12);
-            var limit = 200;
+            var limit = 180;
             var opa = (Math.round(this.level.time * 100) / 100) / limit > limit ? limit : (Math.round(this.level.time * 100) / 100) / limit;
             this.cx.globalAlpha = opa;
-            this.cx.drawImage(background, 0, 0, scale * 36, scale * 12, 0, -scale * 12, scale * 36, scale * 12);
-            this.cx.drawImage(house, (Math.round(this.level.time) % 2) * scale * 8, 0, scale * 8, scale * 8, scale * 28, -scale * 12, scale * 8, scale * 8);
+            this.cx.drawImage(background, 0, 0, 976, 448, scale * 6, -scale * 10, scale * 28, scale * 10);
             this.cx.globalAlpha = 1;
             this.cx.drawImage(compass, 0, 0, 400, 400, scale, -scale * 11, scale * 8, scale * 8);
             var windX;
@@ -63,15 +60,21 @@ class CanvasDisplay {
                     this.cx.fillRect(0, 0, this.canvas.width, this.canvas.height);
                 }
             }
-            this.cx.drawImage(cloud, 0, 0, 3584, 640, -scale * 2, -scale * 3, scale * 40, scale * 6);
+            var buffer = Math.floor(this.level.time) % 2;
+            this.cx.drawImage(cloud, 0, 640 * buffer, 3584, 640, -scale * 2, -scale * 3, scale * 40, scale * 6);
         };
         this.drawHUD = () => {
-            this.cx.font = "32px rcr";
-            this.cx.fillStyle = "white";
-            this.cx.fillText("time=" + Math.floor(this.level.time), scale * 30, scale * -10.5);
+            this.cx.font = "48px rcr";
+            this.cx.fillStyle = "rgb(255, 255, 128)";
+            this.cx.fillText("time=" + Math.floor(this.level.time), scale * 26, scale * 35.5);
+            this.cx.fillStyle = "black";
             let p = this.level.actors[0];
             if (p instanceof Player) {
-                this.cx.fillText("score=" + p.score, scale * 21, scale * -10.5);
+                var score = p.score.toString();
+                while (score.length < 7) {
+                    score = "0" + score;
+                }
+                this.cx.fillText("score=" + score, scale * 19, scale * -10);
             }
             var bomb = document.createElement("img");
             bomb.src = "img/bomb.png";
