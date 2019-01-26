@@ -14,7 +14,49 @@ canvas {
   box-shadow: 0px 0px 10px 0px #000;
 }
 
+a {
+  vertical-align: middle;
+  text-decoration: none;
+  font-size: 40px;
+  margin: 4px;
+  padding: 0;
+  background-color: white;
+  color: black;
+  width: 200px;
+  height: 40px;
+  border: none;
+  font-family: rcr;
+}
+
+p {
+  font-size: 40px;
+  margin: 4px;
+  color: white;
+  font-family: rcr;
+}
+
 @font-face {
   font-family : "rcr";
   src         : url("../font/RCR.ttf");
+}
+
+.menu {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+  flex-direction: column;
+}
+
+.title {
+  margin: 0 0 40px 0;
+  font-size: 100px;
+  color: white;
+  font-family: rcr;
+  font-weight: normal;
+}
+
+.return {
+  margin-top: 50px;
 }
