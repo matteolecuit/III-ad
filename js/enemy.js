@@ -4,20 +4,23 @@ class Enemy extends Actor {
         this.speed = new Vector2D(0, 0);
         this.wobble = Math.PI / 2;
         this.lastShoot = this.shootCoolDown;
-        this.shoot = (step, level) => {
+        this.singleShot = (step, level, angle) => {
             if (this.lastShoot < this.shootCoolDown) {
                 this.lastShoot++;
             }
             else if (this.lastShoot >= this.shootCoolDown) {
-                if (this.shootLeft) {
-                    level.actors.push(new Bullet(new Vector2D((this.pos.x + this.size.x / 2) - 0.5, this.pos.y + this.size.y), new Vector2D(1, 1), "bullet", "player", true, false, false));
-                }
-                if (this.shootMid) {
-                    level.actors.push(new Bullet(new Vector2D((this.pos.x + this.size.x / 2) - 0.5, this.pos.y + this.size.y), new Vector2D(1, 1), "bullet", "player", false, true, false));
-                }
-                if (this.shootRight) {
-                    level.actors.push(new Bullet(new Vector2D((this.pos.x + this.size.x / 2) - 0.5, this.pos.y + this.size.y), new Vector2D(1, 1), "bullet", "player", false, false, true));
-                }
+                level.actors.push(new Bullet(new Vector2D((this.pos.x + this.size.x / 2) - 0.5, this.pos.y + this.size.y), new Vector2D(1, 1), "bullet", "player", angle));
+                this.lastShoot = 0;
+            }
+        };
+        this.triShot = (step, level, angle) => {
+            if (this.lastShoot < this.shootCoolDown) {
+                this.lastShoot++;
+            }
+            else if (this.lastShoot >= this.shootCoolDown) {
+                level.actors.push(new Bullet(new Vector2D((this.pos.x + this.size.x / 2) - 0.5, this.pos.y + this.size.y), new Vector2D(1, 1), "bullet", "player", -angle));
+                level.actors.push(new Bullet(new Vector2D((this.pos.x + this.size.x / 2) - 0.5, this.pos.y + this.size.y), new Vector2D(1, 1), "bullet", "player", 0));
+                level.actors.push(new Bullet(new Vector2D((this.pos.x + this.size.x / 2) - 0.5, this.pos.y + this.size.y), new Vector2D(1, 1), "bullet", "player", +angle));
                 this.lastShoot = 0;
             }
         };
@@ -25,7 +28,7 @@ class Enemy extends Actor {
             if (this.type === "mobTrash") {
                 this.pos.y += 0.06;
                 this.pos.x += 0.0125 * this.direction;
-                this.shoot(step, level);
+                this.singleShot(step, level, 0);
             }
             else if (this.type === "mobZigzag") {
                 this.pos.y += 0.05;
@@ -38,7 +41,7 @@ class Enemy extends Actor {
             else if (this.type === "mobTank") {
                 this.pos.y += 0.06;
                 this.pos.x += 0.0125 * this.direction;
-                this.shoot(step, level);
+                this.triShot(step, level, 0.2);
             }
             else if (this.type === "mobDistance") {
                 this.pos.y += 0.06;
@@ -73,9 +76,6 @@ class Enemy extends Actor {
             this.health = 3;
             this.shootCoolDown = 20;
             this.lastShoot = 20;
-            this.shootLeft = false;
-            this.shootMid = true;
-            this.shootRight = false;
         }
         else if (this.type === "mobZigzag") {
             this.health = 5;
@@ -84,9 +84,6 @@ class Enemy extends Actor {
             this.health = 15;
             this.shootCoolDown = 60;
             this.lastShoot = 60;
-            this.shootLeft = true;
-            this.shootMid = true;
-            this.shootRight = true;
         }
         else if (this.type === "mobDistance") {
             this.health = 5;
