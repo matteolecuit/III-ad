@@ -39,67 +39,80 @@ class CanvasDisplay {
 		arrows.src = "img/arrows.png";
 
 		this.cx.fillStyle = "rgb(0, 148, 255)";
-		this.cx.fillRect(0, -scale*12, scale*36, scale*12);
+		this.cx.fillRect(0, -scale * 12, scale * 36, scale * 12);
 
 		var limit: number = 200;
-		var opa: number = (Math.round(this.level.time*100)/100) / limit > limit ? limit : (Math.round(this.level.time*100)/100) / limit;
+		var opa: number = (Math.round(this.level.time * 100) / 100) / limit > limit ? limit : (Math.round(this.level.time * 100) / 100) / limit;
 		this.cx.globalAlpha = opa;
 
 		this.cx.drawImage(background,
-			0, 0, scale*36, scale*12,
-			0, -scale*12, scale*36, scale*12);
+			0, 0, scale * 36, scale * 12,
+			0, -scale * 12, scale * 36, scale * 12);
 
 		this.cx.drawImage(house,
-			(Math.round(this.level.time) % 2) * scale * 8, 0, scale*8, scale*8,
-			scale*28, -scale*12, scale*8, scale*8);
+			(Math.round(this.level.time) % 2) * scale * 8, 0, scale * 8, scale * 8,
+			scale * 28, -scale * 12, scale * 8, scale * 8);
 
 		this.cx.globalAlpha = 1;
 
 		this.cx.drawImage(compass,
 			0, 0, 400, 400,
-			scale, -scale*11, scale*8, scale*8);
-		
+			scale, -scale * 11, scale * 8, scale * 8);
+
 		var windX: number;
 		var windY: number;
-		
+
 		if (this.level.wind.x === 0) { windX = 1; }
 		else if (this.level.wind.x > 0) { windX = 2; }
 		else { windX = 0; }
-		
+
 		if (this.level.wind.y === 0) { windY = 1; }
 		else if (this.level.wind.y > 0) { windY = 2; }
 		else { windY = 0; }
 
 		this.cx.drawImage(arrows,
 			windX * 400, windY * 400, 400, 400,
-			scale, -scale*11, scale*8, scale*8);
+			scale, -scale * 11, scale * 8, scale * 8);
 
 
-			let player = this.level.actors[0];
-		if (player instanceof Player && player.bombCoolDown > 40 ) {
-			if(player.bombCoolDown % 2){
+		let player = this.level.actors[0];
+		if (player instanceof Player && player.bombCoolDown > 40) {
+			if (player.bombCoolDown % 2) {
 				this.cx.fillStyle = "rgb(255, 255, 255)";
 				this.cx.fillRect(0, 0, this.canvas.width, this.canvas.height);
 			}
 		}
 		this.cx.drawImage(cloud,
 			0, 0, 3584, 640,
-			-scale*2, -scale*3, scale*40, scale*6);
+			-scale * 2, -scale * 3, scale * 40, scale * 6);
 	}
 
 	public drawHUD = (): void => {
 		this.cx.font = "32px rcr";
 		this.cx.fillStyle = "white";
-		this.cx.fillText("time=" + Math.floor(this.level.time), scale * 12, scale*-10.5);
+		this.cx.fillText("time=" + Math.floor(this.level.time), scale * 30, scale * -10.5);
 		let p = this.level.actors[0];
 		if (p instanceof Player) {
-			this.cx.fillText("score=" + p.score, scale * 21, scale*-10.5);
+			this.cx.fillText("score=" + p.score, scale * 21, scale * -10.5);
+		}
+
+		var bomb: HTMLImageElement = document.createElement("img");
+		bomb.src = "img/bomb.png";
+
+		let bombman: Actor = this.level.actors[0];
+		if (bombman && bombman instanceof Player) {
+			for (let i = 0; i < bombman.numberBomb; i++) {
+				this.cx.drawImage(bomb,
+					0, 0, 262, 242,
+					scale * (9 + i*3), -scale * 11.5, scale * 3, scale * 3);
+
+			}
 		}
 	}
 
 	public drawBckground = (): void => {
 		this.cx.fillStyle = "rgb(0, 98, 224)";
-		this.cx.fillRect(0, 0, scale*36, scale*36);
+		this.cx.fillRect(0, 0, scale * 36, scale * 36);
 	}
 
 	public drawActors = (): void => {
@@ -133,27 +146,27 @@ class CanvasDisplay {
 				if (actor.type === "mobTrash") {
 					this.cx.drawImage(sprites,
 						(Math.round(this.level.time * 2) % 2) * 512, spriteY * 512, 512, 512,
-						posX - width/2, posY - width / 2, width*2, height*2);
+						posX - width / 2, posY - width / 2, width * 2, height * 2);
 				}
 				else if (actor.type === "mobZigzag") {
 					this.cx.drawImage(sprites,
 						(Math.round(this.level.time * 2) % 2) * 512, spriteY * 512, 512, 512,
-						posX - width/2, posY - width / 2, width*2, height*2);
+						posX - width / 2, posY - width / 2, width * 2, height * 2);
 				}
 				else if (actor.type === "mobTank") {
 					this.cx.drawImage(sprites,
 						(Math.round(this.level.time * 2) % 2) * 512, spriteY * 512, 512, 512,
-						posX - width/2, posY - width / 2, width*2, height*2);
+						posX - width / 2, posY - width / 2, width * 2, height * 2);
 				}
 				else if (actor.type === "mobDistance") {
 					this.cx.drawImage(sprites,
 						(Math.round(this.level.time * 2) % 2) * 512, spriteY * 512, 512, 512,
-						posX - width/2, posY - width / 2, width*2, height*2);
+						posX - width / 2, posY - width / 2, width * 2, height * 2);
 				}
 				else if (actor.type === "mobBoss") {
 					this.cx.drawImage(sprites,
 						(Math.round(this.level.time * 2) % 2) * 512, spriteY * 512, 512, 512,
-						posX - width/2, posY - width / 2, width*2, height*2);
+						posX - width / 2, posY - width / 2, width * 2, height * 2);
 				}
 			}
 		});
@@ -163,16 +176,16 @@ class CanvasDisplay {
 
 		spriteX = Math.round(this.level.time * 2) % 2;
 
-		if (player.speed.x > player.moveSpeed/2) {
+		if (player.speed.x > player.moveSpeed / 2) {
 			spriteY = 2;
 		}
-		if (player.speed.x < -player.moveSpeed/2) {
+		if (player.speed.x < -player.moveSpeed / 2) {
 			spriteY = 1;
 		}
 
 		this.cx.drawImage(sprites,
 			spriteX * 624, spriteY * 1088, 624, 1088,
-			posX - width*2, posY - height*3, width*5, height*7);
+			posX - width * 2, posY - height * 3, width * 5, height * 7);
 
 		if (player.focus) {
 			var hitbox: HTMLImageElement = document.createElement("img");
@@ -180,29 +193,29 @@ class CanvasDisplay {
 
 			this.cx.drawImage(hitbox,
 				0, 0, 624, 1088,
-				posX - width*2, posY - height*3, width*5, height*7);
+				posX - width * 2, posY - height * 3, width * 5, height * 7);
 
 			var circle: HTMLImageElement = document.createElement("img");
 			circle.src = "img/actors/circle.png";
 
 			this.cx.globalAlpha = 0.5;
 
-			this.cx.translate(posX + width/2, posY + height/2);
+			this.cx.translate(posX + width / 2, posY + height / 2);
 			this.cx.rotate(this.animationTime * 45 % 360 * Math.PI / 180);
 
 			this.cx.drawImage(circle,
-				0, 0, scale*4, scale*4,
-				-scale*2, -scale*2, scale*4, scale*4);
+				0, 0, scale * 4, scale * 4,
+				-scale * 2, -scale * 2, scale * 4, scale * 4);
 
 			this.cx.rotate(-(this.animationTime * 45 % 360 * Math.PI / 180));
 			this.cx.rotate(-(this.animationTime * 45 % 360 * Math.PI / 180));
 
 			this.cx.drawImage(circle,
-				0, 0, scale*4, scale*4,
-				-scale*2, -scale*2, scale*4, scale*4);
+				0, 0, scale * 4, scale * 4,
+				-scale * 2, -scale * 2, scale * 4, scale * 4);
 
 			this.cx.rotate(this.animationTime * 45 % 360 * Math.PI / 180);
-			this.cx.translate(-(posX + width/2), -(posY + height/2));
+			this.cx.translate(-(posX + width / 2), -(posY + height / 2));
 
 			this.cx.globalAlpha = 1;
 

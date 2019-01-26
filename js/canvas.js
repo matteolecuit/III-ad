@@ -64,10 +64,18 @@ class CanvasDisplay {
         this.drawHUD = () => {
             this.cx.font = "32px rcr";
             this.cx.fillStyle = "white";
-            this.cx.fillText("time=" + Math.floor(this.level.time), scale * 12, scale * -10.5);
+            this.cx.fillText("time=" + Math.floor(this.level.time), scale * 30, scale * -10.5);
             let p = this.level.actors[0];
             if (p instanceof Player) {
                 this.cx.fillText("score=" + p.score, scale * 21, scale * -10.5);
+            }
+            var bomb = document.createElement("img");
+            bomb.src = "img/bomb.png";
+            let bombman = this.level.actors[0];
+            if (bombman && bombman instanceof Player) {
+                for (let i = 0; i < bombman.numberBomb; i++) {
+                    this.cx.drawImage(bomb, 0, 0, 262, 242, scale * (9 + i * 3), -scale * 11.5, scale * 3, scale * 3);
+                }
             }
         };
         this.drawBckground = () => {
