@@ -1,5 +1,5 @@
 class Enemy extends Actor {
-    constructor(pos, size, sprites, type, direction) {
+    constructor(pos, size, sprites, type, spawnTime) {
         super(pos, size, sprites);
         this.speed = new Vector2D(0, 0);
         this.wobble = Math.PI / 2;
@@ -17,7 +17,7 @@ class Enemy extends Actor {
         this.act = (step, level, keys) => {
             if (this.type === "mobTrash") {
                 this.pos.y += 0.06;
-                this.pos.x += 0.0125 * this.direction;
+                this.pos.x += 0.0125;
                 this.shoot(step, level);
             }
             else if (this.type === "mobZigzag") {
@@ -29,14 +29,23 @@ class Enemy extends Actor {
                 this.pos.x += wobblePosX;
             }
             else if (this.type === "mobTank") {
-                this.pos.y += 0.06;
-                this.pos.x += 0.0125 * this.direction;
+                this.pos.y += 0.03;
+                this.pos.x += 0.0125;
             }
             else if (this.type === "mobDistance") {
-                this.pos.y += 0.06;
-                this.pos.x += 0.0125 * this.direction;
+                if (Math.round(level.time * 100) / 100 < this.spawnTime + 3) {
+                    this.pos.y += 0.06;
+                    this.pos.x += 0.0125;
+                }
+                else {
+                }
             }
             else if (this.type === "mobBoss") {
+                if (Math.round(level.time * 100) / 100 < this.spawnTime + 3) {
+                    this.pos.y += 0.04;
+                }
+                else {
+                }
             }
             let obstacle = level.actorAt(this);
             if (obstacle && obstacle instanceof Bullet && obstacle.target === "enemy") {
@@ -60,7 +69,7 @@ class Enemy extends Actor {
         };
         this.type = type;
         this.sprites = "img/actors/" + sprites + "-" + type + ".png";
-        this.direction = direction || 1;
+        this.spawnTime = spawnTime;
         if (this.type === "mobTrash") {
             this.health = 3;
         }
