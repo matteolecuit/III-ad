@@ -30,34 +30,34 @@ class CanvasDisplay {
             this.cx.drawImage(background, 0, 0, scale * 36, scale * 12, 0, -scale * 12, scale * 36, scale * 12);
             this.cx.drawImage(house, (Math.round(this.level.time) % 2) * scale * 8, 0, scale * 8, scale * 8, scale * 28, -scale * 12, scale * 8, scale * 8);
             this.cx.globalAlpha = 1;
-            this.cx.drawImage(compass, 0, 0, scale * 4, scale * 4, scale * 3, -scale * 9, scale * 4, scale * 4);
+            this.cx.drawImage(compass, 0, 0, 400, 400, scale, -scale * 11, scale * 8, scale * 8);
             var windX;
             var windY;
-            if (this.level.wind.x === 1) {
+            if (this.level.wind.x === 0) {
                 windX = 1;
             }
-            else if (this.level.wind.x > 1) {
+            else if (this.level.wind.x > 0) {
                 windX = 2;
             }
             else {
                 windX = 0;
             }
-            if (this.level.wind.y === 1) {
+            if (this.level.wind.y === 0) {
                 windY = 1;
             }
-            else if (this.level.wind.y > 1) {
+            else if (this.level.wind.y > 0) {
                 windY = 2;
             }
             else {
                 windY = 0;
             }
-            this.cx.drawImage(arrows, windX * scale * 4, windY * scale * 4, scale * 4, scale * 4, scale * 3, -scale * 9, scale * 4, scale * 4);
+            this.cx.drawImage(arrows, windX * 400, windY * 400, 400, 400, scale, -scale * 11, scale * 8, scale * 8);
             this.cx.drawImage(cloud, 0, 0, scale * 36, scale * 4, 0, -scale * 2, scale * 36, scale * 4);
         };
         this.drawHUD = () => {
             this.cx.font = "32px rcr";
             this.cx.fillStyle = "white";
-            this.cx.fillText("time=" + Math.floor(this.level.time), scale * 0.5, scale * -10.5);
+            this.cx.fillText("time=" + Math.floor(this.level.time), scale * 12, scale * -10.5);
             let p = this.level.actors[0];
             if (p instanceof Player) {
                 this.cx.fillText("score=" + p.score, scale * 21, scale * -10.5);
@@ -81,11 +81,14 @@ class CanvasDisplay {
                     this.drawPlayer(actor, sprites, spriteX, spriteY, posX, posY, width, height);
                 }
                 else if (actor instanceof Bullet) {
+                    if (actor.target === "enemy") {
+                        spriteX = 1;
+                    }
                     if (actor.action === "touched") {
                         spriteY = 1;
                         spriteX = Math.round(this.level.time * 8) % 2;
                     }
-                    this.cx.drawImage(sprites, spriteX + 1 * 179, spriteY * 179, 179, 179, posX, posY, width, height);
+                    this.cx.drawImage(sprites, spriteX * 179, spriteY * 179, 179, 179, posX, posY, width, height);
                 }
                 else if (actor instanceof Enemy) {
                     if (actor.type === "mobTrash") {
@@ -116,9 +119,12 @@ class CanvasDisplay {
             }
             this.cx.drawImage(sprites, spriteX * 624, spriteY * 1088, 624, 1088, posX - width * 2, posY - height * 3, width * 5, height * 7);
             if (player.focus) {
+                var hitbox = document.createElement("img");
+                hitbox.src = "img/actors/hitbox.png";
+                this.cx.drawImage(hitbox, 0, 0, 624, 1088, posX - width * 2, posY - height * 3, width * 5, height * 7);
                 var circle = document.createElement("img");
                 circle.src = "img/actors/circle.png";
-                this.cx.globalAlpha = 0.75;
+                this.cx.globalAlpha = 0.5;
                 this.cx.translate(posX + width / 2, posY + height / 2);
                 this.cx.rotate(this.animationTime * 45 % 360 * Math.PI / 180);
                 this.cx.drawImage(circle, 0, 0, scale * 4, scale * 4, -scale * 2, -scale * 2, scale * 4, scale * 4);

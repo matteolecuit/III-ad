@@ -19,13 +19,16 @@ class Level {
             if ((Math.round(this.time * 100) / 100) % 5 === 0) {
                 this.changeWind(this.actors[0]);
             }
-            if (Math.round(this.time * 100) / 100 === 10) {
-                this.actors.push(new Enemy(new Vector2D(1.5, -2), new Vector2D(3, 3), "enemy", "mobTrash", Math.round(this.time * 100) / 100));
-                this.actors.push(new Enemy(new Vector2D(2.5, -5), new Vector2D(3, 3), "enemy", "mobZigzag", Math.round(this.time * 100) / 100));
-                this.actors.push(new Enemy(new Vector2D(3, -2), new Vector2D(3, 3), "enemy", "mobTank", Math.round(this.time * 100) / 100));
-                this.actors.push(new Enemy(new Vector2D(2.5, -6), new Vector2D(3, 3), "enemy", "mobDistance", Math.round(this.time * 100) / 100));
+            if (Math.round(this.time * 100) / 100 === 1) {
+                this.actors.push(new Enemy(new Vector2D(30, -2), new Vector2D(3, 3), "enemy", "mobTrash", Math.round(this.time * 100) / 100));
             }
             else if (Math.round(this.time * 100) / 100 === 2) {
+                this.actors.push(new Enemy(new Vector2D(2, -2), new Vector2D(3, 3), "enemy", "mobTrash", Math.round(this.time * 100) / 100));
+            }
+            else if (Math.round(this.time * 100) / 100 === 4) {
+                this.actors.push(new Enemy(new Vector2D(16, -2), new Vector2D(3, 3), "enemy", "mobTrash", Math.round(this.time * 100) / 100));
+            }
+            else if (Math.round(this.time * 100) / 100 === 60) {
                 this.actors.push(new Enemy(new Vector2D(16, -2), new Vector2D(3, 3), "enemy", "mobBoss", Math.round(this.time * 100) / 100));
             }
         };
@@ -68,22 +71,22 @@ class Level {
             var x = this.getRandom(-1, 2);
             var y = this.getRandom(-1, 2);
             if (x === -1) {
-                x = 0.992;
+                x = -0.005;
             }
             else if (x === 0) {
-                x = 1;
+                x = 0;
             }
             else if (x === 1) {
-                x = 1.005;
+                x = 0.005;
             }
             if (y === -1) {
-                y = 0.98;
+                y = -0.01;
             }
             else if (y === 0) {
-                y = 1;
+                y = 0;
             }
             else if (y === 1) {
-                y = 1.02;
+                y = 0.01;
             }
             this.wind.x = x;
             this.wind.y = y;

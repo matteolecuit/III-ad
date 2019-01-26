@@ -74,12 +74,14 @@ class Player extends Actor {
                 }
             }
         };
-        this.shoot = (step, level) => {
+        this.shoot = (step, level, angles) => {
             if (this.lastShoot < this.shootCoolDown) {
                 this.lastShoot++;
             }
             else if (this.lastShoot >= this.shootCoolDown && this.controls[0]) {
-                level.actors.push(new Bullet(new Vector2D(this.pos.x, this.pos.y), new Vector2D(1, 1), "bullet", "enemy", 0));
+                for (let index = 0; index < angles.length; index++) {
+                    level.actors.push(new Bullet(new Vector2D((this.pos.x + this.size.x / 2) - 0.5, this.pos.y - 3), new Vector2D(1, 1), "bullet", "enemy", angles[index]));
+                }
                 this.lastShoot = 0;
             }
         };
@@ -88,7 +90,7 @@ class Player extends Actor {
                 this.bombCoulDown--;
             }
             if (this.controls[1] && this.numberBomb > 0 && this.bombCoulDown === 0) {
-                for (let i = 0; i < level.actors.length; i++) {
+                for (let i = level.actors.length; i != 0; i--) {
                     if (level.actors[i] instanceof Enemy) {
                         level.actors[i].health -= 5;
                     }
@@ -114,8 +116,8 @@ class Player extends Actor {
                 this.checkFocus(step, level);
                 this.moveX(step, level);
                 this.moveY(step, level);
-                this.shoot(step, level);
                 this.bomb(step, level);
+                this.shoot(step, level, [new Vector2D(0, 0)]);
                 let obstacle = level.actorAt(this);
                 if (obstacle && obstacle instanceof Enemy) {
                     this.status = "dead";
