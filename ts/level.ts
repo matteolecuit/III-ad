@@ -30,7 +30,7 @@ class Level {
 		if (Math.round(this.time*100)/100 === 2) {
 			this.actors.push(new Enemy(new Vector2D(1.5, -2), new Vector2D(3, 3), "enemy", "mobTrash", 1));
 			this.actors.push(new Enemy(new Vector2D(2.5, -5), new Vector2D(3, 3), "enemy", "mobZigzag", 1));
-			this.actors.push(new Enemy(new Vector2D(3, -2), new Vector2D(3, 3), "enemy", "mobTank", 1));
+			this.actors.push(new Enemy(new Vector2D(10, -2), new Vector2D(3, 3), "enemy", "mobTank", 1));
 			this.actors.push(new Enemy(new Vector2D(2.5, -6), new Vector2D(3, 3), "enemy", "mobDistance", -1));
 
 		}
@@ -84,11 +84,11 @@ class Level {
 		}
 		
 		if (y === -1){
-			y = 0.9;
+			y = 0.98;
 		} else if (y === 0){
 			y = 1
 		} else if (y === 1){
-			y = 1.1;
+			y = 1.02;
 		}
         this.wind.x = x;
         this.wind.y = y;

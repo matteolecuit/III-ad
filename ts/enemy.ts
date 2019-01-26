@@ -7,8 +7,12 @@ class Enemy extends Actor {
     public wobble: number = Math.PI/2;
     public direction: number;
 
-    public shootCoolDown: number = 5;
-	public lastShoot: number = this.shootCoolDown;
+    public shootCoolDown: number;
+    public lastShoot: number = this.shootCoolDown;
+    
+    public shootLeft: boolean;
+    public shootMid: boolean;
+    public shootRight: boolean;
 
 	constructor(pos: Vector2D, size: Vector2D, sprites: string, type: string, direction?: number) {
         super(pos, size, sprites);
@@ -18,12 +22,22 @@ class Enemy extends Actor {
 
         if (this.type === "mobTrash") {
             this.health = 3;
+            this.shootCoolDown = 20;
+            this.lastShoot = 20;
+            this.shootLeft = false;
+            this.shootMid = true;
+            this.shootRight = false;
         }
         else if (this.type === "mobZigzag") {
             this.health = 5;
         }
         else if (this.type === "mobTank") {
             this.health = 15;
+            this.shootCoolDown = 60;
+            this.lastShoot = 60;
+            this.shootLeft = true;
+            this.shootMid = true;
+            this.shootRight = true;
         }
         else if (this.type === "mobDistance") {
             this.health = 5;
@@ -38,7 +52,15 @@ class Enemy extends Actor {
 			this.lastShoot++;
 		}
 		else if (this.lastShoot >= this.shootCoolDown) {
-			level.actors.push(new Bullet(new Vector2D((this.pos.x + this.size.x / 2 ) - 0.5 , this.pos.y + this.size.y), new Vector2D(1, 1), "bullet", "player"));
+            if (this.shootLeft){
+                level.actors.push(new Bullet(new Vector2D((this.pos.x + this.size.x / 2 ) - 0.5 , this.pos.y + this.size.y), new Vector2D(1, 1), "bullet", "player", true, false, false));
+            }
+            if (this.shootMid){
+                level.actors.push(new Bullet(new Vector2D((this.pos.x + this.size.x / 2 ) - 0.5 , this.pos.y + this.size.y), new Vector2D(1, 1), "bullet", "player", false, true, false));
+            }
+            if (this.shootRight){
+                level.actors.push(new Bullet(new Vector2D((this.pos.x + this.size.x / 2 ) - 0.5 , this.pos.y + this.size.y), new Vector2D(1, 1), "bullet", "player", false, false, true));
+            }
 			this.lastShoot = 0;
 		}
 	}
@@ -62,6 +84,7 @@ class Enemy extends Actor {
         else if (this.type === "mobTank") {
             this.pos.y += 0.06;
             this.pos.x += 0.0125 * this.direction;
+            this.shoot(step, level);
         }
         else if (this.type === "mobDistance") {
             this.pos.y += 0.06;

@@ -89,7 +89,7 @@ class Player extends Actor {
 			this.lastShoot++;
 		}
 		else if (this.lastShoot >= this.shootCoolDown && this.controls[0]) {
-			level.actors.push(new Bullet(new Vector2D(this.pos.x, this.pos.y), new Vector2D(1, 1), "bullet", "enemy"));
+			level.actors.push(new Bullet(new Vector2D(this.pos.x, this.pos.y), new Vector2D(1, 1), "bullet", "enemy", false, true, false));
 			this.lastShoot = 0;
 		}
 	}
