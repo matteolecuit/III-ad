@@ -111,7 +111,7 @@ class Player extends Actor {
 			this.checkFocus(step, level);
 			this.moveX(step, level);
 			this.moveY(step, level);
-            this.shoot(step, level,[new Vector2D(0,0)]);
+            this.shoot(step, level,[new Vector2D(0,-0.4)]);
 			let obstacle: Actor = level.actorAt(this);
 			if (obstacle && obstacle instanceof Enemy) {
 				this.status = "dead";
