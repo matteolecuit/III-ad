@@ -69,15 +69,32 @@ class CanvasDisplay {
 					spriteX * width, spriteY * height, width, height,
 					posX, posY, width, height);
 			}
+
+			// Enemys
 			else if (actor.sprites === "img/actors/enemy.png" && actor instanceof Enemy) {
-				if (actor.type === "crook") {
+				if (actor.type === "mobTrash") {
 					this.cx.drawImage(sprites,
 						spriteX * width, spriteY * height, width, height,
 						posX, posY, width, height);
 				}
-				else if (actor.type === "boss") {
+				else if (actor.type === "mobZigzag") {
 					this.cx.drawImage(sprites,
-						spriteX * width/2, spriteY * height/2, width/2, height/2,
+						spriteX * width, spriteY * height, width, height,
+						posX, posY, width, height);
+				}
+				else if (actor.type === "mobTank") {
+					this.cx.drawImage(sprites,
+						spriteX * width, spriteY * height, width, height,
+						posX, posY, width, height);
+				}
+				else if (actor.type === "mobDistance") {
+					this.cx.drawImage(sprites,
+						spriteX * width, spriteY * height, width, height,
+						posX, posY, width, height);
+				}
+				else if (actor.type === "mobBoss") {
+					this.cx.drawImage(sprites,
+						spriteX * width, spriteY * height, width, height,
 						posX, posY, width, height);
 				}
 			}
