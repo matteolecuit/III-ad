@@ -3,7 +3,7 @@ class Bullet extends Actor {
         super(pos, size, sprites);
         this.action = null;
         this.lastingFrame = 5;
-        this.deleteEnemy = (level) => {
+        this.deleteBullet = (level) => {
             for (let i = 0; i < level.actors.length; i++) {
                 if (level.actors[i] instanceof Bullet && this.pos.equals(level.actors[i].pos)) {
                     level.actors.splice(i, 1);
@@ -24,10 +24,10 @@ class Bullet extends Actor {
                 this.lastingFrame--;
             }
             if (this.lastingFrame === 0) {
-                this.deleteEnemy(level);
+                this.deleteBullet(level);
             }
             if (level.borderAt(this.pos, this.size)) {
-                this.deleteEnemy(level);
+                this.deleteBullet(level);
             }
         };
         this.target = target;
