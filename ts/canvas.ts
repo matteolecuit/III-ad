@@ -39,8 +39,10 @@ class CanvasDisplay {
 		var arrows: HTMLImageElement = document.createElement("img");
 		arrows.src = "img/arrows.png";
 
-
-		this.cx.fillStyle = "rgb(0, 148, 255)";
+		var gradient: CanvasGradient = this.cx.createLinearGradient(0, 0, 0, -scale * 16);
+		gradient.addColorStop(0, "rgba(255, 255, 230, 1)");
+		gradient.addColorStop(1, "rgba(100, 200, 212, 1)");
+		this.cx.fillStyle = gradient;
 		this.cx.fillRect(0, -scale * 12, scale * 36, scale * 12);
 
 		var limit: number = 200;
@@ -92,10 +94,23 @@ class CanvasDisplay {
 	public drawHUD = (): void => {
 		this.cx.font = "32px rcr";
 		this.cx.fillStyle = "white";
-		this.cx.fillText("time=" + Math.floor(this.level.time), scale * 12, scale * -10.5);
+		this.cx.fillText("time=" + Math.floor(this.level.time), scale * 30, scale * -10.5);
 		let p = this.level.actors[0];
 		if (p instanceof Player) {
 			this.cx.fillText("score=" + p.score, scale * 21, scale * -10.5);
+		}
+
+		var bomb: HTMLImageElement = document.createElement("img");
+		bomb.src = "img/bomb.png";
+
+		let bombman: Actor = this.level.actors[0];
+		if (bombman && bombman instanceof Player) {
+			for (let i = 0; i < bombman.numberBomb; i++) {
+				this.cx.drawImage(bomb,
+					0, 0, 262, 242,
+					scale * (9 + i*3), -scale * 11.5, scale * 3, scale * 3);
+
+			}
 		}
 	}
 
@@ -104,6 +119,12 @@ class CanvasDisplay {
 		this.cx.fillRect(0, 0, scale * 36, scale * 36);
 		var waterEffect: HTMLImageElement = document.createElement("img");
 		waterEffect.src = "img/waterEffect.png";
+
+		var gradient: CanvasGradient = this.cx.createLinearGradient(0, 0, 0, scale * 32);
+		gradient.addColorStop(0, "rgba(0, 98, 224, 1)");
+		gradient.addColorStop(1, "rgba(32, 64, 128, 1)");
+		this.cx.fillStyle = gradient;
+		this.cx.fillRect(0, 0, scale * 36, scale * 36);
 
 		this.cx.globalAlpha = 0.5;
 		this.cx.drawImage(waterEffect, 0, 0, 490, 640, 0, this.animationTime * 100 - 640 * this.heightMore , scale * 36, 640);
@@ -157,7 +178,7 @@ class CanvasDisplay {
 						(Math.round(this.level.time * 2) % 2) * 512, spriteY * 512, 512, 512,
 						posX - width / 2, posY - width / 2, width * 2, height * 2);
 				}
-				else if (actor.type === "mobDistance") {
+				else if (actor.type === "mobRanged") {
 					this.cx.drawImage(sprites,
 						(Math.round(this.level.time * 2) % 2) * 512, spriteY * 512, 512, 512,
 						posX - width / 2, posY - width / 2, width * 2, height * 2);
