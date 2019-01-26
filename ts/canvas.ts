@@ -19,12 +19,29 @@ class CanvasDisplay {
 		this.drawFrame(0);
 	}
 
+	public preShake = (): void => {
+		if (this.level.roundTime > 60 && this.level.roundTime < 62) {
+			this.cx.save();
+			var dx = Math.random() * 10;
+			var dy = Math.random() * 10;
+			this.cx.translate(dx, dy);
+		}
+	}
+
+	public postShake = (): void => {
+		if (this.level.roundTime > 60 && this.level.roundTime < 62) {
+			this.cx.restore();
+		}
+	}
+
 	public drawFrame = (step: number): void => {
 		this.animationTime += step;
+		this.preShake();
 		this.drawBckground();
 		this.drawActors();
 		this.drawSKy();
 		this.drawHUD();
+		this.postShake();
 	}
 
 	public drawSKy = (): void => {
@@ -108,7 +125,7 @@ class CanvasDisplay {
 			for (let i = 0; i < bombman.numberBomb; i++) {
 				this.cx.drawImage(bomb,
 					0, 0, 262, 242,
-					scale * (9 + i*3), -scale * 11.5, scale * 3, scale * 3);
+					scale * (9 + i * 3), -scale * 11.5, scale * 3, scale * 3);
 
 			}
 		}
@@ -127,9 +144,9 @@ class CanvasDisplay {
 		this.cx.fillRect(0, 0, scale * 36, scale * 36);
 
 		this.cx.globalAlpha = 0.5;
-		this.cx.drawImage(waterEffect, 0, 0, 490, 640, 0, this.animationTime * 100 - 640 * this.heightMore , scale * 36, 640);
-		this.cx.drawImage(waterEffect, 0, 0, 490, 640, 0, this.animationTime * 100 - 640 * ( this.heightMore - 1 ), scale * 36, 640);
-		if (this.animationTime * 100 > ( 640 * this.heightMore )) {
+		this.cx.drawImage(waterEffect, 0, 0, 490, 640, 0, this.animationTime * 100 - 640 * this.heightMore, scale * 36, 640);
+		this.cx.drawImage(waterEffect, 0, 0, 490, 640, 0, this.animationTime * 100 - 640 * (this.heightMore - 1), scale * 36, 640);
+		if (this.animationTime * 100 > (640 * this.heightMore)) {
 			this.heightMore++;
 		}
 		this.cx.globalAlpha = 1;

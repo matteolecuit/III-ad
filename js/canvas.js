@@ -5,12 +5,27 @@ class CanvasDisplay {
         this.zoom = 1;
         this.animationTime = 0;
         this.heightMore = 0;
+        this.preShake = () => {
+            if (this.level.roundTime > 60 && this.level.roundTime < 62) {
+                this.cx.save();
+                var dx = Math.random() * 10;
+                var dy = Math.random() * 10;
+                this.cx.translate(dx, dy);
+            }
+        };
+        this.postShake = () => {
+            if (this.level.roundTime > 60 && this.level.roundTime < 62) {
+                this.cx.restore();
+            }
+        };
         this.drawFrame = (step) => {
             this.animationTime += step;
+            this.preShake();
             this.drawBckground();
             this.drawActors();
             this.drawSKy();
             this.drawHUD();
+            this.postShake();
         };
         this.drawSKy = () => {
             var background = document.createElement("img");
