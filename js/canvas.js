@@ -18,6 +18,18 @@ class CanvasDisplay {
                 this.cx.restore();
             }
         };
+        this.ifPlayerDied = () => {
+            let player = this.level.actors[0];
+            if (player instanceof Player && player.status === "dead") {
+                this.level.actors.splice(0, this.level.actors.length);
+                this.level.actors.push(new Player(new Vector2D(16, 30), new Vector2D(1, 1), "player"));
+                this.level.gameOver = true;
+            }
+            if (player instanceof Player && this.level.gameOver === true) {
+                this.cx.font = "60px";
+                this.cx.fillText("Game Over", 420 / 2, 460 / 2);
+            }
+        };
         this.drawFrame = (step) => {
             this.animationTime += step;
             this.preShake();
@@ -26,6 +38,7 @@ class CanvasDisplay {
             this.drawSKy();
             this.drawHUD();
             this.postShake();
+            this.ifPlayerDied();
         };
         this.drawSKy = () => {
             var background = document.createElement("img");
@@ -168,6 +181,9 @@ class CanvasDisplay {
                         this.cx.drawImage(sprites, (Math.round(this.level.time * 2) % 2) * 512, spriteY * 512, 512, 512, posX - width / 2, posY - width / 2, width * 2, height * 2);
                     }
                     else if (actor.type === "mobZigzag") {
+                        this.cx.drawImage(sprites, (Math.round(this.level.time * 2) % 2) * 512, spriteY * 512, 512, 512, posX - width / 2, posY - width / 2, width * 2, height * 2);
+                    }
+                    else if (actor.type === "mobZigzagReverse") {
                         this.cx.drawImage(sprites, (Math.round(this.level.time * 2) % 2) * 512, spriteY * 512, 512, 512, posX - width / 2, posY - width / 2, width * 2, height * 2);
                     }
                     else if (actor.type === "mobTank") {
