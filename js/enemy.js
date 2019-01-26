@@ -43,13 +43,11 @@ class Enemy extends Actor {
                 if (obstacle.action === null) {
                     this.health--;
                     obstacle.action = "touched";
-                    console.log("health", this.health);
                 }
             }
             if (this.health === 0) {
                 for (let i = 0; i < level.actors.length; i++) {
                     if (level.actors[i] instanceof Enemy && this.pos.equals(level.actors[i].pos)) {
-                        console.log("died");
                         level.actors.splice(i, 1);
                     }
                 }
