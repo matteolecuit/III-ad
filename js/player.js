@@ -6,7 +6,7 @@ class Player extends Actor {
         this.focus = false;
         this.shootCoolDown = 10;
         this.lastShoot = this.shootCoolDown;
-        this.bombCoulDown = 60;
+        this.bombCoolDown = 0;
         this.moveSpeed = scale;
         this.inertia = 1 / scale;
         this.numberBomb = 3;
@@ -86,10 +86,10 @@ class Player extends Actor {
             }
         };
         this.bomb = (step, level) => {
-            if (this.bombCoulDown > 0) {
-                this.bombCoulDown--;
+            if (this.bombCoolDown > 0) {
+                this.bombCoolDown--;
             }
-            if (this.controls[1] && this.numberBomb > 0 && this.bombCoulDown === 0) {
+            if (this.controls[1] && this.numberBomb > 0 && this.bombCoolDown === 0) {
                 for (let i = level.actors.length; i != 0; i--) {
                     if (level.actors[i] instanceof Enemy) {
                         level.actors[i].health -= 5;
@@ -99,7 +99,7 @@ class Player extends Actor {
                     }
                 }
                 this.numberBomb--;
-                this.bombCoulDown = 60;
+                this.bombCoolDown = 60;
             }
         };
         this.act = (step, level, keys) => {

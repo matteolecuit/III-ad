@@ -78,6 +78,14 @@ class CanvasDisplay {
 		this.cx.drawImage(cloud,
 			0, 0, scale*36, scale*4,
 			0, -scale*2, scale*36, scale*4);
+
+			let player = this.level.actors[0];
+		if (player instanceof Player && player.bombCoolDown > 40 ) {
+			if(player.bombCoolDown % 2){
+				this.cx.fillStyle = "rgb(255, 255, 255)";
+				this.cx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+			}
+		}
 	}
 
 	public drawHUD = (): void => {
