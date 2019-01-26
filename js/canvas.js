@@ -5,12 +5,27 @@ class CanvasDisplay {
         this.zoom = 1;
         this.animationTime = 0;
         this.heightMore = 0;
+        this.preShake = () => {
+            if (this.level.roundTime > 180 && this.level.roundTime < 182) {
+                this.cx.save();
+                var dx = Math.random() * 10;
+                var dy = Math.random() * 10;
+                this.cx.translate(dx, dy);
+            }
+        };
+        this.postShake = () => {
+            if (this.level.roundTime > 180 && this.level.roundTime < 182) {
+                this.cx.restore();
+            }
+        };
         this.drawFrame = (step) => {
             this.animationTime += step;
+            this.preShake();
             this.drawBckground();
             this.drawActors();
             this.drawSKy();
             this.drawHUD();
+            this.postShake();
         };
         this.drawSKy = () => {
             var background = document.createElement("img");
@@ -64,9 +79,9 @@ class CanvasDisplay {
             this.cx.drawImage(cloud, 0, 640 * buffer, 3584, 640, -scale * 2, -scale * 3, scale * 40, scale * 6);
         };
         this.drawHUD = () => {
-            this.cx.font = "48px rcr";
+            this.cx.font = "36px consolas";
             this.cx.fillStyle = "rgb(255, 255, 128)";
-            this.cx.fillText("time=" + Math.floor(this.level.time), scale * 26, scale * 35.5);
+            this.cx.fillText("time=" + Math.floor(this.level.time), scale * 25, scale * 35.5);
             this.cx.fillStyle = "black";
             let p = this.level.actors[0];
             if (p instanceof Player) {
@@ -74,7 +89,7 @@ class CanvasDisplay {
                 while (score.length < 7) {
                     score = "0" + score;
                 }
-                this.cx.fillText("score=" + score, scale * 19, scale * -10);
+                this.cx.fillText("SCORE:" + score, scale * 19.5, scale * -10);
             }
             var bomb = document.createElement("img");
             bomb.src = "img/bomb.png";

@@ -19,12 +19,29 @@ class CanvasDisplay {
 		this.drawFrame(0);
 	}
 
+	public preShake = (): void => {
+		if (this.level.roundTime > 180 && this.level.roundTime < 182) {
+			this.cx.save();
+			var dx = Math.random() * 10;
+			var dy = Math.random() * 10;
+			this.cx.translate(dx, dy);
+		}
+	}
+
+	public postShake = (): void => {
+		if (this.level.roundTime > 180 && this.level.roundTime < 182) {
+			this.cx.restore();
+		}
+	}
+
 	public drawFrame = (step: number): void => {
 		this.animationTime += step;
+		this.preShake();
 		this.drawBckground();
 		this.drawActors();
 		this.drawSKy();
 		this.drawHUD();
+		this.postShake();
 	}
 
 	public drawSKy = (): void => {
@@ -88,9 +105,9 @@ class CanvasDisplay {
 	}
 
 	public drawHUD = (): void => {
-		this.cx.font = "48px rcr";
+		this.cx.font = "36px consolas";
 		this.cx.fillStyle = "rgb(255, 255, 128)";
-		this.cx.fillText("time=" + Math.floor(this.level.time), scale * 26, scale * 35.5);
+		this.cx.fillText("time=" + Math.floor(this.level.time), scale * 25, scale * 35.5);
 		this.cx.fillStyle = "black";
 		let p = this.level.actors[0];
 		if (p instanceof Player) {
@@ -98,7 +115,7 @@ class CanvasDisplay {
 			while (score.length < 7) {
 				score = "0" + score;
 			}
-			this.cx.fillText("score=" + score, scale * 19, scale * -10);
+			this.cx.fillText("SCORE:" + score, scale * 19.5, scale * -10);
 		}
 
 		var bomb: HTMLImageElement = document.createElement("img");
@@ -109,7 +126,7 @@ class CanvasDisplay {
 			for (let i = 0; i < bombman.numberBomb; i++) {
 				this.cx.drawImage(bomb,
 					0, 0, 262, 242,
-					scale * (9 + i*3), -scale * 11.5, scale * 3, scale * 3);
+					scale * (9 + i * 3), -scale * 11.5, scale * 3, scale * 3);
 
 			}
 		}
@@ -128,9 +145,9 @@ class CanvasDisplay {
 		this.cx.fillRect(0, 0, scale * 36, scale * 36);
 
 		this.cx.globalAlpha = 0.5;
-		this.cx.drawImage(waterEffect, 0, 0, 490, 640, 0, this.animationTime * 100 - 640 * this.heightMore , scale * 36, 640);
-		this.cx.drawImage(waterEffect, 0, 0, 490, 640, 0, this.animationTime * 100 - 640 * ( this.heightMore - 1 ), scale * 36, 640);
-		if (this.animationTime * 100 > ( 640 * this.heightMore )) {
+		this.cx.drawImage(waterEffect, 0, 0, 490, 640, 0, this.animationTime * 100 - 640 * this.heightMore, scale * 36, 640);
+		this.cx.drawImage(waterEffect, 0, 0, 490, 640, 0, this.animationTime * 100 - 640 * (this.heightMore - 1), scale * 36, 640);
+		if (this.animationTime * 100 > (640 * this.heightMore)) {
 			this.heightMore++;
 		}
 		this.cx.globalAlpha = 1;
