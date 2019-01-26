@@ -70,8 +70,6 @@ class CanvasDisplay {
 		else if (this.level.wind.y > 1) { windY = 2; }
 		else { windY = 0; }
 
-		console.log(windX + " " + windY)
-
 		this.cx.drawImage(arrows,
 			windX * scale*4, windY * scale*4, scale*4, scale*4,
 			scale*3, -scale*9, scale*4, scale*4);
@@ -119,16 +117,32 @@ class CanvasDisplay {
 					spriteX+1 * 179, spriteY * 179, 179, 179,
 					posX, posY, width, height);
 			}
+
 			else if (actor instanceof Enemy) {
-				if (actor.type === "crook") {
+				if (actor.type === "mobTrash") {
 					this.cx.drawImage(sprites,
 						(Math.round(this.level.time * 2) % 2) * 512, spriteY * 512, 512, 512,
 						posX - width/2, posY - width / 2, width*2, height*2);
 				}
-				else if (actor.type === "boss") {
+				else if (actor.type === "mobZigzag") {
 					this.cx.drawImage(sprites,
-						spriteX * width, spriteY * height, width, height,
-						posX, posY, width, height);
+						(Math.round(this.level.time * 2) % 2) * 512, spriteY * 512, 512, 512,
+						posX - width/2, posY - width / 2, width*2, height*2);
+				}
+				else if (actor.type === "mobTank") {
+					this.cx.drawImage(sprites,
+						(Math.round(this.level.time * 2) % 2) * 512, spriteY * 512, 512, 512,
+						posX - width/2, posY - width / 2, width*2, height*2);
+				}
+				else if (actor.type === "mobDistance") {
+					this.cx.drawImage(sprites,
+						(Math.round(this.level.time * 2) % 2) * 512, spriteY * 512, 512, 512,
+						posX - width/2, posY - width / 2, width*2, height*2);
+				}
+				else if (actor.type === "mobBoss") {
+					this.cx.drawImage(sprites,
+						(Math.round(this.level.time * 2) % 2) * 512, spriteY * 512, 512, 512,
+						posX - width/2, posY - width / 2, width*2, height*2);
 				}
 			}
 		});

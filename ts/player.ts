@@ -89,7 +89,7 @@ class Player extends Actor {
 			this.lastShoot++;
 		}
 		else if (this.lastShoot >= this.shootCoolDown && this.controls[0]) {
-			level.actors.push(new Bullet(new Vector2D(this.pos.x, this.pos.y), this.size, "bullet"));
+			level.actors.push(new Bullet(new Vector2D(this.pos.x, this.pos.y), new Vector2D(1, 1), "bullet", "enemy"));
 			this.lastShoot = 0;
 		}
 	}
@@ -114,6 +114,11 @@ class Player extends Actor {
 			let obstacle: Actor = level.actorAt(this);
 			if (obstacle && obstacle instanceof Enemy) {
 				this.status = "dead";
+			} else if (obstacle && obstacle instanceof Bullet && obstacle.target === "player") {
+				if (obstacle.action === null) {
+					obstacle.action = "touched";
+					this.status = "dead";
+				}
 			}
 		}
 		else if (this.status === "dead") {

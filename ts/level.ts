@@ -27,28 +27,15 @@ class Level {
 		if ((Math.round(this.time*100)/100)%5 === 0) {
             this.changeWind(this.actors[0]);
         }
-		if (Math.round(this.time*100)/100 === 3) {
-			this.actors.push(new Enemy(new Vector2D(3, -2), new Vector2D(2, 2), "enemy", "crook", 1));
-			this.actors.push(new Enemy(new Vector2D(33, -6), new Vector2D(2, 2), "enemy", "crook", -1));
-			this.actors.push(new Enemy(new Vector2D(3, -10), new Vector2D(2, 2), "enemy", "crook", 1));
-			this.actors.push(new Enemy(new Vector2D(33, -15), new Vector2D(2, 2), "enemy", "crook", -1));
+		if (Math.round(this.time*100)/100 === 2) {
+			this.actors.push(new Enemy(new Vector2D(1.5, -2), new Vector2D(3, 3), "enemy", "mobTrash", 1));
+			this.actors.push(new Enemy(new Vector2D(2.5, -5), new Vector2D(3, 3), "enemy", "mobZigzag", 1));
+			this.actors.push(new Enemy(new Vector2D(3, -2), new Vector2D(3, 3), "enemy", "mobTank", 1));
+			this.actors.push(new Enemy(new Vector2D(2.5, -6), new Vector2D(3, 3), "enemy", "mobDistance", -1));
+
 		}
-		else if (Math.round(this.time*100)/100 === 10) {
-			this.actors.push(new Enemy(new Vector2D(18, -2), new Vector2D(4, 4), "enemy", "boss"));
-		}
-		else if (Math.round(this.time*100)/100 === 15) {
-			this.actors.push(new Enemy(new Vector2D(0, -2), new Vector2D(2, 2), "enemy", "crook", 1));
-			this.actors.push(new Enemy(new Vector2D(6, -6), new Vector2D(2, 2), "enemy", "crook", 1));
-			this.actors.push(new Enemy(new Vector2D(12, -10), new Vector2D(2, 2), "enemy", "crook", 1));
-			this.actors.push(new Enemy(new Vector2D(18, -14), new Vector2D(2, 2), "enemy", "crook", 1));
-			this.actors.push(new Enemy(new Vector2D(24, -18), new Vector2D(2, 2), "enemy", "crook", 1));
-		}
-		else if (Math.round(this.time*100)/100 === 20) {
-			this.actors.push(new Enemy(new Vector2D(2.5, -6), new Vector2D(2, 2), "enemy", "crook", -1));
-			this.actors.push(new Enemy(new Vector2D(4, -5), new Vector2D(2, 2), "enemy", "crook", -1));
-			this.actors.push(new Enemy(new Vector2D(5.5, -4), new Vector2D(2, 2), "enemy", "crook", -1));
-			this.actors.push(new Enemy(new Vector2D(7, -3), new Vector2D(2, 2), "enemy", "crook", -1));
-			this.actors.push(new Enemy(new Vector2D(8.5, -2), new Vector2D(2, 2), "enemy", "crook", -1));
+		else if (Math.round(this.time*100)/100 === 3) {
+			this.actors.push(new Enemy(new Vector2D(6, 2), new Vector2D(3, 3), "enemy", "mobBoss"));
 		}
 		
 	}
@@ -95,7 +82,7 @@ class Level {
 		} else if (x === 1){
 			x = 1.005;
 		}
-
+		
 		if (y === -1){
 			y = 0.9;
 		} else if (y === 0){
@@ -103,18 +90,8 @@ class Level {
 		} else if (y === 1){
 			y = 1.1;
 		}
-
-		while (x < 0){
-
-		}
-
         this.wind.x = x;
         this.wind.y = y;
-
-        console.log("wind x", x);
-        console.log("wind y", y);
-
-
     }
 
     public getRandom(min: number, max: number) {
