@@ -46,11 +46,9 @@ class Enemy extends Actor {
                 if (level.roundTime < this.spawnTime + 3) {
                     this.pos.y += 0.06;
                     this.pos.x += 0.0125;
-                    console.log(1);
                 }
                 else {
-                    this.shoot(step, level, [new Vector2D(0, 0.2)]);
-                    console.log(2);
+                    this.shoot(step, level, [new Vector2D(-0.2, 0.2), new Vector2D(0, 0.2), new Vector2D(0.2, 0.2)]);
                 }
             }
             else if (this.type === "mobBoss") {
@@ -67,7 +65,7 @@ class Enemy extends Actor {
                     obstacle.action = "touched";
                 }
             }
-            if (this.health === 0) {
+            if (this.health <= 0) {
                 this.deleteEnemy(level);
                 let p = level.actors[0];
                 if (p instanceof Player) {

@@ -22,12 +22,11 @@ class Bullet extends Actor {
         if (this.action === null) {
             
             if(this.target === "player"){
-               this.pos.x += this.angle.x;
-                this.pos.x *= level.wind.x;
-                this.pos.y += this.angle.y * level.wind.y;
+               this.pos.x += this.angle.x + level.wind.x;
+                this.pos.y += this.angle.y + level.wind.y;
             } else if (this.target === "enemy") {
                 this.pos.x += this.angle.x;
-                this.pos.y -= 0.4 + this.angle.y;
+                this.pos.y -= this.angle.y;
             }
             
         }

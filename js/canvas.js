@@ -33,19 +33,19 @@ class CanvasDisplay {
             this.cx.drawImage(compass, 0, 0, 400, 400, scale, -scale * 11, scale * 8, scale * 8);
             var windX;
             var windY;
-            if (this.level.wind.x === 1) {
+            if (this.level.wind.x === 0) {
                 windX = 1;
             }
-            else if (this.level.wind.x > 1) {
+            else if (this.level.wind.x > 0) {
                 windX = 2;
             }
             else {
                 windX = 0;
             }
-            if (this.level.wind.y === 1) {
+            if (this.level.wind.y === 0) {
                 windY = 1;
             }
-            else if (this.level.wind.y > 1) {
+            else if (this.level.wind.y > 0) {
                 windY = 2;
             }
             else {
@@ -53,6 +53,13 @@ class CanvasDisplay {
             }
             this.cx.drawImage(arrows, windX * 400, windY * 400, 400, 400, scale, -scale * 11, scale * 8, scale * 8);
             this.cx.drawImage(cloud, 0, 0, scale * 36, scale * 4, 0, -scale * 2, scale * 36, scale * 4);
+            let player = this.level.actors[0];
+            if (player instanceof Player && player.bombCoolDown > 40) {
+                if (player.bombCoolDown % 2) {
+                    this.cx.fillStyle = "rgb(255, 255, 255)";
+                    this.cx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+                }
+            }
         };
         this.drawHUD = () => {
             this.cx.font = "32px rcr";

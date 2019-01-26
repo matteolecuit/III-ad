@@ -6,8 +6,10 @@ class Player extends Actor {
         this.focus = false;
         this.shootCoolDown = 10;
         this.lastShoot = this.shootCoolDown;
+        this.bombCoolDown = 0;
         this.moveSpeed = scale;
         this.inertia = 1 / scale;
+        this.numberBomb = 3;
         this.controls = [false, false, false, false, false, false];
         this.score = 0;
         this.moveX = (step, level) => {
@@ -83,6 +85,24 @@ class Player extends Actor {
                 this.lastShoot = 0;
             }
         };
+        this.bomb = (step, level) => {
+            if (this.bombCoolDown > 0) {
+                this.bombCoolDown--;
+            }
+            if (this.controls[1] && this.numberBomb > 0 && this.bombCoolDown === 0) {
+                for (let i = level.actors.length; i != 0; i--) {
+                    let object = level.actors[i];
+                    if (object && object instanceof Enemy) {
+                        object.health -= 5;
+                    }
+                    else if (object instanceof Bullet) {
+                        level.actors.splice(i, 1);
+                    }
+                }
+                this.numberBomb--;
+                this.bombCoolDown = 60;
+            }
+        };
         this.act = (step, level, keys) => {
             this.controls = [
                 keys.get("shoot"),
@@ -91,13 +111,14 @@ class Player extends Actor {
                 keys.get("right"),
                 keys.get("up"),
                 keys.get("down"),
-                keys.get("focus")
+                keys.get("focus"),
             ];
             if (this.status === null) {
                 this.checkFocus(step, level);
                 this.moveX(step, level);
                 this.moveY(step, level);
-                this.shoot(step, level, [new Vector2D(0, 0)]);
+                this.bomb(step, level);
+                this.shoot(step, level, [new Vector2D(0, 0.4)]);
                 let obstacle = level.actorAt(this);
                 if (obstacle && obstacle instanceof Enemy) {
                     this.status = "dead";
