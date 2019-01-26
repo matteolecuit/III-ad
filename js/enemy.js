@@ -26,7 +26,7 @@ class Enemy extends Actor {
             if (this.type === "mobTrash") {
                 this.pos.y += 0.06;
                 this.pos.x += 0.0125;
-                this.shoot(step, level, [new Vector2D(0, 0)]);
+                this.shoot(step, level, [new Vector2D(0, 0.2)]);
             }
             else if (this.type === "mobZigzag") {
                 this.pos.y += 0.05;
@@ -35,20 +35,22 @@ class Enemy extends Actor {
                 this.wobble += wobbleFreq;
                 let wobblePosX = Math.sin(this.wobble) * wobbleAmp;
                 this.pos.x += wobblePosX;
-                this.shoot(step, level, [new Vector2D(0, 0)]);
+                this.shoot(step, level, [new Vector2D(0, 0.2)]);
             }
             else if (this.type === "mobTank") {
                 this.pos.y += 0.06;
                 this.pos.x += 0.0125;
-                this.shoot(step, level, [new Vector2D(-0.2, 0), new Vector2D(0, 0), new Vector2D(0.2, 0)]);
+                this.shoot(step, level, [new Vector2D(-0.2, 0.2), new Vector2D(0, 0.2), new Vector2D(0.2, 0.2)]);
             }
             else if (this.type === "mobDistance") {
-                if (Math.round(level.time * 100) / 100 < this.spawnTime + 3) {
+                if (level.roundTime < this.spawnTime + 3) {
                     this.pos.y += 0.06;
                     this.pos.x += 0.0125;
+                    console.log(1);
                 }
                 else {
-                    this.shoot(step, level, [new Vector2D(0, 0)]);
+                    this.shoot(step, level, [new Vector2D(0, 0.2)]);
+                    console.log(2);
                 }
             }
             else if (this.type === "mobBoss") {
@@ -87,6 +89,8 @@ class Enemy extends Actor {
         }
         else if (this.type === "mobZigzag") {
             this.health = 5;
+            this.shootCoolDown = 30;
+            this.lastShoot = 30;
         }
         else if (this.type === "mobTank") {
             this.health = 15;
@@ -95,9 +99,13 @@ class Enemy extends Actor {
         }
         else if (this.type === "mobDistance") {
             this.health = 5;
+            this.shootCoolDown = 60;
+            this.lastShoot = 60;
         }
         else if (this.type === "mobBoss") {
             this.health = 200;
+            this.shootCoolDown = 60;
+            this.lastShoot = 60;
         }
     }
 }

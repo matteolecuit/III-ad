@@ -1,7 +1,7 @@
 class CanvasDisplay {
 
 	public canvas: HTMLCanvasElement = document.createElement('canvas');
-	public cx: CanvasRenderingContext2D = this.canvas.getContext("2d", { alpha: false });
+	public cx: CanvasRenderingContext2D = this.canvas.getContext("2d");
 	public zoom: number = 1;
 	public animationTime: number = 0;
 	public level: Level;
@@ -13,7 +13,6 @@ class CanvasDisplay {
 		this.cx.translate(0, 12 * scale * this.zoom);
 		parent.appendChild(this.canvas);
 		this.cx.scale(this.zoom, this.zoom);
-		this.cx.imageSmoothingEnabled = false;
 		this.level = level;
 
 		this.drawFrame(0);

@@ -1,7 +1,7 @@
 class CanvasDisplay {
     constructor(parent, level) {
         this.canvas = document.createElement('canvas');
-        this.cx = this.canvas.getContext("2d", { alpha: false });
+        this.cx = this.canvas.getContext("2d");
         this.zoom = 1;
         this.animationTime = 0;
         this.drawFrame = (step) => {
@@ -141,7 +141,6 @@ class CanvasDisplay {
         this.cx.translate(0, 12 * scale * this.zoom);
         parent.appendChild(this.canvas);
         this.cx.scale(this.zoom, this.zoom);
-        this.cx.imageSmoothingEnabled = false;
         this.level = level;
         this.drawFrame(0);
     }

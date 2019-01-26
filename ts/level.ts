@@ -2,6 +2,7 @@ class Level {
 
 	public size: Vector2D = new Vector2D(36, 36);
 	public time: number = 0;
+	public roundTime: number = 0;
 	public actors:Array<Actor> = [];
 	public wind: Vector2D = new Vector2D(0, 0);
 
@@ -16,6 +17,7 @@ class Level {
 			this.act();
 			var thisStep: number = Math.min(step, 0.5);
 			this.time += thisStep;
+			this.roundTime = Math.round(this.time*100)/100;
 			this.actors.forEach((actor: Actor) => {
 				actor.act(thisStep, this, keys);
 			});
@@ -24,18 +26,20 @@ class Level {
 	}
 	
     public act = (): void => {
-		if ((Math.round(this.time*100)/100)%5 === 0) {
-            this.changeWind(this.actors[0]);
+		if (this.roundTime % 5 === 0) {
+            this.changeWind();
         }
-		if (Math.round(this.time*100)/100 === 10) {
-			this.actors.push(new Enemy(new Vector2D(1.5, -2), new Vector2D(3, 3), "enemy", "mobTrash", Math.round(this.time*100)/100));
-			this.actors.push(new Enemy(new Vector2D(2.5, -5), new Vector2D(3, 3), "enemy", "mobZigzag", Math.round(this.time*100)/100));
-			this.actors.push(new Enemy(new Vector2D(3, -2), new Vector2D(3, 3), "enemy", "mobTank", Math.round(this.time*100)/100));
-			this.actors.push(new Enemy(new Vector2D(2.5, -6), new Vector2D(3, 3), "enemy", "mobDistance", Math.round(this.time*100)/100));
-
+		
+		if (this.roundTime === 2) {
+			this.actors.push(new Enemy(new Vector2D(16, -2), new Vector2D(3, 3), "enemy", "mobBoss", this.roundTime));
 		}
-		else if (Math.round(this.time*100)/100 === 2) {
-			this.actors.push(new Enemy(new Vector2D(16, -2), new Vector2D(3, 3), "enemy", "mobBoss", Math.round(this.time*100)/100));
+		else if (this.roundTime === 5) {
+			this.actors.push(new Enemy(new Vector2D(1.5, -2), new Vector2D(3, 3), "enemy", "mobTrash", this.roundTime));
+			this.actors.push(new Enemy(new Vector2D(2.5, -5), new Vector2D(3, 3), "enemy", "mobZigzag", this.roundTime));
+		}
+		else if (this.roundTime === 9) {
+			this.actors.push(new Enemy(new Vector2D(3, -2), new Vector2D(3, 3), "enemy", "mobTank", this.roundTime));
+			this.actors.push(new Enemy(new Vector2D(2.5, -6), new Vector2D(3, 3), "enemy", "mobDistance", this.roundTime));
 		}
 	}
 
@@ -82,7 +86,7 @@ class Level {
 		return result;
 	}
 
-	public changeWind = (actor: Actor): void => {
+	public changeWind = (): void => {
         var x = this.getRandom(-1, 2);
         var y = this.getRandom(-1, 2);
 

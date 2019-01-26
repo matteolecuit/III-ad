@@ -2,6 +2,7 @@ class Level {
     constructor() {
         this.size = new Vector2D(36, 36);
         this.time = 0;
+        this.roundTime = 0;
         this.actors = [];
         this.wind = new Vector2D(0, 0);
         this.calculFrame = (step, keys) => {
@@ -9,6 +10,7 @@ class Level {
                 this.act();
                 var thisStep = Math.min(step, 0.5);
                 this.time += thisStep;
+                this.roundTime = Math.round(this.time * 100) / 100;
                 this.actors.forEach((actor) => {
                     actor.act(thisStep, this, keys);
                 });
@@ -16,17 +18,19 @@ class Level {
             }
         };
         this.act = () => {
-            if ((Math.round(this.time * 100) / 100) % 5 === 0) {
-                this.changeWind(this.actors[0]);
+            if (this.roundTime % 5 === 0) {
+                this.changeWind();
             }
-            if (Math.round(this.time * 100) / 100 === 10) {
-                this.actors.push(new Enemy(new Vector2D(1.5, -2), new Vector2D(3, 3), "enemy", "mobTrash", Math.round(this.time * 100) / 100));
-                this.actors.push(new Enemy(new Vector2D(2.5, -5), new Vector2D(3, 3), "enemy", "mobZigzag", Math.round(this.time * 100) / 100));
-                this.actors.push(new Enemy(new Vector2D(3, -2), new Vector2D(3, 3), "enemy", "mobTank", Math.round(this.time * 100) / 100));
-                this.actors.push(new Enemy(new Vector2D(2.5, -6), new Vector2D(3, 3), "enemy", "mobDistance", Math.round(this.time * 100) / 100));
+            if (this.roundTime === 2) {
+                this.actors.push(new Enemy(new Vector2D(16, -2), new Vector2D(3, 3), "enemy", "mobBoss", this.roundTime));
             }
-            else if (Math.round(this.time * 100) / 100 === 2) {
-                this.actors.push(new Enemy(new Vector2D(16, -2), new Vector2D(3, 3), "enemy", "mobBoss", Math.round(this.time * 100) / 100));
+            else if (this.roundTime === 5) {
+                this.actors.push(new Enemy(new Vector2D(1.5, -2), new Vector2D(3, 3), "enemy", "mobTrash", this.roundTime));
+                this.actors.push(new Enemy(new Vector2D(2.5, -5), new Vector2D(3, 3), "enemy", "mobZigzag", this.roundTime));
+            }
+            else if (this.roundTime === 9) {
+                this.actors.push(new Enemy(new Vector2D(3, -2), new Vector2D(3, 3), "enemy", "mobTank", this.roundTime));
+                this.actors.push(new Enemy(new Vector2D(2.5, -6), new Vector2D(3, 3), "enemy", "mobDistance", this.roundTime));
             }
         };
         this.limitAt = (pos, size) => {
@@ -64,7 +68,7 @@ class Level {
             });
             return result;
         };
-        this.changeWind = (actor) => {
+        this.changeWind = () => {
             var x = this.getRandom(-1, 2);
             var y = this.getRandom(-1, 2);
             if (x === -1) {
