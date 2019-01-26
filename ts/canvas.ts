@@ -158,7 +158,7 @@ class CanvasDisplay {
 						(Math.round(this.level.time * 2) % 2) * 512, spriteY * 512, 512, 512,
 						posX - width / 2, posY - width / 2, width * 2, height * 2);
 				}
-				else if (actor.type === "mobDistance") {
+				else if (actor.type === "mobRanged") {
 					this.cx.drawImage(sprites,
 						(Math.round(this.level.time * 2) % 2) * 512, spriteY * 512, 512, 512,
 						posX - width / 2, posY - width / 2, width * 2, height * 2);
