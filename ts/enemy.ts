@@ -39,8 +39,8 @@ class Enemy extends Actor {
         }
         else if (this.type === "mobRanged") {
             this.health = 5;
-            this.shootCoolDown = 60;
-            this.lastShoot = 60;
+            this.shootCoolDown = 100;
+            this.lastShoot = 100;
         }
         else if (this.type === "mobBoss") {
             this.health = 200;
@@ -80,8 +80,8 @@ class Enemy extends Actor {
         else if (this.type === "mobZigzag") {
             this.pos.y += this.axe.y;
 
-            let wobbleFreq = 0.04;
-            let wobbleAmp = 0.1;
+            let wobbleFreq = 0.03;
+            let wobbleAmp = 0.3;
             this.wobble += wobbleFreq;
             let wobblePosX = Math.sin(this.wobble) * wobbleAmp;
             this.pos.x += wobblePosX;
@@ -98,7 +98,9 @@ class Enemy extends Actor {
                 this.pos.x += this.axe.x;
             }
             else {
-                this.shoot(step, level,[new Vector2D(-0.2,0.2),new Vector2D(0,0.2),new Vector2D(0.2,0.2)]);
+                this.shoot(step, level,[new Vector2D(0,0.2)]);
+                this.shoot(step, level,[new Vector2D(-0.2,0.2)]);
+                this.shoot(step, level,[new Vector2D(0.2,0.2)]);
             }
         }
         else if (this.type === "mobBoss") {
