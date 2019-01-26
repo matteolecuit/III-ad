@@ -4,7 +4,7 @@ var arrowCodes = new Map([
     [38, "up"],
     [39, "right"],
     [40, "down"],
-    [87, "shoot"],
+    [32, "shoot"],
     [88, "bomb"],
     [16, "focus"]
 ]);

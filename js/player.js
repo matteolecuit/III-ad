@@ -59,7 +59,7 @@ class Player extends Actor {
                 if (!this.focus) {
                     this.moveSpeed /= 2;
                     this.moveSpeed /= 2;
-                    this.shootCoolDown = 3;
+                    this.shootCoolDown = 1;
                     this.focus = true;
                 }
             }

@@ -1,12 +1,12 @@
 class Bullet extends Actor {
     constructor(pos, size, sprites) {
         super(pos, size, sprites);
-        this.speed = new Vector2D(0, 0);
         this.action = null;
         this.lastingFrame = 5;
         this.act = (step, level, keys) => {
             if (this.action === null) {
-                this.pos.y -= 0.4;
+                this.pos.y -= 0.4; //* level.wind.y;
+                this.pos.x *= level.wind.x;
             }
             else if (this.action === "touched") {
                 this.lastingFrame--;

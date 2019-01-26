@@ -3,6 +3,7 @@ class Level {
 	public size: Vector2D = new Vector2D(12, 16);
 	public time: number = 0;
 	public actors:Array<Actor> = [];
+	public wind: Vector2D = new Vector2D(0, 0);
 
 	constructor() {
 		this.actors.push(new Player(new Vector2D(5.5, 14), new Vector2D(0.25, 0.25), "player"));
@@ -23,6 +24,9 @@ class Level {
 	}
 	
     public act = (): void => {
+		if ((Math.round(this.time*100)/100)%5 === 0) {
+            this.changeWind(this.actors[0]);
+        }
 		if (Math.round(this.time*100)/100 === 3) {
 			this.actors.push(new Enemy(new Vector2D(1.5, -2), new Vector2D(1, 1), "enemy", "test", 1));
 		}
@@ -49,6 +53,7 @@ class Level {
 			this.actors.push(new Enemy(new Vector2D(7, -3), new Vector2D(1, 1), "enemy", "crook", -1));
 			this.actors.push(new Enemy(new Vector2D(8.5, -2), new Vector2D(1, 1), "enemy", "crook", -1));
 		}
+		
 	}
 
 	public limitAt = (pos: Vector2D, size: Vector2D): boolean => {
@@ -81,4 +86,41 @@ class Level {
 		});
 		return result;
 	}
+
+	public changeWind = (actor: Actor): void => {
+        var x = this.getRandom(-1, 2);
+        var y = this.getRandom(-1, 2);
+
+		if (x === -1){
+			x = 0.98;
+		} else if (x === 0){
+			x = 1;
+		} else if (x === 1){
+			x = 1.02;
+		}
+
+		if (y === -1){
+			y = 0.9;
+		} else if (y === 0){
+			y = 1
+		} else if (y === 1){
+			y = 1.1;
+		}
+
+		while (x < 0){
+
+		}
+
+        this.wind.x = x;
+        this.wind.y = y;
+
+        console.log("wind x", x);
+        console.log("wind y", y);
+
+
+    }
+
+    public getRandom(min: number, max: number) {
+        return Math.floor(Math.random() * (max - min) + min);
+    }
 }
