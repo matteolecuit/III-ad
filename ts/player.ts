@@ -6,9 +6,11 @@ class Player extends Actor {
 	public focus: boolean = false;
 	public shootCoolDown: number = 10;
 	public lastShoot: number = this.shootCoolDown;
+	public bombCoulDown: number = 60;
 
 	public moveSpeed: number = scale;
 	public inertia: number = 1 / scale;
+	public numberBomb: number = 3;
 
 	public controls: Array<boolean> = [false, false, false, false, false, false];
 	public score: number = 0;
@@ -88,9 +90,27 @@ class Player extends Actor {
 		if (this.lastShoot < this.shootCoolDown) {
 			this.lastShoot++;
 		}
+
 		else if (this.lastShoot >= this.shootCoolDown && this.controls[0]) {
 			level.actors.push(new Bullet(new Vector2D(this.pos.x, this.pos.y), new Vector2D(1, 1), "bullet", "enemy", 0));
 			this.lastShoot = 0;
+		}
+	}
+
+	public bomb = (step: number, level: Level): void => {
+		if (this.bombCoulDown > 0) {
+			this.bombCoulDown--;
+		}
+		if (this.controls[1] && this.numberBomb > 0 && this.bombCoulDown === 0) {
+			for(let i = 0; i < level.actors.length; i++) {
+				if(level.actors[i] instanceof Enemy) {
+					level.actors[i].health -= 5;
+				} else if (level.actors[i] instanceof Bullet) {
+					level.actors.splice(i, 1);
+				}
+			}
+			this.numberBomb--;
+			this.bombCoulDown = 60;
 		}
 	}
 
@@ -102,7 +122,7 @@ class Player extends Actor {
 			keys.get("right"),
 			keys.get("up"),
 			keys.get("down"),
-			keys.get("focus")
+			keys.get("focus"),
 		];
 
 		if (this.status === null) {
@@ -110,6 +130,7 @@ class Player extends Actor {
 			this.moveX(step, level);
 			this.moveY(step, level);
 			this.shoot(step, level);
+			this.bomb(step, level);
 
 			let obstacle: Actor = level.actorAt(this);
 			if (obstacle && obstacle instanceof Enemy) {

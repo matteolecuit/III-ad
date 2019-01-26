@@ -6,8 +6,10 @@ class Player extends Actor {
         this.focus = false;
         this.shootCoolDown = 10;
         this.lastShoot = this.shootCoolDown;
+        this.bombCoulDown = 60;
         this.moveSpeed = scale;
         this.inertia = 1 / scale;
+        this.numberBomb = 3;
         this.controls = [false, false, false, false, false, false];
         this.score = 0;
         this.moveX = (step, level) => {
@@ -81,6 +83,23 @@ class Player extends Actor {
                 this.lastShoot = 0;
             }
         };
+        this.bomb = (step, level) => {
+            if (this.bombCoulDown > 0) {
+                this.bombCoulDown--;
+            }
+            if (this.controls[1] && this.numberBomb > 0 && this.bombCoulDown === 0) {
+                for (let i = 0; i < level.actors.length; i++) {
+                    if (level.actors[i] instanceof Enemy) {
+                        level.actors[i].health -= 5;
+                    }
+                    else if (level.actors[i] instanceof Bullet) {
+                        level.actors.splice(i, 1);
+                    }
+                }
+                this.numberBomb--;
+                this.bombCoulDown = 60;
+            }
+        };
         this.act = (step, level, keys) => {
             this.controls = [
                 keys.get("shoot"),
@@ -89,13 +108,14 @@ class Player extends Actor {
                 keys.get("right"),
                 keys.get("up"),
                 keys.get("down"),
-                keys.get("focus")
+                keys.get("focus"),
             ];
             if (this.status === null) {
                 this.checkFocus(step, level);
                 this.moveX(step, level);
                 this.moveY(step, level);
                 this.shoot(step, level);
+                this.bomb(step, level);
                 let obstacle = level.actorAt(this);
                 if (obstacle && obstacle instanceof Enemy) {
                     this.status = "dead";

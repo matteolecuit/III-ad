@@ -119,7 +119,7 @@ class Enemy extends Actor {
             }
         }
 
-        if (this.health === 0) {
+        if (this.health <= 0) {
             this.deleteEnemy(level);
             let p =  level.actors[0];
 		    if (p instanceof Player) {
