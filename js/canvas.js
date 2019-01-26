@@ -83,12 +83,22 @@ class CanvasDisplay {
                     this.cx.fillRect(0, 0, this.canvas.width, this.canvas.height);
                 }
             }
+            this.cx.save();
+            if (this.level.wind.x > 0) {
+                this.flipHorizontally(this.cx, this.canvas.width / 2);
+            }
             if (this.level.roundTime > 181) {
                 let rainBuffer = Math.floor(this.level.time * 9) % 4;
                 this.cx.drawImage(rain, 512 * rainBuffer, 0, 512, 446, 0, 0, scale * 36, scale * 36);
             }
+            this.cx.restore();
             var buffer = Math.floor(this.level.time) % 2;
             this.cx.drawImage(cloud, 0, 640 * buffer, 3584, 640, -scale * 2, -scale * 3, scale * 40, scale * 6);
+        };
+        this.flipHorizontally = (context, around) => {
+            context.translate(around, 0);
+            context.scale(-1, 1);
+            context.translate(-around, 0);
         };
         this.drawHUD = () => {
             this.cx.font = "36px consolas";
