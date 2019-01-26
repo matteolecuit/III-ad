@@ -36,11 +36,14 @@ class CanvasDisplay {
 		cloud.src = "img/cloud.png";
 		var compass: HTMLImageElement = document.createElement("img");
 		compass.src = "img/compass.png";
+		var arrows: HTMLImageElement = document.createElement("img");
+		arrows.src = "img/arrows.png";
 
 		this.cx.fillStyle = "rgb(0, 148, 255)";
 		this.cx.fillRect(0, -scale*12, scale*36, scale*12);
 
-		this.cx.globalAlpha = (Math.round(this.level.time*100)/100) / 100;
+		var opa: number = (Math.round(this.level.time*100)/100) / 100 > 100 ? 100 : (Math.round(this.level.time*100)/100) / 100;
+		this.cx.globalAlpha = opa;
 
 		this.cx.drawImage(background,
 			0, 0, scale*36, scale*12,
@@ -54,6 +57,23 @@ class CanvasDisplay {
 
 		this.cx.drawImage(compass,
 			0, 0, scale*4, scale*4,
+			scale*3, -scale*9, scale*4, scale*4);
+		
+		var windX: number;
+		var windY: number;
+		
+		if (this.level.wind.x === 1) { windX = 1; }
+		else if (this.level.wind.x > 1) { windX = 2; }
+		else { windX = 0; }
+		
+		if (this.level.wind.y === 1) { windY = 1; }
+		else if (this.level.wind.y > 1) { windY = 2; }
+		else { windY = 0; }
+
+		console.log(windX + " " + windY)
+
+		this.cx.drawImage(arrows,
+			windX * scale*4, windY * scale*4, scale*4, scale*4,
 			scale*3, -scale*9, scale*4, scale*4);
 
 		this.cx.drawImage(cloud,
