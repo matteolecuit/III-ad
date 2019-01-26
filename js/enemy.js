@@ -4,6 +4,13 @@ class Enemy extends Actor {
         this.speed = new Vector2D(0, 0);
         this.wobble = Math.PI / 2;
         this.lastShoot = this.shootCoolDown;
+        this.deleteEnemy = (level) => {
+            for (let i = 0; i < level.actors.length; i++) {
+                if (level.actors[i] instanceof Enemy && this.pos.equals(level.actors[i].pos)) {
+                    level.actors.splice(i, 1);
+                }
+            }
+        };
         this.singleShot = (step, level, angle) => {
             if (this.lastShoot < this.shootCoolDown) {
                 this.lastShoot++;
@@ -13,21 +20,14 @@ class Enemy extends Actor {
                 this.lastShoot = 0;
             }
         };
-        this.deleteEnemy = (level) => {
-            for (let i = 0; i < level.actors.length; i++) {
-                if (level.actors[i] instanceof Enemy && this.pos.equals(level.actors[i].pos)) {
-                    level.actors.splice(i, 1);
-                }
-            }
-        };
-        this.triShot = (step, level, angle) => {
+        this.triShot = (step, level, angle1, angle2, angle3) => {
             if (this.lastShoot < this.shootCoolDown) {
                 this.lastShoot++;
             }
             else if (this.lastShoot >= this.shootCoolDown) {
-                level.actors.push(new Bullet(new Vector2D((this.pos.x + this.size.x / 2) - 0.5, this.pos.y + this.size.y), new Vector2D(1, 1), "bullet", "player", -angle));
-                level.actors.push(new Bullet(new Vector2D((this.pos.x + this.size.x / 2) - 0.5, this.pos.y + this.size.y), new Vector2D(1, 1), "bullet", "player", 0));
-                level.actors.push(new Bullet(new Vector2D((this.pos.x + this.size.x / 2) - 0.5, this.pos.y + this.size.y), new Vector2D(1, 1), "bullet", "player", +angle));
+                level.actors.push(new Bullet(new Vector2D((this.pos.x + this.size.x / 2) - 0.5, this.pos.y + this.size.y), new Vector2D(1, 1), "bullet", "player", angle1));
+                level.actors.push(new Bullet(new Vector2D((this.pos.x + this.size.x / 2) - 0.5, this.pos.y + this.size.y), new Vector2D(1, 1), "bullet", "player", angle2));
+                level.actors.push(new Bullet(new Vector2D((this.pos.x + this.size.x / 2) - 0.5, this.pos.y + this.size.y), new Vector2D(1, 1), "bullet", "player", angle3));
                 this.lastShoot = 0;
             }
         };
@@ -35,7 +35,7 @@ class Enemy extends Actor {
             if (this.type === "mobTrash") {
                 this.pos.y += 0.06;
                 this.pos.x += 0.0125;
-                this.singleShot(step, level, 0);
+                this.singleShot(step, level, new Vector2D(0, 0));
             }
             else if (this.type === "mobZigzag") {
                 this.pos.y += 0.05;
@@ -44,12 +44,12 @@ class Enemy extends Actor {
                 this.wobble += wobbleFreq;
                 let wobblePosX = Math.sin(this.wobble) * wobbleAmp;
                 this.pos.x += wobblePosX;
-                this.singleShot(step, level, 0);
+                this.singleShot(step, level, new Vector2D(0, 0));
             }
             else if (this.type === "mobTank") {
                 this.pos.y += 0.06;
                 this.pos.x += 0.0125;
-                this.triShot(step, level, 0.2);
+                this.triShot(step, level, new Vector2D(-0.2, 0), new Vector2D(0, 0), new Vector2D(0.2, 0));
             }
             else if (this.type === "mobDistance") {
                 if (Math.round(level.time * 100) / 100 < this.spawnTime + 3) {
@@ -57,7 +57,7 @@ class Enemy extends Actor {
                     this.pos.x += 0.0125;
                 }
                 else {
-                    this.singleShot(step, level, 0);
+                    this.singleShot(step, level, new Vector2D(0, 0));
                 }
             }
             else if (this.type === "mobBoss") {

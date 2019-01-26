@@ -72,12 +72,12 @@ class Player extends Actor {
                 }
             }
         };
-        this.shoot = (step, level) => {
+        this.singleShot = (step, level, angle) => {
             if (this.lastShoot < this.shootCoolDown) {
                 this.lastShoot++;
             }
             else if (this.lastShoot >= this.shootCoolDown && this.controls[0]) {
-                level.actors.push(new Bullet(new Vector2D(this.pos.x, this.pos.y - 3), new Vector2D(1, 1), "bullet", "enemy", 0));
+                level.actors.push(new Bullet(new Vector2D((this.pos.x + this.size.x / 2) - 0.5, this.pos.y - 3), new Vector2D(1, 1), "bullet", "enemy", angle));
                 this.lastShoot = 0;
             }
         };
@@ -95,7 +95,7 @@ class Player extends Actor {
                 this.checkFocus(step, level);
                 this.moveX(step, level);
                 this.moveY(step, level);
-                this.shoot(step, level);
+                this.singleShot(step, level, new Vector2D(0, 0));
                 let obstacle = level.actorAt(this);
                 if (obstacle && obstacle instanceof Enemy) {
                     this.status = "dead";
