@@ -34,6 +34,7 @@ class Enemy extends Actor {
             }
         };
         this.type = type;
+        this.sprites = "img/actors/" + sprites + "-" + type + ".png";
         this.direction = direction || 1;
     }
 }

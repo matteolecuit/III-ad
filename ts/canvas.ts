@@ -34,8 +34,10 @@ class CanvasDisplay {
 		house.src = "img/island2.png";
 		var cloud: HTMLImageElement = document.createElement("img");
 		cloud.src = "img/cloud.png";
+		var compass: HTMLImageElement = document.createElement("img");
+		compass.src = "img/compass.png";
 
-		this.cx.fillStyle = "rgb(0, 38, 255)";
+		this.cx.fillStyle = "rgb(0, 148, 255)";
 		this.cx.fillRect(0, -scale*12, scale*36, scale*12);
 
 		this.cx.globalAlpha = (Math.round(this.level.time*100)/100) / 100;
@@ -49,6 +51,10 @@ class CanvasDisplay {
 			scale*28, -scale*12, scale*8, scale*8);
 
 		this.cx.globalAlpha = 1;
+
+		this.cx.drawImage(compass,
+			0, 0, scale*4, scale*4,
+			scale*3, -scale*9, scale*4, scale*4);
 
 		this.cx.drawImage(cloud,
 			0, 0, scale*36, scale*4,
@@ -66,7 +72,7 @@ class CanvasDisplay {
 	}
 
 	public drawBckground = (): void => {
-		this.cx.fillStyle = "rgb(64, 128, 186)";
+		this.cx.fillStyle = "rgb(0, 98, 224)";
 		this.cx.fillRect(0, 0, scale*36, scale*36);
 	}
 
@@ -81,26 +87,27 @@ class CanvasDisplay {
 			var sprites: HTMLImageElement = document.createElement("img");
 			sprites.src = actor.sprites;
 
-			if (actor.sprites === "img/actors/player.png" && actor instanceof Player) {
+			if (actor instanceof Player) {
 				this.drawPlayer(actor, sprites, spriteX, spriteY, posX, posY, width, height);
 			}
-			else if (actor.sprites === "img/actors/bullet.png" && actor instanceof Bullet) {
+			else if (actor instanceof Bullet) {
 				if (actor.action === "touched") {
-					spriteX = 1;
+					spriteY = 1;
+					spriteX = Math.round(this.level.time * 8) % 2;
 				}
 				this.cx.drawImage(sprites,
-					spriteX * width, spriteY * height, width, height,
+					spriteX+1 * 179, spriteY * 179, 179, 179,
 					posX, posY, width, height);
 			}
-			else if (actor.sprites === "img/actors/enemy.png" && actor instanceof Enemy) {
+			else if (actor instanceof Enemy) {
 				if (actor.type === "crook") {
 					this.cx.drawImage(sprites,
-						spriteX * width, spriteY * height, width, height,
-						posX, posY, width, height);
+						(Math.round(this.level.time * 2) % 2) * 512, spriteY * 512, 512, 512,
+						posX - width/2, posY - width / 2, width*2, height*2);
 				}
 				else if (actor.type === "boss") {
 					this.cx.drawImage(sprites,
-						spriteX * width/2, spriteY * height/2, width/2, height/2,
+						spriteX * width, spriteY * height, width, height,
 						posX, posY, width, height);
 				}
 			}

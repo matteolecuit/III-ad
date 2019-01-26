@@ -10,6 +10,7 @@ class Enemy extends Actor {
 	constructor(pos: Vector2D, size: Vector2D, sprites: string, type: string, direction?: number) {
         super(pos, size, sprites);
         this.type = type;
+        this.sprites ="img/actors/" + sprites + "-" + type + ".png";
         this.direction = direction || 1;
     }
     
