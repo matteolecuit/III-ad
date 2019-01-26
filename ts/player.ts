@@ -6,9 +6,11 @@ class Player extends Actor {
 	public focus: boolean = false;
 	public shootCoolDown: number = 10;
 	public lastShoot: number = this.shootCoolDown;
+	public bombCoolDown: number = 0;
 
 	public moveSpeed: number = scale;
 	public inertia: number = 1 / scale;
+	public numberBomb: number = 3;
 
 	public controls: Array<boolean> = [false, false, false, false, false, false];
 	public score: number = 0;
@@ -88,6 +90,7 @@ class Player extends Actor {
 		if (this.lastShoot < this.shootCoolDown) {
 			this.lastShoot++;
 		}
+
 		else if (this.lastShoot >= this.shootCoolDown && this.controls[0]) {
 			for (let index = 0; index < angles.length; index++) {
                 level.actors.push(new Bullet(new Vector2D((this.pos.x + this.size.x / 2 ) - 0.5 , this.pos.y - 3), new Vector2D(1, 1), "bullet", "enemy", angles[index]));                        
@@ -95,6 +98,24 @@ class Player extends Actor {
 			this.lastShoot = 0;
 		}
     }
+
+	public bomb = (step: number, level: Level): void => {
+		if (this.bombCoolDown > 0) {
+			this.bombCoolDown--;
+		}
+		if (this.controls[1] && this.numberBomb > 0 && this.bombCoolDown === 0) {
+			for(let i = level.actors.length; i != 0; i--) {
+				let object = level.actors[i];
+				if(object && object instanceof Enemy) {
+					object.health -= 5;
+				} else if (object instanceof Bullet) {
+					level.actors.splice(i, 1);
+				}
+			}
+			this.numberBomb--;
+			this.bombCoolDown = 60;
+		}
+	}
 
 	public act = (step: number, level: Level, keys: Map<string, boolean>): void => {
 		this.controls = [
@@ -104,14 +125,16 @@ class Player extends Actor {
 			keys.get("right"),
 			keys.get("up"),
 			keys.get("down"),
-			keys.get("focus")
+			keys.get("focus"),
 		];
 
 		if (this.status === null) {
 			this.checkFocus(step, level);
 			this.moveX(step, level);
 			this.moveY(step, level);
-            this.shoot(step, level,[new Vector2D(0,-0.4)]);
+			this.bomb(step, level);
+			this.shoot(step, level,[new Vector2D(0,0.4)]);
+			
 			let obstacle: Actor = level.actorAt(this);
 			if (obstacle && obstacle instanceof Enemy) {
 				this.status = "dead";
