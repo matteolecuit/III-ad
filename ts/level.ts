@@ -24,19 +24,17 @@ class Level {
 	}
 	
     public act = (): void => {
+		if ((Math.round(this.time*100)/100)%5 === 0) {
+            this.changeWind(this.actors[0]);
+        }
 		if (Math.round(this.time*100)/100 === 2) {
-			console.log("mobTrash");
-			this.actors.push(new Enemy(new Vector2D(1.5, -2), new Vector2D(1, 1), "enemy", "mobTrash", 1));
-			console.log("mobZigzag");
-			this.actors.push(new Enemy(new Vector2D(2.5, -5), new Vector2D(1, 1), "enemy", "mobZigzag", 1));
-			console.log("mobTank");
-			this.actors.push(new Enemy(new Vector2D(3, -2), new Vector2D(1, 1), "enemy", "mobTank", 1));
-			console.log("mobDistance");
-			this.actors.push(new Enemy(new Vector2D(2.5, -6), new Vector2D(1, 1), "enemy", "mobDistance", -1));
+			this.actors.push(new Enemy(new Vector2D(1.5, -2), new Vector2D(3, 3), "enemy", "mobTrash", 1));
+			this.actors.push(new Enemy(new Vector2D(2.5, -5), new Vector2D(3, 3), "enemy", "mobZigzag", 1));
+			this.actors.push(new Enemy(new Vector2D(3, -2), new Vector2D(3, 3), "enemy", "mobTank", 1));
+			this.actors.push(new Enemy(new Vector2D(2.5, -6), new Vector2D(3, 3), "enemy", "mobDistance", -1));
 
 		}
 		else if (Math.round(this.time*100)/100 === 3) {
-			console.log("mobBoss");
 			this.actors.push(new Enemy(new Vector2D(6, 2), new Vector2D(1, 1), "enemy", "mobBoss"));
 		}
 		
@@ -84,7 +82,7 @@ class Level {
 		} else if (x === 1){
 			x = 1.005;
 		}
-
+		
 		if (y === -1){
 			y = 0.9;
 		} else if (y === 0){
@@ -92,18 +90,8 @@ class Level {
 		} else if (y === 1){
 			y = 1.1;
 		}
-
-		while (x < 0){
-
-		}
-
         this.wind.x = x;
         this.wind.y = y;
-
-        console.log("wind x", x);
-        console.log("wind y", y);
-
-
     }
 
     public getRandom(min: number, max: number) {

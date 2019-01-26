@@ -25,7 +25,7 @@ class Bullet extends Actor {
         if (this.lastingFrame === 0) {
             for(let i = 0; i < level.actors.length; i++){
                 if(level.actors[i] instanceof Bullet && this.pos.equals(level.actors[i].pos)) {
-                    level.actors.splice(i, i);
+                    level.actors.splice(i, 1);
                 }
             }
         }

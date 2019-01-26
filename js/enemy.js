@@ -10,7 +10,7 @@ class Enemy extends Actor {
                 this.lastShoot++;
             }
             else if (this.lastShoot >= this.shootCoolDown) {
-                level.actors.push(new Bullet(new Vector2D((this.pos.x + this.size.x / 2) - 0.1, this.pos.y + this.size.y), new Vector2D(0.25, 0.25), "bullet", "player"));
+                level.actors.push(new Bullet(new Vector2D((this.pos.x + this.size.x / 2) - 0.5, this.pos.y + this.size.y), new Vector2D(1, 1), "bullet", "player"));
                 this.lastShoot = 0;
             }
         };
@@ -50,7 +50,7 @@ class Enemy extends Actor {
                 for (let i = 0; i < level.actors.length; i++) {
                     if (level.actors[i] instanceof Enemy && this.pos.equals(level.actors[i].pos)) {
                         console.log("died");
-                        level.actors.splice(i);
+                        level.actors.splice(i, 1);
                     }
                 }
                 let p = level.actors[0];
