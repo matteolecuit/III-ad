@@ -25,7 +25,7 @@ class Enemy extends Actor {
                 }
             }
             if (this.health === 0) {
-                this.pos = new Vector2D(20, 0);
+                this.pos = new Vector2D(70, 0);
                 let p = level.actors[0];
                 if (p instanceof Player) {
                     p.score += 100;

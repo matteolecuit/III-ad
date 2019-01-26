@@ -4,11 +4,11 @@ class Player extends Actor {
 
 	public speed: Vector2D = new Vector2D(0, 0);
 	public focus: boolean = false;
-	public shootCoolDown: number = 5;
+	public shootCoolDown: number = 10;
 	public lastShoot: number = this.shootCoolDown;
 
-	public moveSpeed: number = scale / 2;
-	public inertia: number = 1 / scale * 2;
+	public moveSpeed: number = scale;
+	public inertia: number = 1 / scale;
 
 	public controls: Array<boolean> = [false, false, false, false, false, false];
 	public score: number = 0;
@@ -70,7 +70,7 @@ class Player extends Actor {
 			if (!this.focus) {
 				this.moveSpeed /= 2;
 				this.moveSpeed /= 2;
-				this.shootCoolDown = 1;
+				this.shootCoolDown = 7;
 				this.focus = true;
 			}
 		}
@@ -78,7 +78,7 @@ class Player extends Actor {
 			if (this.focus) {
 				this.moveSpeed *= 2;
 				this.moveSpeed *= 2;
-				this.shootCoolDown = 5;
+				this.shootCoolDown = 10;
 				this.focus = false;
 			}
 		}
