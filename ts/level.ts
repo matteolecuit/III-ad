@@ -37,7 +37,6 @@ class Level {
 		else if (Math.round(this.time*100)/100 === 2) {
 			this.actors.push(new Enemy(new Vector2D(16, -2), new Vector2D(3, 3), "enemy", "mobBoss", Math.round(this.time*100)/100));
 		}
-		
 	}
 
 	public limitAt = (pos: Vector2D, size: Vector2D): boolean => {
@@ -47,6 +46,18 @@ class Level {
 		let yEnd: number = Math.ceil(pos.y + size.y);
 	
 		if (xStart < 0 || xEnd > this.size.x || yStart < 0 || yEnd > this.size.y) {
+			return true;
+		}
+	}
+
+
+	public borderAt = (pos: Vector2D, size: Vector2D): boolean => {
+		let xStart: number = Math.floor(pos.x);
+		let xEnd: number = Math.ceil(pos.x + size.x);
+		let yStart: number = Math.floor(pos.y);
+		let yEnd: number = Math.ceil(pos.y + size.y);
+	
+		if (xStart < -12 || xEnd > this.size.x + 12 || yStart < -12 || yEnd > this.size.y + 12) {
 			return true;
 		}
 	}

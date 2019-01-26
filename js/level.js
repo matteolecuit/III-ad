@@ -38,6 +38,15 @@ class Level {
                 return true;
             }
         };
+        this.borderAt = (pos, size) => {
+            let xStart = Math.floor(pos.x);
+            let xEnd = Math.ceil(pos.x + size.x);
+            let yStart = Math.floor(pos.y);
+            let yEnd = Math.ceil(pos.y + size.y);
+            if (xStart < -12 || xEnd > this.size.x + 12 || yStart < -12 || yEnd > this.size.y + 12) {
+                return true;
+            }
+        };
         this.actorAt = (actor) => {
             let xStart = actor.pos.x;
             let xEnd = actor.pos.x + actor.size.x;
