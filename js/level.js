@@ -3,6 +3,7 @@ class Level {
         this.size = new Vector2D(36, 36);
         this.time = 0;
         this.actors = [];
+        this.wind = new Vector2D(0, 0);
         this.calculFrame = (step, keys) => {
             while (step > 0) {
                 this.act();
@@ -15,6 +16,9 @@ class Level {
             }
         };
         this.act = () => {
+            if ((Math.round(this.time * 100) / 100) % 5 === 0) {
+                this.changeWind(this.actors[0]);
+            }
             if (Math.round(this.time * 100) / 100 === 3) {
                 this.actors.push(new Enemy(new Vector2D(3, -2), new Vector2D(2, 2), "enemy", "crook", 1));
                 this.actors.push(new Enemy(new Vector2D(33, -6), new Vector2D(2, 2), "enemy", "crook", -1));
@@ -65,6 +69,37 @@ class Level {
             });
             return result;
         };
+        this.changeWind = (actor) => {
+            var x = this.getRandom(-1, 2);
+            var y = this.getRandom(-1, 2);
+            if (x === -1) {
+                x = 0.992;
+            }
+            else if (x === 0) {
+                x = 1;
+            }
+            else if (x === 1) {
+                x = 1.005;
+            }
+            if (y === -1) {
+                y = 0.9;
+            }
+            else if (y === 0) {
+                y = 1;
+            }
+            else if (y === 1) {
+                y = 1.1;
+            }
+            while (x < 0) {
+            }
+            this.wind.x = x;
+            this.wind.y = y;
+            console.log("wind x", x);
+            console.log("wind y", y);
+        };
         this.actors.push(new Player(new Vector2D(16, 30), new Vector2D(1, 1), "player"));
+    }
+    getRandom(min, max) {
+        return Math.floor(Math.random() * (max - min) + min);
     }
 }

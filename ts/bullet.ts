@@ -1,6 +1,5 @@
 class Bullet extends Actor {
 
-    public speed: Vector2D = new Vector2D(0, 0);
     public action: string = null;
     public lastingFrame: number = 5;
 
@@ -10,7 +9,8 @@ class Bullet extends Actor {
     
     public act = (step: number, level: Level, keys:Map<string, boolean>): void => {
         if (this.action === null) {
-            this.pos.y -= 0.4;
+            this.pos.y -= 0.4 ;//* level.wind.y;
+            this.pos.x *= level.wind.x;
         }
         else if (this.action === "touched") {
             this.lastingFrame--;
