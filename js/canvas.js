@@ -24,7 +24,8 @@ class CanvasDisplay {
             arrows.src = "img/arrows.png";
             this.cx.fillStyle = "rgb(0, 148, 255)";
             this.cx.fillRect(0, -scale * 12, scale * 36, scale * 12);
-            var opa = (Math.round(this.level.time * 100) / 100) / 100 > 100 ? 100 : (Math.round(this.level.time * 100) / 100) / 100;
+            var limit = 200;
+            var opa = (Math.round(this.level.time * 100) / 100) / limit > limit ? limit : (Math.round(this.level.time * 100) / 100) / limit;
             this.cx.globalAlpha = opa;
             this.cx.drawImage(background, 0, 0, scale * 36, scale * 12, 0, -scale * 12, scale * 36, scale * 12);
             this.cx.drawImage(house, (Math.round(this.level.time) % 2) * scale * 8, 0, scale * 8, scale * 8, scale * 28, -scale * 12, scale * 8, scale * 8);
@@ -106,7 +107,14 @@ class CanvasDisplay {
             });
         };
         this.drawPlayer = (player, sprites, spriteX, spriteY, posX, posY, width, height) => {
-            this.cx.drawImage(sprites, spriteX * width, spriteY * height, width, height, posX, posY, width, height);
+            spriteX = Math.round(this.level.time * 2) % 2;
+            if (player.speed.x > player.moveSpeed / 2) {
+                spriteY = 2;
+            }
+            if (player.speed.x < -player.moveSpeed / 2) {
+                spriteY = 1;
+            }
+            this.cx.drawImage(sprites, spriteX * 624, spriteY * 1088, 624, 1088, posX - width * 2, posY - height * 3, width * 5, height * 7);
             if (player.focus) {
                 var circle = document.createElement("img");
                 circle.src = "img/actors/circle.png";

@@ -42,7 +42,8 @@ class CanvasDisplay {
 		this.cx.fillStyle = "rgb(0, 148, 255)";
 		this.cx.fillRect(0, -scale*12, scale*36, scale*12);
 
-		var opa: number = (Math.round(this.level.time*100)/100) / 100 > 100 ? 100 : (Math.round(this.level.time*100)/100) / 100;
+		var limit: number = 200;
+		var opa: number = (Math.round(this.level.time*100)/100) / limit > limit ? limit : (Math.round(this.level.time*100)/100) / limit;
 		this.cx.globalAlpha = opa;
 
 		this.cx.drawImage(background,
@@ -150,9 +151,18 @@ class CanvasDisplay {
 
 	public drawPlayer = (player: Player, sprites: HTMLImageElement, spriteX: number, spriteY: number, posX: number, posY: number, width: number, height: number): void => {
 
+		spriteX = Math.round(this.level.time * 2) % 2;
+
+		if (player.speed.x > player.moveSpeed/2) {
+			spriteY = 2;
+		}
+		if (player.speed.x < -player.moveSpeed/2) {
+			spriteY = 1;
+		}
+
 		this.cx.drawImage(sprites,
-			spriteX * width, spriteY * height, width, height,
-			posX, posY, width, height);
+			spriteX * 624, spriteY * 1088, 624, 1088,
+			posX - width*2, posY - height*3, width*5, height*7);
 
 		if (player.focus) {
 			var circle: HTMLImageElement = document.createElement("img");
