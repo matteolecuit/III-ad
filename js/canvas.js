@@ -4,6 +4,7 @@ class CanvasDisplay {
         this.cx = this.canvas.getContext("2d");
         this.zoom = 1;
         this.animationTime = 0;
+        this.heightMore = 0;
         this.drawFrame = (step) => {
             this.animationTime += step;
             this.drawBckground();
@@ -73,6 +74,15 @@ class CanvasDisplay {
         this.drawBckground = () => {
             this.cx.fillStyle = "rgb(0, 98, 224)";
             this.cx.fillRect(0, 0, scale * 36, scale * 36);
+            var waterEffect = document.createElement("img");
+            waterEffect.src = "img/waterEffect.png";
+            this.cx.globalAlpha = 0.5;
+            this.cx.drawImage(waterEffect, 0, 0, 490, 640, 0, this.animationTime * 100 - 640 * this.heightMore, scale * 36, 640);
+            this.cx.drawImage(waterEffect, 0, 0, 490, 640, 0, this.animationTime * 100 - 640 * (this.heightMore - 1), scale * 36, 640);
+            if (this.animationTime * 100 > (640 * this.heightMore)) {
+                this.heightMore++;
+            }
+            this.cx.globalAlpha = 1;
         };
         this.drawActors = () => {
             this.level.actors.forEach((actor) => {
