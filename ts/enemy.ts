@@ -7,8 +7,12 @@ class Enemy extends Actor {
     public type: string;
     public wobble: number = Math.PI/2;
 
-    public shootCoolDown: number = 5;
-	public lastShoot: number = this.shootCoolDown;
+    public shootCoolDown: number;
+    public lastShoot: number = this.shootCoolDown;
+    
+    public shootLeft: boolean;
+    public shootMid: boolean;
+    public shootRight: boolean;
 
 	constructor(pos: Vector2D, size: Vector2D, sprites: string, type: string, spawnTime: number) {
         super(pos, size, sprites);
@@ -18,12 +22,16 @@ class Enemy extends Actor {
 
         if (this.type === "mobTrash") {
             this.health = 3;
+            this.shootCoolDown = 20;
+            this.lastShoot = 20;
         }
         else if (this.type === "mobZigzag") {
             this.health = 5;
         }
         else if (this.type === "mobTank") {
             this.health = 15;
+            this.shootCoolDown = 60;
+            this.lastShoot = 60;
         }
         else if (this.type === "mobDistance") {
             this.health = 5;
@@ -33,12 +41,12 @@ class Enemy extends Actor {
         }
     }
 
-    public shoot = (step: number, level: Level): void => {
+    public singleShot = (step: number, level: Level, angle: number): void => {
 		if (this.lastShoot < this.shootCoolDown) {
 			this.lastShoot++;
 		}
 		else if (this.lastShoot >= this.shootCoolDown) {
-			level.actors.push(new Bullet(new Vector2D((this.pos.x + this.size.x / 2 ) - 0.5 , this.pos.y + this.size.y), new Vector2D(1, 1), "bullet", "player"));
+            level.actors.push(new Bullet(new Vector2D((this.pos.x + this.size.x / 2 ) - 0.5 , this.pos.y + this.size.y), new Vector2D(1, 1), "bullet", "player", angle));                
 			this.lastShoot = 0;
 		}
     }
@@ -50,13 +58,25 @@ class Enemy extends Actor {
             }
         }
     }
+
+    public triShot = (step: number, level: Level, angle: number): void => {
+		if (this.lastShoot < this.shootCoolDown) {
+			this.lastShoot++;
+		}
+		else if (this.lastShoot >= this.shootCoolDown) {
+            level.actors.push(new Bullet(new Vector2D((this.pos.x + this.size.x / 2 ) - 0.5 , this.pos.y + this.size.y), new Vector2D(1, 1), "bullet", "player", -angle));                
+            level.actors.push(new Bullet(new Vector2D((this.pos.x + this.size.x / 2 ) - 0.5 , this.pos.y + this.size.y), new Vector2D(1, 1), "bullet", "player", 0));                
+            level.actors.push(new Bullet(new Vector2D((this.pos.x + this.size.x / 2 ) - 0.5 , this.pos.y + this.size.y), new Vector2D(1, 1), "bullet", "player", +angle));                        
+            this.lastShoot = 0;
+		}
+	}
     
     public act = (step: number, level: Level, keys:Map<string, boolean>): void => {
 
         if (this.type === "mobTrash") {
             this.pos.y += 0.06;
             this.pos.x += 0.0125;
-            this.shoot(step, level);
+            this.singleShot(step, level, 0);
         }
         else if (this.type === "mobZigzag") {
             this.pos.y += 0.05;
@@ -66,12 +86,12 @@ class Enemy extends Actor {
             this.wobble += wobbleFreq;
             let wobblePosX = Math.sin(this.wobble) * wobbleAmp;
             this.pos.x += wobblePosX;
-            this.shoot(step, level);
+            this.singleShot(step, level, 0);
         }
         else if (this.type === "mobTank") {
-            this.pos.y += 0.03;
+            this.pos.y += 0.06;
             this.pos.x += 0.0125;
-            this.shoot(step, level);
+            this.triShot(step, level, 0.2);
         }
         else if (this.type === "mobDistance") {
             if (Math.round(level.time*100)/100 < this.spawnTime + 3) {
@@ -79,7 +99,7 @@ class Enemy extends Actor {
                 this.pos.x += 0.0125;
             }
             else {
-                this.shoot(step, level);
+                this.singleShot(step, level, 0);
             }
         }
         else if (this.type === "mobBoss") {

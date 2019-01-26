@@ -95,11 +95,11 @@ class Level {
 		}
 		
 		if (y === -1){
-			y = 0.9;
+			y = 0.98;
 		} else if (y === 0){
 			y = 1
 		} else if (y === 1){
-			y = 1.1;
+			y = 1.02;
 		}
         this.wind.x = x;
         this.wind.y = y;

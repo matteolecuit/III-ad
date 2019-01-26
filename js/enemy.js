@@ -3,14 +3,13 @@ class Enemy extends Actor {
         super(pos, size, sprites);
         this.speed = new Vector2D(0, 0);
         this.wobble = Math.PI / 2;
-        this.shootCoolDown = 5;
         this.lastShoot = this.shootCoolDown;
-        this.shoot = (step, level) => {
+        this.singleShot = (step, level, angle) => {
             if (this.lastShoot < this.shootCoolDown) {
                 this.lastShoot++;
             }
             else if (this.lastShoot >= this.shootCoolDown) {
-                level.actors.push(new Bullet(new Vector2D((this.pos.x + this.size.x / 2) - 0.5, this.pos.y + this.size.y), new Vector2D(1, 1), "bullet", "player"));
+                level.actors.push(new Bullet(new Vector2D((this.pos.x + this.size.x / 2) - 0.5, this.pos.y + this.size.y), new Vector2D(1, 1), "bullet", "player", angle));
                 this.lastShoot = 0;
             }
         };
@@ -21,11 +20,22 @@ class Enemy extends Actor {
                 }
             }
         };
+        this.triShot = (step, level, angle) => {
+            if (this.lastShoot < this.shootCoolDown) {
+                this.lastShoot++;
+            }
+            else if (this.lastShoot >= this.shootCoolDown) {
+                level.actors.push(new Bullet(new Vector2D((this.pos.x + this.size.x / 2) - 0.5, this.pos.y + this.size.y), new Vector2D(1, 1), "bullet", "player", -angle));
+                level.actors.push(new Bullet(new Vector2D((this.pos.x + this.size.x / 2) - 0.5, this.pos.y + this.size.y), new Vector2D(1, 1), "bullet", "player", 0));
+                level.actors.push(new Bullet(new Vector2D((this.pos.x + this.size.x / 2) - 0.5, this.pos.y + this.size.y), new Vector2D(1, 1), "bullet", "player", +angle));
+                this.lastShoot = 0;
+            }
+        };
         this.act = (step, level, keys) => {
             if (this.type === "mobTrash") {
                 this.pos.y += 0.06;
                 this.pos.x += 0.0125;
-                this.shoot(step, level);
+                this.singleShot(step, level, 0);
             }
             else if (this.type === "mobZigzag") {
                 this.pos.y += 0.05;
@@ -34,12 +44,12 @@ class Enemy extends Actor {
                 this.wobble += wobbleFreq;
                 let wobblePosX = Math.sin(this.wobble) * wobbleAmp;
                 this.pos.x += wobblePosX;
-                this.shoot(step, level);
+                this.singleShot(step, level, 0);
             }
             else if (this.type === "mobTank") {
-                this.pos.y += 0.03;
+                this.pos.y += 0.06;
                 this.pos.x += 0.0125;
-                this.shoot(step, level);
+                this.triShot(step, level, 0.2);
             }
             else if (this.type === "mobDistance") {
                 if (Math.round(level.time * 100) / 100 < this.spawnTime + 3) {
@@ -47,7 +57,7 @@ class Enemy extends Actor {
                     this.pos.x += 0.0125;
                 }
                 else {
-                    this.shoot(step, level);
+                    this.singleShot(step, level, 0);
                 }
             }
             else if (this.type === "mobBoss") {
@@ -81,12 +91,16 @@ class Enemy extends Actor {
         this.spawnTime = spawnTime;
         if (this.type === "mobTrash") {
             this.health = 3;
+            this.shootCoolDown = 20;
+            this.lastShoot = 20;
         }
         else if (this.type === "mobZigzag") {
             this.health = 5;
         }
         else if (this.type === "mobTank") {
             this.health = 15;
+            this.shootCoolDown = 60;
+            this.lastShoot = 60;
         }
         else if (this.type === "mobDistance") {
             this.health = 5;
