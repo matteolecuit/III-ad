@@ -89,11 +89,11 @@ class Level {
         var y = this.getRandom(-1, 2);
 
 		if (x === -1){
-			x = 0.98;
+			x = 0.992;
 		} else if (x === 0){
 			x = 1;
 		} else if (x === 1){
-			x = 1.02;
+			x = 1.005;
 		}
 
 		if (y === -1){
