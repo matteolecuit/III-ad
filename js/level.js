@@ -21,16 +21,33 @@ class Level {
             if (this.roundTime % 5 === 0) {
                 this.changeWind();
             }
-            if (this.roundTime === 2) {
-                this.actors.push(new Enemy(new Vector2D(16, -2), new Vector2D(3, 3), "enemy", "mobBoss", this.roundTime));
+            if (Math.round(this.time * 100) / 100 === 1) {
+                this.actors.push(new Enemy(new Vector2D(26, -2), new Vector2D(3, 3), "enemy", "mobTrash", Math.round(this.time * 100) / 100));
             }
-            else if (this.roundTime === 5) {
-                this.actors.push(new Enemy(new Vector2D(1.5, -2), new Vector2D(3, 3), "enemy", "mobTrash", this.roundTime));
-                this.actors.push(new Enemy(new Vector2D(2.5, -5), new Vector2D(3, 3), "enemy", "mobZigzag", this.roundTime));
+            else if (Math.round(this.time * 100) / 100 === 3) {
+                this.actors.push(new Enemy(new Vector2D(8, -2), new Vector2D(3, 3), "enemy", "mobTrash", Math.round(this.time * 100) / 100));
             }
-            else if (this.roundTime === 9) {
-                this.actors.push(new Enemy(new Vector2D(3, -2), new Vector2D(3, 3), "enemy", "mobTank", this.roundTime));
-                this.actors.push(new Enemy(new Vector2D(2.5, -6), new Vector2D(3, 3), "enemy", "mobDistance", this.roundTime));
+            else if (Math.round(this.time * 100) / 100 === 8) {
+                this.actors.push(new Enemy(new Vector2D(16, -2), new Vector2D(3, 3), "enemy", "mobTrash", Math.round(this.time * 100) / 100));
+            }
+            else if (Math.round(this.time * 100) / 100 === 11) {
+                this.actors.push(new Enemy(new Vector2D(12, -2), new Vector2D(3, 3), "enemy", "mobTank", Math.round(this.time * 100) / 100));
+            }
+            else if (Math.round(this.time * 100) / 100 === 16) {
+                this.actors.push(new Enemy(new Vector2D(7, -2), new Vector2D(3, 3), "enemy", "mobTrash", Math.round(this.time * 100) / 100));
+            }
+            else if (Math.round(this.time * 100) / 100 === 22) {
+                this.actors.push(new Enemy(new Vector2D(13, -2), new Vector2D(3, 3), "enemy", "mobTrash", Math.round(this.time * 100) / 100));
+                this.actors.push(new Enemy(new Vector2D(8, -3.5), new Vector2D(3, 3), "enemy", "mobTrash", Math.round(this.time * 100) / 100));
+                this.actors.push(new Enemy(new Vector2D(3, -5), new Vector2D(3, 3), "enemy", "mobTrash", Math.round(this.time * 100) / 100));
+            }
+            else if (Math.round(this.time * 100) / 100 === 28) {
+                this.actors.push(new Enemy(new Vector2D(17, -2), new Vector2D(3, 3), "enemy", "mobTrash", Math.round(this.time * 100) / 100));
+                this.actors.push(new Enemy(new Vector2D(22, -3.5), new Vector2D(3, 3), "enemy", "mobTrash", Math.round(this.time * 100) / 100));
+                this.actors.push(new Enemy(new Vector2D(27, -5), new Vector2D(3, 3), "enemy", "mobTrash", Math.round(this.time * 100) / 100));
+            }
+            else if (Math.round(this.time * 100) / 100 === 60) {
+                this.actors.push(new Enemy(new Vector2D(16, -2), new Vector2D(3, 3), "enemy", "mobBoss", Math.round(this.time * 100) / 100));
             }
         };
         this.limitAt = (pos, size) => {
@@ -72,13 +89,13 @@ class Level {
             var x = this.getRandom(-1, 2);
             var y = this.getRandom(-1, 2);
             if (x === -1) {
-                x = -0.005;
+                x = -0.01;
             }
             else if (x === 0) {
                 x = 0;
             }
             else if (x === 1) {
-                x = 0.005;
+                x = 0.01;
             }
             if (y === -1) {
                 y = -0.01;

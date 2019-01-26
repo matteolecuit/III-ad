@@ -26,7 +26,7 @@ class Enemy extends Actor {
             if (this.type === "mobTrash") {
                 this.pos.y += 0.06;
                 this.pos.x += 0.0125;
-                this.shoot(step, level, [new Vector2D(0, 0.2)]);
+                this.shoot(step, level, [new Vector2D(0, 0.25)]);
             }
             else if (this.type === "mobZigzag") {
                 this.pos.y += 0.05;
@@ -82,8 +82,8 @@ class Enemy extends Actor {
         this.spawnTime = spawnTime;
         if (this.type === "mobTrash") {
             this.health = 3;
-            this.shootCoolDown = 20;
-            this.lastShoot = 20;
+            this.shootCoolDown = 60;
+            this.lastShoot = 60;
         }
         else if (this.type === "mobZigzag") {
             this.health = 5;
@@ -91,9 +91,9 @@ class Enemy extends Actor {
             this.lastShoot = 30;
         }
         else if (this.type === "mobTank") {
-            this.health = 15;
-            this.shootCoolDown = 60;
-            this.lastShoot = 60;
+            this.health = 10;
+            this.shootCoolDown = 120;
+            this.lastShoot = 120;
         }
         else if (this.type === "mobDistance") {
             this.health = 5;

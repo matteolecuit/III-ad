@@ -18,7 +18,7 @@ class Bullet extends Actor {
                 }
                 else if (this.target === "enemy") {
                     this.pos.x += this.angle.x;
-                    this.pos.y -= this.angle.y;
+                    this.pos.y += this.angle.y;
                 }
             }
             else if (this.action === "touched") {
