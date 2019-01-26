@@ -119,9 +119,12 @@ class CanvasDisplay {
             }
             this.cx.drawImage(sprites, spriteX * 624, spriteY * 1088, 624, 1088, posX - width * 2, posY - height * 3, width * 5, height * 7);
             if (player.focus) {
+                var hitbox = document.createElement("img");
+                hitbox.src = "img/actors/hitbox.png";
+                this.cx.drawImage(hitbox, 0, 0, 624, 1088, posX - width * 2, posY - height * 3, width * 5, height * 7);
                 var circle = document.createElement("img");
                 circle.src = "img/actors/circle.png";
-                this.cx.globalAlpha = 0.75;
+                this.cx.globalAlpha = 0.5;
                 this.cx.translate(posX + width / 2, posY + height / 2);
                 this.cx.rotate(this.animationTime * 45 % 360 * Math.PI / 180);
                 this.cx.drawImage(circle, 0, 0, scale * 4, scale * 4, -scale * 2, -scale * 2, scale * 4, scale * 4);

@@ -168,10 +168,17 @@ class CanvasDisplay {
 			posX - width*2, posY - height*3, width*5, height*7);
 
 		if (player.focus) {
+			var hitbox: HTMLImageElement = document.createElement("img");
+			hitbox.src = "img/actors/hitbox.png";
+
+			this.cx.drawImage(hitbox,
+				0, 0, 624, 1088,
+				posX - width*2, posY - height*3, width*5, height*7);
+
 			var circle: HTMLImageElement = document.createElement("img");
 			circle.src = "img/actors/circle.png";
 
-			this.cx.globalAlpha = 0.75;
+			this.cx.globalAlpha = 0.5;
 
 			this.cx.translate(posX + width/2, posY + height/2);
 			this.cx.rotate(this.animationTime * 45 % 360 * Math.PI / 180);
