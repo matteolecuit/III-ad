@@ -51,9 +51,9 @@ class Enemy extends Actor {
                     this.pos.x += this.axe.x;
                 }
                 else {
-                    this.shoot(step, level, [new Vector2D(0, 0.2)]);
                     this.shoot(step, level, [new Vector2D(-0.2, 0.2)]);
                     this.shoot(step, level, [new Vector2D(0.2, 0.2)]);
+                    this.shoot(step, level, [new Vector2D(0, 0.2)]);
                 }
             }
             else if (this.type === "mobBoss") {
