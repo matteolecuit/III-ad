@@ -28,16 +28,12 @@ class Level {
             this.changeWind(this.actors[0]);
         }
 		if (Math.round(this.time*100)/100 === 2) {
-			this.actors.push(new Enemy(new Vector2D(1.5, -2), new Vector2D(3, 3), "enemy", "mobTrash", 1));
-			this.actors.push(new Enemy(new Vector2D(2.5, -5), new Vector2D(3, 3), "enemy", "mobZigzag", 1));
-			this.actors.push(new Enemy(new Vector2D(3, -2), new Vector2D(3, 3), "enemy", "mobTank", 1));
-			this.actors.push(new Enemy(new Vector2D(2.5, -6), new Vector2D(3, 3), "enemy", "mobDistance", -1));
+			this.actors.push(new Enemy(new Vector2D(10, -8), new Vector2D(3, 3), "enemy", "mobTrash", 1));
+			this.actors.push(new Enemy(new Vector2D(20, -8), new Vector2D(3, 3), "enemy", "mobZigzag", 1));
+			this.actors.push(new Enemy(new Vector2D(15, -8), new Vector2D(3, 3), "enemy", "mobTank", 1));
+			this.actors.push(new Enemy(new Vector2D(25, -8), new Vector2D(3, 3), "enemy", "mobDistance", -1));
 
 		}
-		else if (Math.round(this.time*100)/100 === 3) {
-			this.actors.push(new Enemy(new Vector2D(6, 2), new Vector2D(1, 1), "enemy", "mobBoss"));
-		}
-		
 	}
 
 	public limitAt = (pos: Vector2D, size: Vector2D): boolean => {
@@ -47,6 +43,18 @@ class Level {
 		let yEnd: number = Math.ceil(pos.y + size.y);
 	
 		if (xStart < 0 || xEnd > this.size.x || yStart < 0 || yEnd > this.size.y) {
+			return true;
+		}
+	}
+
+
+	public borderAt = (pos: Vector2D, size: Vector2D): boolean => {
+		let xStart: number = Math.floor(pos.x);
+		let xEnd: number = Math.ceil(pos.x + size.x);
+		let yStart: number = Math.floor(pos.y);
+		let yEnd: number = Math.ceil(pos.y + size.y);
+	
+		if (xStart < -12 || xEnd > this.size.x + 12 || yStart < -12 || yEnd > this.size.y + 12) {
 			return true;
 		}
 	}

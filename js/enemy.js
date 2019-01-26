@@ -14,6 +14,13 @@ class Enemy extends Actor {
                 this.lastShoot = 0;
             }
         };
+        this.deleteEnemy = (level) => {
+            for (let i = 0; i < level.actors.length; i++) {
+                if (level.actors[i] instanceof Enemy && this.pos.equals(level.actors[i].pos)) {
+                    level.actors.splice(i, 1);
+                }
+            }
+        };
         this.act = (step, level, keys) => {
             if (this.type === "mobTrash") {
                 this.pos.y += 0.06;
@@ -27,14 +34,19 @@ class Enemy extends Actor {
                 this.wobble += wobbleFreq;
                 let wobblePosX = Math.sin(this.wobble) * wobbleAmp;
                 this.pos.x += wobblePosX;
+                this.shoot(step, level);
             }
             else if (this.type === "mobTank") {
                 this.pos.y += 0.06;
                 this.pos.x += 0.0125 * this.direction;
+                this.shoot(step, level);
             }
             else if (this.type === "mobDistance") {
                 this.pos.y += 0.06;
                 this.pos.x += 0.0125 * this.direction;
+                this.shoot(step, level);
+                this.shoot(step, level);
+                this.shoot(step, level);
             }
             else if (this.type === "mobBoss") {
             }
@@ -43,21 +55,18 @@ class Enemy extends Actor {
                 if (obstacle.action === null) {
                     this.health--;
                     obstacle.action = "touched";
-                    console.log("health", this.health);
                 }
             }
             if (this.health === 0) {
-                for (let i = 0; i < level.actors.length; i++) {
-                    if (level.actors[i] instanceof Enemy && this.pos.equals(level.actors[i].pos)) {
-                        console.log("died");
-                        level.actors.splice(i, 1);
-                    }
-                }
+                this.deleteEnemy(level);
                 let p = level.actors[0];
                 if (p instanceof Player) {
                     p.score += 100;
                     this.health = null;
                 }
+            }
+            if (level.borderAt(this.pos, this.size)) {
+                this.deleteEnemy(level);
             }
         };
         this.type = type;
