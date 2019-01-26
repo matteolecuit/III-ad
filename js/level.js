@@ -22,7 +22,6 @@ class Level {
                 this.changeWind();
             }
             if (this.roundTime === 5) {
-                this.actors.push(new Enemy(new Vector2D(20, -2), new Vector2D(3, 3), new Vector2D(0, 0.05), "enemy", "mobRanged", this.roundTime));
                 this.actors.push(new Enemy(new Vector2D(26, -2), new Vector2D(3, 3), new Vector2D(-0.02, 0.08), "enemy", "mobTrash", this.roundTime));
             }
             else if (this.roundTime === 7) {
