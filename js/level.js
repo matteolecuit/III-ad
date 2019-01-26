@@ -21,7 +21,7 @@ class Level {
         this.act = () => {
             let player = this.actors[0];
             if (player instanceof Player && !this.gameOver) {
-                if (this.roundTime % 5 === 0) {
+                if (this.roundTime % 10 === 0) {
                     this.changeWind();
                 }
                 if (this.roundTime === 5) {
@@ -40,22 +40,22 @@ class Level {
                     this.actors.push(new Enemy(new Vector2D(7, -2), new Vector2D(3, 3), new Vector2D(0, 0.08), "enemy", "mobTrash", this.roundTime));
                 }
                 else if (this.roundTime === 26) {
-                    this.actors.push(new Enemy(new Vector2D(13, -2), new Vector2D(3, 3), new Vector2D(0, 0.05), "enemy", "mobRanged", this.roundTime));
-                    this.actors.push(new Enemy(new Vector2D(8, -3.5), new Vector2D(3, 3), new Vector2D(0, 0.08), "enemy", "mobTrash", this.roundTime));
-                    this.actors.push(new Enemy(new Vector2D(3, -2), new Vector2D(3, 3), new Vector2D(0, 0.05), "enemy", "mobRanged", this.roundTime));
+                    this.actors.push(new Enemy(new Vector2D(10.5, -2), new Vector2D(3, 3), new Vector2D(0, 0.05), "enemy", "mobRanged", this.roundTime));
+                    this.actors.push(new Enemy(new Vector2D(5.5, -3.5), new Vector2D(3, 3), new Vector2D(0, 0.08), "enemy", "mobTrash", this.roundTime));
+                    this.actors.push(new Enemy(new Vector2D(0.5, -2), new Vector2D(3, 3), new Vector2D(0, 0.05), "enemy", "mobRanged", this.roundTime));
                 }
                 else if (this.roundTime === 32) {
-                    this.actors.push(new Enemy(new Vector2D(20, -2), new Vector2D(3, 3), new Vector2D(0, 0.05), "enemy", "mobRanged", this.roundTime));
-                    this.actors.push(new Enemy(new Vector2D(25, -3.5), new Vector2D(3, 3), new Vector2D(0, 0.08), "enemy", "mobTrash", this.roundTime));
-                    this.actors.push(new Enemy(new Vector2D(30, -2), new Vector2D(3, 3), new Vector2D(0, 0.05), "enemy", "mobRanged", this.roundTime));
+                    this.actors.push(new Enemy(new Vector2D(22.5, -2), new Vector2D(3, 3), new Vector2D(0, 0.05), "enemy", "mobRanged", this.roundTime));
+                    this.actors.push(new Enemy(new Vector2D(27.5, -3.5), new Vector2D(3, 3), new Vector2D(0, 0.08), "enemy", "mobTrash", this.roundTime));
+                    this.actors.push(new Enemy(new Vector2D(32.5, -2), new Vector2D(3, 3), new Vector2D(0, 0.05), "enemy", "mobRanged", this.roundTime));
                 }
                 else if (this.roundTime === 40) {
                     this.actors.push(new Enemy(new Vector2D(6, -2), new Vector2D(3, 3), new Vector2D(0.01, 0.05), "enemy", "mobTank", this.roundTime));
                     this.actors.push(new Enemy(new Vector2D(27, -2), new Vector2D(3, 3), new Vector2D(-0.01, 0.05), "enemy", "mobTank", this.roundTime));
                 }
                 else if (this.roundTime === 48) {
-                    this.actors.push(new Enemy(new Vector2D(2, -2), new Vector2D(3, 3), new Vector2D(0.15, 0.05), "enemy", "mobTrash", this.roundTime));
-                    this.actors.push(new Enemy(new Vector2D(31, -2), new Vector2D(3, 3), new Vector2D(-0.15, 0.05), "enemy", "mobTrash", this.roundTime));
+                    this.actors.push(new Enemy(new Vector2D(0.5, -2), new Vector2D(3, 3), new Vector2D(0.15, 0.05), "enemy", "mobTrash", this.roundTime));
+                    this.actors.push(new Enemy(new Vector2D(32.5, -2), new Vector2D(3, 3), new Vector2D(-0.15, 0.05), "enemy", "mobTrash", this.roundTime));
                 }
                 else if (this.roundTime === 52) {
                     this.actors.push(new Enemy(new Vector2D(2, -2), new Vector2D(3, 3), new Vector2D(0.18, 0.06), "enemy", "mobTrash", this.roundTime));
@@ -80,7 +80,7 @@ class Level {
                 else if (this.roundTime === 74) {
                     this.actors.push(new Enemy(new Vector2D(10, -2), new Vector2D(3, 3), new Vector2D(0, 0.08), "enemy", "mobZigzag", this.roundTime));
                     this.actors.push(new Enemy(new Vector2D(16.5, -2), new Vector2D(3, 3), new Vector2D(0, 0.07), "enemy", "mobRanged", this.roundTime));
-                    this.actors.push(new Enemy(new Vector2D(23, -2), new Vector2D(3, 3), new Vector2D(0, 0.08), "enemy", "mobZigzag", this.roundTime));
+                    this.actors.push(new Enemy(new Vector2D(23, -2), new Vector2D(3, 3), new Vector2D(0, 0.08), "enemy", "mobZigzagReverse", this.roundTime));
                 }
                 else if (this.roundTime === 80) {
                     this.actors.push(new Enemy(new Vector2D(4, -2), new Vector2D(3, 3), new Vector2D(0, 0.05), "enemy", "mobTank", this.roundTime));
@@ -90,24 +90,45 @@ class Level {
                 else if (this.roundTime === 82) {
                     this.actors.push(new Enemy(new Vector2D(16.5, -2), new Vector2D(3, 3), new Vector2D(0, 0.08), "enemy", "mobZigzag", this.roundTime));
                 }
-                else if (this.roundTime === 86) {
-                    this.actors.push(new Enemy(new Vector2D(2, -2), new Vector2D(3, 3), new Vector2D(0, 0.15), "enemy", "mobTrash", this.roundTime));
-                    this.actors.push(new Enemy(new Vector2D(6, -4), new Vector2D(3, 3), new Vector2D(0, 0.15), "enemy", "mobTrash", this.roundTime));
-                    this.actors.push(new Enemy(new Vector2D(10, -6), new Vector2D(3, 3), new Vector2D(0, 0.15), "enemy", "mobTrash", this.roundTime));
-                }
-                else if (this.roundTime === 87) {
-                    this.actors.push(new Enemy(new Vector2D(7, -2), new Vector2D(3, 3), new Vector2D(0.04, 0.12), "enemy", "mobTrash", this.roundTime));
-                    this.actors.push(new Enemy(new Vector2D(16.5, -2), new Vector2D(3, 3), new Vector2D(0, 0.08), "enemy", "mobRanged", this.roundTime));
-                    this.actors.push(new Enemy(new Vector2D(26, -2), new Vector2D(3, 3), new Vector2D(0, 0.08), "enemy", "mobTank", this.roundTime));
-                    this.actors.push(new Enemy(new Vector2D(30, -2), new Vector2D(3, 3), new Vector2D(0, 0.08), "enemy", "mobTank", this.roundTime));
+                else if (this.roundTime === 88) {
+                    this.actors.push(new Enemy(new Vector2D(0.5, -2), new Vector2D(3, 3), new Vector2D(0, 0.15), "enemy", "mobTrash", this.roundTime));
+                    this.actors.push(new Enemy(new Vector2D(4.5, -4), new Vector2D(3, 3), new Vector2D(0, 0.15), "enemy", "mobTrash", this.roundTime));
+                    this.actors.push(new Enemy(new Vector2D(8.5, -6), new Vector2D(3, 3), new Vector2D(0, 0.15), "enemy", "mobTrash", this.roundTime));
                 }
                 else if (this.roundTime === 89) {
-                    this.actors.push(new Enemy(new Vector2D(2, -2), new Vector2D(3, 3), new Vector2D(0, 0.15), "enemy", "mobTrash", this.roundTime));
-                    this.actors.push(new Enemy(new Vector2D(6, -4), new Vector2D(3, 3), new Vector2D(0, 0.15), "enemy", "mobTrash", this.roundTime));
-                    this.actors.push(new Enemy(new Vector2D(10, -6), new Vector2D(3, 3), new Vector2D(0, 0.15), "enemy", "mobTrash", this.roundTime));
+                    this.actors.push(new Enemy(new Vector2D(16.5, -2), new Vector2D(3, 3), new Vector2D(0, 0.08), "enemy", "mobRanged", this.roundTime));
+                    this.actors.push(new Enemy(new Vector2D(28.5, -2), new Vector2D(3, 3), new Vector2D(0, 0.08), "enemy", "mobTank", this.roundTime));
+                    this.actors.push(new Enemy(new Vector2D(32.5, -2), new Vector2D(3, 3), new Vector2D(0, 0.08), "enemy", "mobTrash", this.roundTime));
+                }
+                else if (this.roundTime === 91) {
+                    this.actors.push(new Enemy(new Vector2D(0.5, -2), new Vector2D(3, 3), new Vector2D(0, 0.15), "enemy", "mobTrash", this.roundTime));
+                    this.actors.push(new Enemy(new Vector2D(4.5, -4), new Vector2D(3, 3), new Vector2D(0, 0.15), "enemy", "mobTrash", this.roundTime));
+                    this.actors.push(new Enemy(new Vector2D(8.5, -6), new Vector2D(3, 3), new Vector2D(0, 0.15), "enemy", "mobTrash", this.roundTime));
+                }
+                else if (this.roundTime === 95) {
+                    this.actors.push(new Enemy(new Vector2D(11, -2), new Vector2D(3, 3), new Vector2D(0, 0.15), "enemy", "mobZigzag", this.roundTime));
+                    this.actors.push(new Enemy(new Vector2D(22, -6), new Vector2D(3, 3), new Vector2D(0, 0.15), "enemy", "mobZigzagReverse", this.roundTime));
+                }
+                else if (this.roundTime === 97) {
+                    this.actors.push(new Enemy(new Vector2D(22, -2), new Vector2D(3, 3), new Vector2D(0, 0.15), "enemy", "mobTrash", this.roundTime));
+                    this.actors.push(new Enemy(new Vector2D(11, -6), new Vector2D(3, 3), new Vector2D(0, 0.15), "enemy", "mobTrash", this.roundTime));
+                }
+                else if (this.roundTime === 98) {
+                    this.actors.push(new Enemy(new Vector2D(16.5, -2), new Vector2D(3, 3), new Vector2D(0, 0.15), "enemy", "mobZigzagReverse", this.roundTime));
+                }
+                else if (this.roundTime === 102) {
+                    this.actors.push(new Enemy(new Vector2D(16.5, -2), new Vector2D(3, 3), new Vector2D(0, 0.15), "enemy", "mobTank", this.roundTime));
+                }
+                else if (this.roundTime === 104) {
+                    this.actors.push(new Enemy(new Vector2D(0.5, -2), new Vector2D(3, 3), new Vector2D(0, 0.15), "enemy", "mobTank", this.roundTime));
+                    this.actors.push(new Enemy(new Vector2D(32.5, -2), new Vector2D(3, 3), new Vector2D(0, 0.15), "enemy", "mobTank", this.roundTime));
+                }
+                else if (this.roundTime === 106) {
+                    this.actors.push(new Enemy(new Vector2D(7.5, -3.5), new Vector2D(3, 3), new Vector2D(0.05, 0.2), "enemy", "mobTrash", this.roundTime));
+                    this.actors.push(new Enemy(new Vector2D(25.5, -3.5), new Vector2D(3, 3), new Vector2D(-0.05, 0.2), "enemy", "mobTrash", this.roundTime));
                 }
                 else if (this.roundTime === 180) {
-                    this.actors.push(new Enemy(new Vector2D(16, -2), new Vector2D(3, 3), new Vector2D(0, 0), "enemy", "mobBoss", this.roundTime));
+                    this.actors.push(new Enemy(new Vector2D(16, -2), new Vector2D(3, 3), new Vector2D(0, 0.06), "enemy", "mobBoss", this.roundTime));
                 }
             }
             else {

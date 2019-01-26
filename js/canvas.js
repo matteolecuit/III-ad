@@ -49,6 +49,8 @@ class CanvasDisplay {
             compass.src = "img/compass.png";
             var arrows = document.createElement("img");
             arrows.src = "img/arrows.png";
+            var rain = document.createElement("img");
+            rain.src = "img/rain.png";
             var gradient = this.cx.createLinearGradient(0, 0, 0, -scale * 16);
             gradient.addColorStop(0, "rgba(255, 255, 230, 1)");
             gradient.addColorStop(1, "rgba(100, 200, 212, 1)");
@@ -88,13 +90,23 @@ class CanvasDisplay {
                     this.cx.fillRect(0, 0, this.canvas.width, this.canvas.height);
                 }
             }
+            if (this.level.roundTime > 180 && this.level.roundTime < 181) {
+                if (Math.floor(this.animationTime * 10000) % 2) {
+                    this.cx.fillStyle = "rgb(255, 255, 255)";
+                    this.cx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+                }
+            }
+            if (this.level.roundTime > 181) {
+                let rainBuffer = Math.floor(this.level.time * 9) % 4;
+                this.cx.drawImage(rain, 512 * rainBuffer, 0, 512, 446, 0, 0, scale * 36, scale * 36);
+            }
             var buffer = Math.floor(this.level.time) % 2;
             this.cx.drawImage(cloud, 0, 640 * buffer, 3584, 640, -scale * 2, -scale * 3, scale * 40, scale * 6);
         };
         this.drawHUD = () => {
-            this.cx.font = "48px rcr";
+            this.cx.font = "36px consolas";
             this.cx.fillStyle = "rgb(255, 255, 128)";
-            this.cx.fillText("time=" + Math.floor(this.level.time), scale * 26, scale * 35.5);
+            this.cx.fillText("time=" + Math.floor(this.level.time), scale * 25, scale * 35.5);
             this.cx.fillStyle = "black";
             let p = this.level.actors[0];
             if (p instanceof Player) {
@@ -102,7 +114,7 @@ class CanvasDisplay {
                 while (score.length < 7) {
                     score = "0" + score;
                 }
-                this.cx.fillText("score=" + score, scale * 19, scale * -10);
+                this.cx.fillText("SCORE:" + score, scale * 19.5, scale * -10);
             }
             var bomb = document.createElement("img");
             bomb.src = "img/bomb.png";
@@ -161,6 +173,9 @@ class CanvasDisplay {
                     else if (actor.type === "mobZigzag") {
                         this.cx.drawImage(sprites, (Math.round(this.level.time * 2) % 2) * 512, spriteY * 512, 512, 512, posX - width / 2, posY - width / 2, width * 2, height * 2);
                     }
+                    else if (actor.type === "mobZigzagReverse") {
+                        this.cx.drawImage(sprites, (Math.round(this.level.time * 2) % 2) * 512, spriteY * 512, 512, 512, posX - width / 2, posY - width / 2, width * 2, height * 2);
+                    }
                     else if (actor.type === "mobTank") {
                         this.cx.drawImage(sprites, (Math.round(this.level.time * 2) % 2) * 512, spriteY * 512, 512, 512, posX - width / 2, posY - width / 2, width * 2, height * 2);
                     }
@@ -188,7 +203,7 @@ class CanvasDisplay {
                 this.cx.drawImage(hitbox, 0, 0, 624, 1088, posX - width * 2, posY - height * 3, width * 5, height * 7);
                 var circle = document.createElement("img");
                 circle.src = "img/actors/circle.png";
-                this.cx.globalAlpha = 0.5;
+                this.cx.globalAlpha = 0.75;
                 this.cx.translate(posX + width / 2, posY + height / 2);
                 this.cx.rotate(this.animationTime * 45 % 360 * Math.PI / 180);
                 this.cx.drawImage(circle, 0, 0, scale * 4, scale * 4, -scale * 2, -scale * 2, scale * 4, scale * 4);

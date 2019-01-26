@@ -25,19 +25,14 @@ a {
   width: 200px;
   height: 40px;
   border: none;
-  font-family: rcr;
+  font-family: consolas;
 }
 
 p {
   font-size: 40px;
   margin: 4px;
   color: white;
-  font-family: rcr;
-}
-
-@font-face {
-  font-family : "rcr";
-  src         : url("../font/RCR.ttf");
+  font-family: consolas;
 }
 
 .menu {
@@ -53,7 +48,7 @@ p {
   margin: 0 0 40px 0;
   font-size: 100px;
   color: white;
-  font-family: rcr;
+  font-family: consolas;
   font-weight: normal;
 }
 
