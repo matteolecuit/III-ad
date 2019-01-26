@@ -45,7 +45,7 @@ class Enemy extends Actor {
                 this.pos.x += this.axe.x;
                 this.shoot(step, level, [new Vector2D(-0.2, 0.2), new Vector2D(0, 0.2), new Vector2D(0.2, 0.2)]);
             }
-            else if (this.type === "mobDistance") {
+            else if (this.type === "mobRanged") {
                 if (level.roundTime < this.spawnTime + 3) {
                     this.pos.y += this.axe.y;
                     this.pos.x += this.axe.x;
@@ -156,7 +156,7 @@ class Enemy extends Actor {
             this.shootCoolDown = 120;
             this.lastShoot = 120;
         }
-        else if (this.type === "mobDistance") {
+        else if (this.type === "mobRanged") {
             this.health = 5;
             this.shootCoolDown = 60;
             this.lastShoot = 60;
