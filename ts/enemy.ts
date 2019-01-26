@@ -73,8 +73,8 @@ class Enemy extends Actor {
     public act = (step: number, level: Level, keys:Map<string, boolean>): void => {
 
         if (this.type === "mobTrash") {
-            this.pos.y += this.axe.x;
-            this.pos.x += this.axe.y;
+            this.pos.y += this.axe.y;
+            this.pos.x += this.axe.x;
             this.shoot(step, level,[new Vector2D(0,0.25)]);
         }
         else if (this.type === "mobZigzag") {
