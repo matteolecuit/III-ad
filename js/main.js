@@ -4,8 +4,8 @@ var arrowCodes = new Map([
     [38, "up"],
     [39, "right"],
     [40, "down"],
-    [65, "shoot"],
-    [90, "bomb"],
+    [83, "shoot"],
+    [68, "bomb"],
     [16, "focus"]
 ]);
 var trackKeys = (codes) => {
