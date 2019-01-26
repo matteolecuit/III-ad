@@ -6,7 +6,7 @@ class CanvasDisplay {
         this.animationTime = 0;
         this.heightMore = 0;
         this.preShake = () => {
-            if (this.level.roundTime > 60 && this.level.roundTime < 62) {
+            if (this.level.roundTime > 180 && this.level.roundTime < 182) {
                 this.cx.save();
                 var dx = Math.random() * 10;
                 var dy = Math.random() * 10;
@@ -14,7 +14,7 @@ class CanvasDisplay {
             }
         };
         this.postShake = () => {
-            if (this.level.roundTime > 60 && this.level.roundTime < 62) {
+            if (this.level.roundTime > 180 && this.level.roundTime < 182) {
                 this.cx.restore();
             }
         };
