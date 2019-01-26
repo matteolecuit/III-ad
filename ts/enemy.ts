@@ -3,6 +3,7 @@ class Enemy extends Actor {
     public speed: Vector2D = new Vector2D(0, 0);
     public health: number;
     public spawnTime: number;
+    public axe: Vector2D;
 
     public type: string;
     public wobble: number = Math.PI/2;
@@ -14,11 +15,12 @@ class Enemy extends Actor {
     public shootMid: boolean;
     public shootRight: boolean;
 
-	constructor(pos: Vector2D, size: Vector2D, sprites: string, type: string, spawnTime: number) {
+	constructor(pos: Vector2D, size: Vector2D, axe: Vector2D, sprites: string, type: string, spawnTime: number) {
         super(pos, size, sprites);
         this.type = type;
         this.sprites ="img/actors/" + sprites + "-" + type + ".png";
         this.spawnTime = spawnTime;
+        this.axe = axe;
 
         if (this.type === "mobTrash") {
             this.health = 3;
@@ -71,12 +73,12 @@ class Enemy extends Actor {
     public act = (step: number, level: Level, keys:Map<string, boolean>): void => {
 
         if (this.type === "mobTrash") {
-            this.pos.y += 0.06;
-            this.pos.x += 0.0125;
+            this.pos.y += this.axe.x;
+            this.pos.x += this.axe.y;
             this.shoot(step, level,[new Vector2D(0,0.25)]);
         }
         else if (this.type === "mobZigzag") {
-            this.pos.y += 0.05;
+            this.pos.y += this.axe.y;
 
             let wobbleFreq = 0.04;
             let wobbleAmp = 0.1;
@@ -86,14 +88,14 @@ class Enemy extends Actor {
             this.shoot(step, level,[new Vector2D(0,0.2)]);
         }
         else if (this.type === "mobTank") {
-            this.pos.y += 0.06;
-            this.pos.x += 0.0125;
+            this.pos.y += this.axe.y;
+            this.pos.x += this.axe.x;
             this.shoot(step, level,[new Vector2D(-0.2,0.2),new Vector2D(0,0.2),new Vector2D(0.2,0.2)]);
         }
         else if (this.type === "mobDistance") {
             if (level.roundTime < this.spawnTime + 3) {
-                this.pos.y += 0.06;
-                this.pos.x += 0.0125;
+                this.pos.y += this.axe.y;
+                this.pos.x += this.axe.x;
             }
             else {
                 this.shoot(step, level,[new Vector2D(-0.2,0.2),new Vector2D(0,0.2),new Vector2D(0.2,0.2)]);
@@ -101,7 +103,7 @@ class Enemy extends Actor {
         }
         else if (this.type === "mobBoss") {
             if (Math.round(level.time*100)/100 < this.spawnTime + 3) {
-                this.pos.y += 0.04;
+                this.pos.y += this.axe.y;
             }
             else {
 
