@@ -63,12 +63,12 @@ class CanvasDisplay {
 		var windX: number;
 		var windY: number;
 		
-		if (this.level.wind.x === 1) { windX = 1; }
-		else if (this.level.wind.x > 1) { windX = 2; }
+		if (this.level.wind.x === 0) { windX = 1; }
+		else if (this.level.wind.x > 0) { windX = 2; }
 		else { windX = 0; }
 		
-		if (this.level.wind.y === 1) { windY = 1; }
-		else if (this.level.wind.y > 1) { windY = 2; }
+		if (this.level.wind.y === 0) { windY = 1; }
+		else if (this.level.wind.y > 0) { windY = 2; }
 		else { windY = 0; }
 
 		this.cx.drawImage(arrows,

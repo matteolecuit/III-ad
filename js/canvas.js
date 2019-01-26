@@ -33,19 +33,19 @@ class CanvasDisplay {
             this.cx.drawImage(compass, 0, 0, 400, 400, scale, -scale * 11, scale * 8, scale * 8);
             var windX;
             var windY;
-            if (this.level.wind.x === 1) {
+            if (this.level.wind.x === 0) {
                 windX = 1;
             }
-            else if (this.level.wind.x > 1) {
+            else if (this.level.wind.x > 0) {
                 windX = 2;
             }
             else {
                 windX = 0;
             }
-            if (this.level.wind.y === 1) {
+            if (this.level.wind.y === 0) {
                 windY = 1;
             }
-            else if (this.level.wind.y > 1) {
+            else if (this.level.wind.y > 0) {
                 windY = 2;
             }
             else {
