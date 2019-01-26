@@ -81,11 +81,14 @@ class CanvasDisplay {
                     this.drawPlayer(actor, sprites, spriteX, spriteY, posX, posY, width, height);
                 }
                 else if (actor instanceof Bullet) {
+                    if (actor.target === "enemy") {
+                        spriteX = 1;
+                    }
                     if (actor.action === "touched") {
                         spriteY = 1;
                         spriteX = Math.round(this.level.time * 8) % 2;
                     }
-                    this.cx.drawImage(sprites, spriteX + 1 * 179, spriteY * 179, 179, 179, posX, posY, width, height);
+                    this.cx.drawImage(sprites, spriteX * 179, spriteY * 179, 179, 179, posX, posY, width, height);
                 }
                 else if (actor instanceof Enemy) {
                     if (actor.type === "mobTrash") {
