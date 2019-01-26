@@ -22,10 +22,7 @@ class Level {
                 this.changeWind();
             }
             if (this.roundTime === 1) {
-                this.actors.push(new Enemy(new Vector2D(16, -2), new Vector2D(3, 3), new Vector2D(0, 0.05), "enemy", "mobDistance", this.roundTime));
-            }
-            else if (this.roundTime === 60) {
-                this.actors.push(new Enemy(new Vector2D(16, -2), new Vector2D(3, 3), new Vector2D(0, 0), "enemy", "mobBoss", this.roundTime));
+                this.actors.push(new Enemy(new Vector2D(16, -2), new Vector2D(3, 3), new Vector2D(0, 0.05), "enemy", "mobBoss", this.roundTime));
             }
         };
         this.limitAt = (pos, size) => {
@@ -42,7 +39,7 @@ class Level {
             let xEnd = Math.ceil(pos.x + size.x);
             let yStart = Math.floor(pos.y);
             let yEnd = Math.ceil(pos.y + size.y);
-            if (xStart < -12 || xEnd > this.size.x + 12 || yStart < -12 || yEnd > this.size.y + 12) {
+            if (xStart < -2 || xEnd > this.size.x + 2 || yStart < -2 || yEnd > this.size.y + 2) {
                 return true;
             }
         };

@@ -38,7 +38,10 @@ class CanvasDisplay {
 		var arrows: HTMLImageElement = document.createElement("img");
 		arrows.src = "img/arrows.png";
 
-		this.cx.fillStyle = "rgb(0, 148, 255)";
+		var gradient: CanvasGradient = this.cx.createLinearGradient(0, 0, 0, -scale * 16);
+		gradient.addColorStop(0, "rgba(255, 255, 230, 1)");
+		gradient.addColorStop(1, "rgba(100, 200, 212, 1)");
+		this.cx.fillStyle = gradient;
 		this.cx.fillRect(0, -scale * 12, scale * 36, scale * 12);
 
 		var limit: number = 200;
@@ -111,7 +114,11 @@ class CanvasDisplay {
 	}
 
 	public drawBckground = (): void => {
-		this.cx.fillStyle = "rgb(0, 98, 224)";
+		
+		var gradient: CanvasGradient = this.cx.createLinearGradient(0, 0, 0, scale * 32);
+		gradient.addColorStop(0, "rgba(0, 98, 224, 1)");
+		gradient.addColorStop(1, "rgba(32, 64, 128, 1)");
+		this.cx.fillStyle = gradient;
 		this.cx.fillRect(0, 0, scale * 36, scale * 36);
 	}
 

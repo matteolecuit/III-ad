@@ -22,7 +22,10 @@ class CanvasDisplay {
             compass.src = "img/compass.png";
             var arrows = document.createElement("img");
             arrows.src = "img/arrows.png";
-            this.cx.fillStyle = "rgb(0, 148, 255)";
+            var gradient = this.cx.createLinearGradient(0, 0, 0, -scale * 16);
+            gradient.addColorStop(0, "rgba(255, 255, 230, 1)");
+            gradient.addColorStop(1, "rgba(100, 200, 212, 1)");
+            this.cx.fillStyle = gradient;
             this.cx.fillRect(0, -scale * 12, scale * 36, scale * 12);
             var limit = 200;
             var opa = (Math.round(this.level.time * 100) / 100) / limit > limit ? limit : (Math.round(this.level.time * 100) / 100) / limit;
@@ -79,7 +82,10 @@ class CanvasDisplay {
             }
         };
         this.drawBckground = () => {
-            this.cx.fillStyle = "rgb(0, 98, 224)";
+            var gradient = this.cx.createLinearGradient(0, 0, 0, scale * 32);
+            gradient.addColorStop(0, "rgba(0, 98, 224, 1)");
+            gradient.addColorStop(1, "rgba(32, 64, 128, 1)");
+            this.cx.fillStyle = gradient;
             this.cx.fillRect(0, 0, scale * 36, scale * 36);
         };
         this.drawActors = () => {
