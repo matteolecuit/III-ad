@@ -105,9 +105,9 @@ class CanvasDisplay {
 	}
 
 	public drawHUD = (): void => {
-		this.cx.font = "48px rcr";
+		this.cx.font = "36px consolas";
 		this.cx.fillStyle = "rgb(255, 255, 128)";
-		this.cx.fillText("time=" + Math.floor(this.level.time), scale * 26, scale * 35.5);
+		this.cx.fillText("time=" + Math.floor(this.level.time), scale * 25, scale * 35.5);
 		this.cx.fillStyle = "black";
 		let p = this.level.actors[0];
 		if (p instanceof Player) {
@@ -115,7 +115,7 @@ class CanvasDisplay {
 			while (score.length < 7) {
 				score = "0" + score;
 			}
-			this.cx.fillText("score=" + score, scale * 19, scale * -10);
+			this.cx.fillText("SCORE:" + score, scale * 19.5, scale * -10);
 		}
 
 		var bomb: HTMLImageElement = document.createElement("img");
