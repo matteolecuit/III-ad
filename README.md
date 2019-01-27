@@ -2,7 +2,7 @@
 
 &ensp;&ensp;Brave the ocean and try to find your home !
 
-&ensp;&ensp;III-AD is a bullet hell inspired by the Iliad.
+&ensp;&ensp;III-ad is a bullet hell inspired by the Iliad.
 
 &ensp;&ensp;The closer your home is, the harder it is to find it.
 ## About
