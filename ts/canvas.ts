@@ -86,7 +86,12 @@ class CanvasDisplay {
 		var background: HTMLImageElement = document.createElement("img");
 		background.src = "img/island.png";
 		var cloud: HTMLImageElement = document.createElement("img");
-		cloud.src = "img/cloud.png";
+		if (this.level.roundTime > 150) {
+			cloud.src = "img/cloud2.png";
+		}
+		else {
+			cloud.src = "img/cloud.png";
+		}
 		var compass: HTMLImageElement = document.createElement("img");
 		compass.src = "img/compass.png";
 		var arrows: HTMLImageElement = document.createElement("img");
@@ -95,8 +100,14 @@ class CanvasDisplay {
 		rain.src = "img/rain.png";
 
 		var gradient: CanvasGradient = this.cx.createLinearGradient(0, 0, 0, -scale * 16);
-		gradient.addColorStop(0, "rgba(255, 255, 230, 1)");
-		gradient.addColorStop(1, "rgba(100, 200, 212, 1)");
+		if (this.level.roundTime < 150) {
+			gradient.addColorStop(0, "rgba(255, 255, 230, 1)");
+			gradient.addColorStop(1, "rgba(100, 200, 212, 1)");
+		}
+		else {
+			gradient.addColorStop(0, "rgba(140, 75, 85, 1)");
+			gradient.addColorStop(1, "rgba(51, 57, 73, 1)");
+		}
 		this.cx.fillStyle = gradient;
 		this.cx.fillRect(0, -scale * 12, scale * 36, scale * 12);
 
@@ -151,7 +162,7 @@ class CanvasDisplay {
 			 this.flipHorizontally(this.cx, this.canvas.width/2); 
 			}
 
-		if (this.level.roundTime > 151) {
+		if (this.level.roundTime > 150) {
 			let rainBuffer: number = Math.floor(this.level.time * 9) % 4;
 			this.cx.drawImage(rain,
 				512 * rainBuffer, 0, 512, 446,
@@ -207,8 +218,14 @@ class CanvasDisplay {
 		waterEffect.src = "img/waterEffect.png";
 
 		var gradient: CanvasGradient = this.cx.createLinearGradient(0, 0, 0, scale * 32);
-		gradient.addColorStop(0, "rgba(0, 98, 224, 1)");
-		gradient.addColorStop(1, "rgba(32, 64, 128, 1)");
+		if (this.level.roundTime < 150) {
+			gradient.addColorStop(0, "rgba(0, 98, 224, 1)");
+			gradient.addColorStop(1, "rgba(32, 64, 128, 1)");
+		}
+		else {
+			gradient.addColorStop(0, "rgba(0, 64, 96, 1)");
+			gradient.addColorStop(1, "rgba(0, 32, 48, 1)");
+		}
 		this.cx.fillStyle = gradient;
 		this.cx.fillRect(0, 0, scale * 36, scale * 36);
 
