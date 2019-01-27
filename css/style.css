@@ -66,3 +66,7 @@ p {
   color: white;
   font-family: consolas;
 }
+
+img {
+  margin-top: 50px;
+}
