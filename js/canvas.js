@@ -7,7 +7,7 @@ class CanvasDisplay {
         this.heightMore = 0;
         this.restart = false;
         this.preShake = () => {
-            if (this.level.roundTime > 150 && this.level.roundTime < 182) {
+            if (this.level.roundTime > 150 && this.level.roundTime < 152) {
                 this.cx.save();
                 var dx = Math.random() * 10;
                 var dy = Math.random() * 10;
@@ -15,7 +15,7 @@ class CanvasDisplay {
             }
         };
         this.postShake = () => {
-            if (this.level.roundTime > 150 && this.level.roundTime < 182) {
+            if (this.level.roundTime > 150 && this.level.roundTime < 152) {
                 this.cx.restore();
             }
         };
@@ -215,10 +215,7 @@ class CanvasDisplay {
                     if (actor.type === "mobTrash") {
                         this.cx.drawImage(sprites, (Math.round(this.level.time * 2) % 2) * 512, spriteY * 512, 512, 512, posX - width / 2, posY - height / 2, width * 2, height * 2);
                     }
-                    else if (actor.type === "mobZigzag") {
-                        this.cx.drawImage(sprites, (Math.round(this.level.time * 2) % 2) * 512, spriteY * 512, 512, 512, posX - width / 2, posY - height / 2, width * 2, height * 2);
-                    }
-                    else if (actor.type === "mobZigzagReverse") {
+                    else if (actor.type === "mobZigzag" || actor.type === "mobZigzagReverse" || actor.type === "mobZigzagSemi" || actor.type === "mobZigzagReverseSemi") {
                         this.cx.drawImage(sprites, (Math.round(this.level.time * 2) % 2) * 512, spriteY * 512, 512, 512, posX - width / 2, posY - height / 2, width * 2, height * 2);
                     }
                     else if (actor.type === "mobTank") {

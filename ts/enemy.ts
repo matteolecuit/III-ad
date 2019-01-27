@@ -28,7 +28,7 @@ class Enemy extends Actor {
             this.shootCoolDown = 60;
             this.lastShoot = 60;
         }
-        else if (this.type === "mobZigzag" || this.type === "mobZigzagReverse" ) {
+        else if (this.type === "mobZigzag" || this.type === "mobZigzagReverse" || this.type === "mobZigzagSemi" || this.type === "mobZigzagReverseSemi") {
             this.health = 5;
             this.shootCoolDown = 30;
             this.lastShoot = 30;
@@ -97,6 +97,26 @@ class Enemy extends Actor {
 
             let wobbleFreq = 0.03;
             let wobbleAmp = 0.3;
+            this.wobble += wobbleFreq;
+            let wobblePosX = Math.sin(this.wobble) * wobbleAmp;
+            this.pos.x -= wobblePosX;
+            this.shoot(step, level,[new Vector2D(0,0.2)]);
+        }
+        else if (this.type === "mobZigzagSemi") {
+            this.pos.y += this.axe.y;
+
+            let wobbleFreq = 0.03;
+            let wobbleAmp = 0.15;
+            this.wobble += wobbleFreq;
+            let wobblePosX = Math.sin(this.wobble) * wobbleAmp;
+            this.pos.x += wobblePosX;
+            this.shoot(step, level,[new Vector2D(0,0.2)]);
+        }
+        else if (this.type === "mobZigzagReverseSemi") {
+            this.pos.y += this.axe.y;
+
+            let wobbleFreq = 0.03;
+            let wobbleAmp = 0.15;
             this.wobble += wobbleFreq;
             let wobblePosX = Math.sin(this.wobble) * wobbleAmp;
             this.pos.x -= wobblePosX;
