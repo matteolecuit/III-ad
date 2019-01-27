@@ -208,8 +208,25 @@ class Level {
 					this.actors.push(new Enemy(new Vector2D(25, -2), new Vector2D(4, 5), new Vector2D(0, 0.075), "enemy", "mobTank", this.roundTime));
 					this.actors.push(new Enemy(new Vector2D(16, -6), new Vector2D(4, 5), new Vector2D(0, 0.125), "enemy", "mobTank", this.roundTime));
 					break;
+				case 130:
+					this.actors.push(new Enemy(new Vector2D(8, -2), new Vector2D(3, 3), new Vector2D(0.01, 0.125), "enemy", "mobZigzagSemi", this.roundTime));
+					this.actors.push(new Enemy(new Vector2D(24.5, -2), new Vector2D(3, 3), new Vector2D(0.01, 0.125), "enemy", "mobZigzagReverseSemi", this.roundTime));
+					break;
+				case 133:
+					this.actors.push(new Enemy(new Vector2D(14, -2), new Vector2D(3, 3), new Vector2D(0.1, 0.15), "enemy", "mobTrash", this.roundTime));
+					this.actors.push(new Enemy(new Vector2D(19, -2), new Vector2D(3, 3), new Vector2D(-0.1, 0.15), "enemy", "mobTrash", this.roundTime));
+					this.actors.push(new Enemy(new Vector2D(10, -4), new Vector2D(3, 3), new Vector2D(-0.02, 0.125), "enemy", "mobTrash", this.roundTime));
+					this.actors.push(new Enemy(new Vector2D(23, -4), new Vector2D(3, 3), new Vector2D(0.02, 0.125), "enemy", "mobTrash", this.roundTime));
+					this.actors.push(new Enemy(new Vector2D(6, -6), new Vector2D(3, 3), new Vector2D(0.05, 0.125), "enemy", "mobTrash", this.roundTime));
+					this.actors.push(new Enemy(new Vector2D(27, -6), new Vector2D(3, 3), new Vector2D(-0.05, 0.125), "enemy", "mobTrash", this.roundTime));
+					break;
+				case 137:
+					this.actors.push(new Enemy(new Vector2D(7, -2), new Vector2D(4, 5), new Vector2D(0.01, 0.1), "enemy", "mobTank", this.roundTime));
+					this.actors.push(new Enemy(new Vector2D(25, -2), new Vector2D(4, 5), new Vector2D(-0.01, 0.1), "enemy", "mobTank", this.roundTime));
+					this.actors.push(new Enemy(new Vector2D(16, -6), new Vector2D(4, 5), new Vector2D(0, 0.1), "enemy", "mobTank", this.roundTime));
+					break;
 				case 150:
-					this.actors.push(new Enemy(new Vector2D(12.5, -12), new Vector2D(9, 9), new Vector2D(0, 0.08), "enemy", "mobBoss", this.roundTime));
+					this.actors.push(new Enemy(new Vector2D(13.5, -12), new Vector2D(9, 9), new Vector2D(0, 0.08), "enemy", "mobBoss", this.roundTime));
 					break;
 			}
 		}
