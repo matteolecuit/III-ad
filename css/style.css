@@ -19,7 +19,8 @@ a {
   text-decoration: none;
   font-size: 40px;
   margin: 4px;
-  padding: 0;
+  padding: 5px 10px 10px 10px;
+  border-radius: 10px;
   background-color: white;
   color: black;
   width: 200px;
@@ -27,9 +28,13 @@ a {
   border: none;
   font-family: consolas;
 }
+a:hover {
+  background-color: #000;
+  color: #fff;
+}
 
 p {
-  font-size: 40px;
+  font-size: 24px;
   margin: 4px;
   color: white;
   font-family: consolas;
@@ -54,4 +59,10 @@ p {
 
 .return {
   margin-top: 50px;
+}
+
+.about {
+  font-size: 48px;
+  color: white;
+  font-family: consolas;
 }

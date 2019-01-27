@@ -18,9 +18,17 @@ class Level {
                 step -= thisStep;
             }
         };
-        this.act = () => {
+        this.checkGame = () => {
             let player = this.actors[0];
-            if (player instanceof Player && !this.gameOver) {
+            if (player instanceof Player && player.status === "dead") {
+                this.actors.splice(0, this.actors.length);
+                this.actors.push(new Player(new Vector2D(16, 30), new Vector2D(1, 1), "player"));
+                this.gameOver = true;
+            }
+        };
+        this.act = () => {
+            this.checkGame();
+            if (!this.gameOver) {
                 if (this.roundTime % 10 === 0) {
                     this.changeWind();
                 }
@@ -130,9 +138,6 @@ class Level {
                 else if (this.roundTime === 180) {
                     this.actors.push(new Enemy(new Vector2D(16, -2), new Vector2D(3, 3), new Vector2D(0, 0.06), "enemy", "mobBoss", this.roundTime));
                 }
-            }
-            else {
-                this.time = 0;
             }
         };
         this.limitAt = (pos, size) => {

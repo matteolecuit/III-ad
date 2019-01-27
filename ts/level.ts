@@ -26,9 +26,18 @@ class Level {
 		}
 	}
 
+	public checkGame = (): void => {
+		let player = this.actors[0];
+		if (player instanceof Player && player.status === "dead") {
+			this.actors.splice(0, this.actors.length);
+			this.actors.push(new Player(new Vector2D(16, 30), new Vector2D(1, 1), "player"));
+			this.gameOver = true;
+		}
+	}
+
 	public act = (): void => {
-		let player = this.actors[0]
-		if (player instanceof Player && !this.gameOver) {
+		this.checkGame();
+		if (!this.gameOver) {
 			if (this.roundTime % 10 === 0) {
 				this.changeWind();
 			}
@@ -115,8 +124,6 @@ class Level {
 				this.actors.push(new Enemy(new Vector2D(16, -2), new Vector2D(3, 3), new Vector2D(0, 0.06), "enemy", "mobBoss", this.roundTime));
 
 			}
-		} else {
-			this.time = 0;
 		}
 	}
 
@@ -164,8 +171,8 @@ class Level {
 	}
 
 	public changeWind = (): void => {
-		var x = this.getRandom(-1, 2);
-		var y = this.getRandom(-1, 2);
+		var x: number = this.getRandom(-1, 2);
+		var y: number = this.getRandom(-1, 2);
 
 		if (x === -1) {
 			x = -0.01;

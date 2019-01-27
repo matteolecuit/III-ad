@@ -4,15 +4,18 @@ class CanvasDisplay {
 	public cx: CanvasRenderingContext2D = this.canvas.getContext("2d");
 	public zoom: number = 1;
 	public animationTime: number = 0;
+	public parent: HTMLElement;
 	public level: Level;
 	public viewport: any;
 	public heightMore: number = 0;
+	public restart: boolean = false;
 
 	constructor(parent: HTMLElement, level: Level) {
 		this.canvas.width = 36 * scale * this.zoom;
 		this.canvas.height = 48 * scale * this.zoom;
 		this.cx.translate(0, 12 * scale * this.zoom);
-		parent.appendChild(this.canvas);
+		this.parent = parent;
+		this.parent.appendChild(this.canvas);
 		this.cx.scale(this.zoom, this.zoom);
 		this.level = level;
 
@@ -34,19 +37,6 @@ class CanvasDisplay {
 		}
 	}
 
-	public ifPlayerDied = (): void => {
-		let player = this.level.actors[0]
-		if (player instanceof Player && player.status === "dead") {
-			this.level.actors.splice(0, this.level.actors.length);
-			this.level.actors.push(new Player(new Vector2D(16, 30), new Vector2D(1, 1), "player"));
-			this.level.gameOver = true;
-		}
-		if (player instanceof Player &&  this.level.gameOver === true) {
-			this.cx.font = "60px";
-			this.cx.fillText("Game Over", 420/2, 460/2);
-		}
-	}
-
 	public drawFrame = (step: number): void => {
 		this.animationTime += step;
 		this.preShake();
@@ -55,7 +45,41 @@ class CanvasDisplay {
 		this.drawSKy();
 		this.drawHUD();
 		this.postShake();
-		this.ifPlayerDied();
+
+		if (this.level.gameOver) {
+			this.canvas.remove();
+			if (!this.restart) {
+				let flexDiv: HTMLDivElement = document.createElement("div");
+				flexDiv.style.margin = "auto";
+				flexDiv.style.width = "300px";
+				flexDiv.style.display = "flex";
+				flexDiv.style.flexWrap = "wrap";
+				flexDiv.style.textAlign = "center";
+
+				this.parent.appendChild(flexDiv);
+
+				let gameOverP: HTMLParagraphElement = document.createElement("p");
+				gameOverP.style.margin = "auto";
+				gameOverP.style.fontSize = "48";
+				gameOverP.style.marginBottom = "50px";
+				gameOverP.textContent = "Game Over";
+				flexDiv.appendChild(gameOverP);
+
+				let restartButton: HTMLAnchorElement = document.createElement("a");
+				restartButton.style.margin = "auto";
+				restartButton.style.marginBottom = "10px";
+				restartButton.text = "Restart";
+				restartButton.href = "game.html";
+				flexDiv.appendChild(restartButton);
+
+				let menuButton: HTMLAnchorElement = document.createElement("a");
+				menuButton.style.margin = "auto";
+				menuButton.text = "Menu";
+				menuButton.href = "index.html";
+				flexDiv.appendChild(menuButton);
+				this.restart = true;
+			}
+		}
 	}
 
 	public drawSKy = (): void => {
@@ -165,13 +189,13 @@ class CanvasDisplay {
 		var bomb: HTMLImageElement = document.createElement("img");
 		bomb.src = "img/bomb.png";
 
-		let bombman: Actor = this.level.actors[0];
-		if (bombman && bombman instanceof Player) {
-			for (let i = 0; i < bombman.numberBomb; i++) {
+		let player: Actor = this.level.actors[0];
+		
+		if (player && player instanceof Player) {
+			for (let i = 0; i < player.numberBomb; i++) {
 				this.cx.drawImage(bomb,
 					0, 0, 262, 242,
 					scale * (9 + i * 3), -scale * 11.5, scale * 3, scale * 3);
-
 			}
 		}
 	}
