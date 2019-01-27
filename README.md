@@ -1,15 +1,14 @@
 # III-ad
-## About
-&ensp;&ensp;This game was made during the Global Game Jam 2019.
 
-&ensp;&ensp;The Theme is ... What home means to you.
-
-## The game
 &ensp;&ensp;Brave the ocean and try to find your home !
 
 &ensp;&ensp;III-AD is a bullet hell inspired by the Iliad.
 
 &ensp;&ensp;The closer your home is, the harder it is to find it.
+## About
+&ensp;&ensp;This game was made during the Global Game Jam 2019.
+
+&ensp;&ensp;The Theme is ... What home means to you.
 
 ## Team
 
