@@ -12,11 +12,11 @@
 
 ## Team
 
-### Developpement
+#### Developpement
 * Samy Vera
 * Matteo Lecuit
 * Bigeard
-### Graphic Design
+#### Graphic Design
 * Maxime Le Chesne
 
 ## Instructions
