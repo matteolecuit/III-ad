@@ -6,7 +6,7 @@ class CanvasDisplay {
         this.animationTime = 0;
         this.heightMore = 0;
         this.preShake = () => {
-            if (this.level.roundTime > 180 && this.level.roundTime < 182) {
+            if (this.level.roundTime > 150 && this.level.roundTime < 182) {
                 this.cx.save();
                 var dx = Math.random() * 10;
                 var dy = Math.random() * 10;
@@ -14,7 +14,7 @@ class CanvasDisplay {
             }
         };
         this.postShake = () => {
-            if (this.level.roundTime > 180 && this.level.roundTime < 182) {
+            if (this.level.roundTime > 150 && this.level.roundTime < 182) {
                 this.cx.restore();
             }
         };
@@ -90,13 +90,13 @@ class CanvasDisplay {
                     this.cx.fillRect(0, 0, this.canvas.width, this.canvas.height);
                 }
             }
-            if (this.level.roundTime > 180 && this.level.roundTime < 181) {
+            if (this.level.roundTime > 150 && this.level.roundTime < 151) {
                 if (Math.floor(this.animationTime * 10000) % 2) {
                     this.cx.fillStyle = "rgb(255, 255, 255)";
                     this.cx.fillRect(0, 0, this.canvas.width, this.canvas.height);
                 }
             }
-            if (this.level.roundTime > 181) {
+            if (this.level.roundTime > 151) {
                 let rainBuffer = Math.floor(this.level.time * 9) % 4;
                 this.cx.drawImage(rain, 512 * rainBuffer, 0, 512, 446, 0, 0, scale * 36, scale * 36);
             }

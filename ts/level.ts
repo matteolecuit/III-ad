@@ -111,7 +111,7 @@ class Level {
 				this.actors.push(new Enemy(new Vector2D(25.5, -3.5), new Vector2D(3, 3), new Vector2D(-0.05, 0.2), "enemy", "mobTrash", this.roundTime));
 			}
 
-			else if (this.roundTime === 180) {
+			else if (this.roundTime === 150) {
 				this.actors.push(new Enemy(new Vector2D(16, -2), new Vector2D(3, 3), new Vector2D(0, 0.06), "enemy", "mobBoss", this.roundTime));
 
 			}
