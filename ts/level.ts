@@ -3,9 +3,11 @@ class Level {
 	public size: Vector2D = new Vector2D(36, 36);
 	public time: number = 0;
 	public roundTime: number = 0;
+	public endTime: number;
 	public actors: Array<Actor> = [];
 	public wind: Vector2D = new Vector2D(0, 0);
 	public gameOver: boolean = false;
+	public gameWon: boolean = false;
 
 	constructor() {
 		this.actors.push(new Player(new Vector2D(16, 30), new Vector2D(1, 1), "player"));
@@ -37,7 +39,7 @@ class Level {
 
 	public act = (): void => {
 		this.checkGame();
-		if (!this.gameOver) {
+		if (!this.gameOver && !this.gameWon) {
 			if (this.roundTime % 10 === 0) {
 				this.changeWind();
 			}

@@ -6,6 +6,7 @@ class Level {
         this.actors = [];
         this.wind = new Vector2D(0, 0);
         this.gameOver = false;
+        this.gameWon = false;
         this.calculFrame = (step, keys) => {
             while (step > 0) {
                 this.act();
@@ -28,7 +29,7 @@ class Level {
         };
         this.act = () => {
             this.checkGame();
-            if (!this.gameOver) {
+            if (!this.gameOver && !this.gameWon) {
                 if (this.roundTime % 10 === 0) {
                     this.changeWind();
                 }

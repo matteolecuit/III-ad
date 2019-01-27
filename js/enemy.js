@@ -7,6 +7,13 @@ class Enemy extends Actor {
         this.deleteEnemy = (level) => {
             for (let i = 0; i < level.actors.length; i++) {
                 if (level.actors[i] instanceof Enemy && this.pos.equals(level.actors[i].pos)) {
+                    let enemy = level.actors[i];
+                    if (enemy instanceof Enemy && enemy.type === "mobBoss") {
+                        level.gameWon = true;
+                        level.endTime = level.roundTime;
+                        level.actors = [level.actors[0]];
+                        return;
+                    }
                     level.actors.splice(i, 1);
                 }
             }
@@ -173,7 +180,7 @@ class Enemy extends Actor {
             this.lastShoot = 100;
         }
         else if (this.type === "mobBoss") {
-            this.health = 200;
+            this.health = 10;
             this.maxHealth = this.health;
             this.shootCoolDown = 60;
             this.lastShoot = 60;

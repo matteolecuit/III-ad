@@ -80,6 +80,39 @@ class CanvasDisplay {
 				this.restart = true;
 			}
 		}
+
+		if (this.level.gameWon) {
+			this.cx.fillStyle = "white";
+			this.cx.fillRect(0, -scale * 12, scale * 36, scale * 48);
+
+			this.cx.font = "28px consolas";
+			this.cx.fillStyle = "rgb(0, 0, 0)";
+
+			if (this.level.roundTime < this.level.endTime + 2) {
+				this.cx.fillText("Finaly...", scale * 14, scale * 12);
+			}
+			else if (this.level.roundTime < this.level.endTime + 6) {
+				this.cx.fillText("This journey is reaching", scale * 6.5, scale * 12);
+				this.cx.fillText("it's end", scale * 14, scale * 14);
+			}
+			else {
+				var gradient: CanvasGradient = this.cx.createLinearGradient(0, -scale * 12, 0, scale * 36);
+				gradient.addColorStop(0, "rgba(100, 200, 212, 1)");
+				gradient.addColorStop(1, "rgba(255, 255, 230, 1)");
+				this.cx.fillStyle = gradient;
+				this.cx.fillRect(0, -scale * 12, scale * 36, scale * 48);
+
+				this.cx.fillStyle = "black";
+				this.cx.font = "28px consolas";
+				this.cx.fillText("Thanks for playing !", scale * 3.5, scale * 12);
+
+				var background: HTMLImageElement = document.createElement("img");
+				background.src = "img/island.png";
+				this.cx.drawImage(background,
+					0, 0, 976, 448,
+					-scale * 10, scale * 10, 976, 448);
+			}
+		}
 	}
 
 	public drawSKy = (): void => {
