@@ -7,7 +7,7 @@ class CanvasDisplay {
         this.heightMore = 0;
         this.restart = false;
         this.preShake = () => {
-            if (this.level.roundTime > 180 && this.level.roundTime < 182) {
+            if (this.level.roundTime > 150 && this.level.roundTime < 182) {
                 this.cx.save();
                 var dx = Math.random() * 10;
                 var dy = Math.random() * 10;
@@ -15,7 +15,7 @@ class CanvasDisplay {
             }
         };
         this.postShake = () => {
-            if (this.level.roundTime > 180 && this.level.roundTime < 182) {
+            if (this.level.roundTime > 150 && this.level.roundTime < 182) {
                 this.cx.restore();
             }
         };
@@ -74,7 +74,7 @@ class CanvasDisplay {
             gradient.addColorStop(1, "rgba(100, 200, 212, 1)");
             this.cx.fillStyle = gradient;
             this.cx.fillRect(0, -scale * 12, scale * 36, scale * 12);
-            var limit = 180;
+            var limit = 150;
             var opa = (Math.round(this.level.time * 100) / 100) / limit > limit ? limit : (Math.round(this.level.time * 100) / 100) / limit;
             this.cx.globalAlpha = opa;
             this.cx.drawImage(background, 0, 0, 976, 448, scale * 6, -scale * 10, scale * 28, scale * 10);
@@ -108,7 +108,7 @@ class CanvasDisplay {
                     this.cx.fillRect(0, 0, this.canvas.width, this.canvas.height);
                 }
             }
-            if (this.level.roundTime > 180 && this.level.roundTime < 181) {
+            if (this.level.roundTime > 150 && this.level.roundTime < 151) {
                 if (Math.floor(this.animationTime * 10000) % 2) {
                     this.cx.fillStyle = "rgb(255, 255, 255)";
                     this.cx.fillRect(0, 0, this.canvas.width, this.canvas.height);
@@ -118,7 +118,7 @@ class CanvasDisplay {
             if (this.level.wind.x > 0) {
                 this.flipHorizontally(this.cx, this.canvas.width / 2);
             }
-            if (this.level.roundTime > 181) {
+            if (this.level.roundTime > 151) {
                 let rainBuffer = Math.floor(this.level.time * 9) % 4;
                 this.cx.drawImage(rain, 512 * rainBuffer, 0, 512, 446, 0, 0, scale * 36, scale * 36);
             }
@@ -138,11 +138,11 @@ class CanvasDisplay {
             this.cx.fillStyle = "black";
             let p = this.level.actors[0];
             if (p instanceof Player) {
-                var score = p.score.toString();
-                while (score.length < 7) {
-                    score = "0" + score;
+                var power = p.power.toString();
+                while (power.length < 7) {
+                    power = "0" + power;
                 }
-                this.cx.fillText("SCORE:" + score, scale * 19.5, scale * -10);
+                this.cx.fillText("POWER:" + power, scale * 19.5, scale * -10);
             }
             var bomb = document.createElement("img");
             bomb.src = "img/bomb.png";

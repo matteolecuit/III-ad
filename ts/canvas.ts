@@ -23,7 +23,7 @@ class CanvasDisplay {
 	}
 
 	public preShake = (): void => {
-		if (this.level.roundTime > 180 && this.level.roundTime < 182) {
+		if (this.level.roundTime > 150 && this.level.roundTime < 182) {
 			this.cx.save();
 			var dx = Math.random() * 10;
 			var dy = Math.random() * 10;
@@ -32,7 +32,7 @@ class CanvasDisplay {
 	}
 
 	public postShake = (): void => {
-		if (this.level.roundTime > 180 && this.level.roundTime < 182) {
+		if (this.level.roundTime > 150 && this.level.roundTime < 182) {
 			this.cx.restore();
 		}
 	}
@@ -100,7 +100,7 @@ class CanvasDisplay {
 		this.cx.fillStyle = gradient;
 		this.cx.fillRect(0, -scale * 12, scale * 36, scale * 12);
 
-		var limit: number = 180;
+		var limit: number = 150;
 		var opa: number = (Math.round(this.level.time * 100) / 100) / limit > limit ? limit : (Math.round(this.level.time * 100) / 100) / limit;
 
 		this.cx.globalAlpha = opa;
@@ -139,7 +139,7 @@ class CanvasDisplay {
 			}
 		}
 
-		if (this.level.roundTime > 180 && this.level.roundTime < 181) {
+		if (this.level.roundTime > 150 && this.level.roundTime < 151) {
 			if (Math.floor(this.animationTime*10000) % 2) {
 				this.cx.fillStyle = "rgb(255, 255, 255)";
 				this.cx.fillRect(0, 0, this.canvas.width, this.canvas.height);
@@ -151,7 +151,7 @@ class CanvasDisplay {
 			 this.flipHorizontally(this.cx, this.canvas.width/2); 
 			}
 
-		if (this.level.roundTime > 181) {
+		if (this.level.roundTime > 151) {
 			let rainBuffer: number = Math.floor(this.level.time * 9) % 4;
 			this.cx.drawImage(rain,
 				512 * rainBuffer, 0, 512, 446,
@@ -179,11 +179,11 @@ class CanvasDisplay {
 		this.cx.fillStyle = "black";
 		let p = this.level.actors[0];
 		if (p instanceof Player) {
-			var score: string = p.score.toString();
-			while (score.length < 7) {
-				score = "0" + score;
+			var power: string = p.power.toString();
+			while (power.length < 7) {
+				power = "0" + power;
 			}
-			this.cx.fillText("SCORE:" + score, scale * 19.5, scale * -10);
+			this.cx.fillText("POWER:" + power, scale * 19.5, scale * -10);
 		}
 
 		var bomb: HTMLImageElement = document.createElement("img");
