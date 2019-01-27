@@ -181,7 +181,7 @@ class Level {
                     case 121:
                         break;
                     case 150:
-                        this.actors.push(new Enemy(new Vector2D(16, -2), new Vector2D(3, 3), new Vector2D(0, 0.06), "enemy", "mobBoss", this.roundTime));
+                        this.actors.push(new Enemy(new Vector2D(12.5, -12), new Vector2D(9, 9), new Vector2D(0, 0.08), "enemy", "mobBoss", this.roundTime));
                         break;
                 }
             }
