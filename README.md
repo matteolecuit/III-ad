@@ -28,8 +28,8 @@
 
 ### Windows:
 
-&ensp;&ensp;Execute III-AD.exe in the III-AD-win32-x64 folder
+&ensp;&ensp;Execute III-AD.exe in the windows folder
 
 ### Linux:
 
-&ensp;&ensp;Execute III-AD in the III-AD-linux-x64 folder
+&ensp;&ensp;Execute III-AD in the linux folder
