@@ -23,3 +23,6 @@
 &ensp;&ensp;The game can be played directly on your browser (chromium-based browsers works best) at :
 
 &ensp;&ensp;https://matteolecuit.github.io/III-ad/
+
+&ensp;&ensp;If the characters seems blurred, it's probably because your computer scale is > 100%.
+&ensp;&ensp;On Windows,hit the Win key, type in display and change the scale to 100%
