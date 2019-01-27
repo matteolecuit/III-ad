@@ -240,7 +240,12 @@ class CanvasDisplay {
                         this.cx.drawImage(sprites, (Math.round(this.level.time * 2) % 2) * 512, spriteY * 512, 512, 512, posX - width / 2, posY - height / 2, width * 2, height * 2);
                     }
                     else if (actor.type === "mobZigzag" || actor.type === "mobZigzagReverse" || actor.type === "mobZigzagSemi" || actor.type === "mobZigzagReverseSemi") {
+                        this.cx.save();
+                        if (Math.sin(actor.wobble) < 0) {
+                            this.flipHorizontally(this.cx, posX + width / 2);
+                        }
                         this.cx.drawImage(sprites, (Math.round(this.level.time * 2) % 2) * 512, spriteY * 512, 512, 512, posX - width / 2, posY - height / 2, width * 2, height * 2);
+                        this.cx.restore();
                     }
                     else if (actor.type === "mobTank") {
                         this.cx.drawImage(sprites, (Math.round(this.level.time * 2) % 2) * 640, spriteY * 656, 640, 656, posX - width / 2, posY - height / 2, width * 2, height * 2);

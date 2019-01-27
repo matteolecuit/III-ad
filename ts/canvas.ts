@@ -184,7 +184,7 @@ class CanvasDisplay {
 		}
 
 		if (this.level.roundTime > 150 && this.level.roundTime < 151) {
-			if (Math.floor(this.animationTime*10000) % 2) {
+			if (Math.floor(this.animationTime * 10000) % 2) {
 				this.cx.fillStyle = "rgb(255, 255, 255)";
 				this.cx.fillRect(0, 0, this.canvas.width, this.canvas.height);
 			}
@@ -192,8 +192,8 @@ class CanvasDisplay {
 
 		this.cx.save();
 		if (this.level.wind.x > 0) {
-			 this.flipHorizontally(this.cx, this.canvas.width/2); 
-			}
+			this.flipHorizontally(this.cx, this.canvas.width / 2);
+		}
 
 		if (this.level.roundTime > 150) {
 			let rainBuffer: number = Math.floor(this.level.time * 9) % 4;
@@ -209,7 +209,7 @@ class CanvasDisplay {
 			0, 640 * buffer, 3584, 640,
 			-scale * 2, -scale * 3, scale * 40, scale * 6);
 	}
-	
+
 	public flipHorizontally = (context: CanvasRenderingContext2D, around: number): void => {
 		context.translate(around, 0);
 		context.scale(-1, 1);
@@ -232,7 +232,7 @@ class CanvasDisplay {
 		bomb.src = "img/bomb.png";
 
 		let player: Actor = this.level.actors[0];
-		
+
 		if (player && player instanceof Player) {
 			for (let i = 0; i < player.numberBomb; i++) {
 				this.cx.drawImage(bomb,
@@ -302,16 +302,21 @@ class CanvasDisplay {
 						(Math.round(this.level.time * 2) % 2) * 512, spriteY * 512, 512, 512,
 						posX - width / 2, posY - height / 2, width * 2, height * 2);
 				}
-				else if (actor.type === "mobZigzag" || actor.type === "mobZigzagReverse" || actor.type === "mobZigzagSemi" || actor.type === "mobZigzagReverseSemi" ) {
+				else if (actor.type === "mobZigzag" || actor.type === "mobZigzagReverse" || actor.type === "mobZigzagSemi" || actor.type === "mobZigzagReverseSemi") {
+					this.cx.save();
+					if (Math.sin(actor.wobble) < 0) {
+						this.flipHorizontally(this.cx, posX + width/2);
+					}
 					this.cx.drawImage(sprites,
 						(Math.round(this.level.time * 2) % 2) * 512, spriteY * 512, 512, 512,
 						posX - width / 2, posY - height / 2, width * 2, height * 2);
+					this.cx.restore();
 				}
-				
+
 				else if (actor.type === "mobTank") {
 					this.cx.drawImage(sprites,
 						(Math.round(this.level.time * 2) % 2) * 640, spriteY * 656, 640, 656,
-						posX - width / 2, posY - height/2, width * 2, height*2);
+						posX - width / 2, posY - height / 2, width * 2, height * 2);
 				}
 				else if (actor.type === "mobRanged") {
 					this.cx.drawImage(sprites,

@@ -2,7 +2,7 @@
 
 &ensp;&ensp;Brave the ocean and try to find your home !
 
-&ensp;&ensp;III-AD is a bullet hell inspired by the Iliad.
+&ensp;&ensp;III-ad is a bullet hell inspired by the Iliad.
 
 &ensp;&ensp;The closer your home is, the harder it is to find it.
 ## About
@@ -12,11 +12,11 @@
 
 ## Team
 
-### Developpement
+#### Developpement
 * Samy Vera
 * Matteo Lecuit
 * Bigeard
-### Graphic Design
+#### Graphic Design
 * Maxime Le Chesne
 
 ## Instructions
@@ -24,12 +24,6 @@
 
 &ensp;&ensp;https://matteolecuit.github.io/III-ad/
 
-&ensp;&ensp;You can also launch it on your computer (Windows/Linux):
+&ensp;&ensp;If the characters seems blurred, it's probably because your computer scale is > 100%.
 
-### Windows:
-
-&ensp;&ensp;Execute III-AD.exe in the III-AD-win32-x64 folder
-
-### Linux:
-
-&ensp;&ensp;Execute III-AD in the III-AD-linux-x64 folder
+&ensp;&ensp;On Windows, hit the Win key, type in display and change the scale to 100%
