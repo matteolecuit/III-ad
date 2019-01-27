@@ -218,8 +218,6 @@ class CanvasDisplay {
 
 	public drawHUD = (): void => {
 		this.cx.font = "36px consolas";
-		this.cx.fillStyle = "rgb(255, 255, 128)";
-		this.cx.fillText("time=" + Math.floor(this.level.time), scale * 25, scale * 35.5);
 		this.cx.fillStyle = "black";
 		let p = this.level.actors[0];
 		if (p instanceof Player) {
@@ -322,8 +320,8 @@ class CanvasDisplay {
 				}
 				else if (actor.type === "mobBoss") {
 					this.cx.drawImage(sprites,
-						(Math.round(this.level.time * 2) % 2) * 512, spriteY * 512, 512, 512,
-						posX - width / 2, posY - height / 2, width * 2, height * 2);
+						(Math.round(this.level.time * 2) % 4) * 1575, spriteY * 1100, 1575, 1100,
+						posX - width / 2, posY - height / 4, width * 2, height * 1.5);
 				}
 			}
 		});

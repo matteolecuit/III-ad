@@ -197,7 +197,7 @@ class Enemy extends Actor {
             this.lastShoot = 100;
         }
         else if (this.type === "mobBoss") {
-            this.health = 10;
+            this.health = 200;
             this.maxHealth = this.health;
             this.shootCoolDown = 60;
             this.lastShoot = 60;

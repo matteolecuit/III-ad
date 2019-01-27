@@ -223,7 +223,7 @@ class Level {
                         this.actors.push(new Enemy(new Vector2D(16.5, -2), new Vector2D(4, 5), new Vector2D(0, 0.1), "enemy", "mobTrash", this.roundTime));
                         break;
                     case 150:
-                        this.actors.push(new Enemy(new Vector2D(13.5, -12), new Vector2D(9, 9), new Vector2D(0, 0.08), "enemy", "mobBoss", this.roundTime));
+                        this.actors.push(new Enemy(new Vector2D(13.5, -12), new Vector2D(9, 9), new Vector2D(0, 0.1), "enemy", "mobBoss", this.roundTime));
                         break;
                 }
             }
