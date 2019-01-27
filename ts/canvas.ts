@@ -76,7 +76,7 @@ class CanvasDisplay {
 		this.cx.fillStyle = gradient;
 		this.cx.fillRect(0, -scale * 12, scale * 36, scale * 12);
 
-		var limit: number = 180;
+		var limit: number = 150;
 		var opa: number = (Math.round(this.level.time * 100) / 100) / limit > limit ? limit : (Math.round(this.level.time * 100) / 100) / limit;
 
 		this.cx.globalAlpha = opa;
@@ -122,6 +122,11 @@ class CanvasDisplay {
 			}
 		}
 
+		this.cx.save();
+		if (this.level.wind.x > 0) {
+			 this.flipHorizontally(this.cx, this.canvas.width/2); 
+			}
+
 		if (this.level.roundTime > 151) {
 			let rainBuffer: number = Math.floor(this.level.time * 9) % 4;
 			this.cx.drawImage(rain,
@@ -129,10 +134,18 @@ class CanvasDisplay {
 				0, 0, scale * 36, scale * 36);
 		}
 
+		this.cx.restore();
+
 		var buffer: number = Math.floor(this.level.time) % 2;
 		this.cx.drawImage(cloud,
 			0, 640 * buffer, 3584, 640,
 			-scale * 2, -scale * 3, scale * 40, scale * 6);
+	}
+	
+	public flipHorizontally = (context: CanvasRenderingContext2D, around: number): void => {
+		context.translate(around, 0);
+		context.scale(-1, 1);
+		context.translate(-around, 0);
 	}
 
 	public drawHUD = (): void => {
