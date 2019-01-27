@@ -23,13 +23,3 @@
 &ensp;&ensp;The game can be played directly on your browser (chromium-based browsers works best) at :
 
 &ensp;&ensp;https://matteolecuit.github.io/III-ad/
-
-&ensp;&ensp;You can also launch it on your computer (Windows/Linux):
-
-### Windows:
-
-&ensp;&ensp;Execute III-AD.exe in the windows folder
-
-### Linux:
-
-&ensp;&ensp;Execute III-AD in the linux folder
