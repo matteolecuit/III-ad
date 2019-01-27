@@ -189,13 +189,8 @@ class Level {
 					this.actors.push(new Enemy(new Vector2D(16, -2), new Vector2D(3, 3), new Vector2D(0, 0.06), "enemy", "mobBoss", this.roundTime));
 					break;
 			}
-<<<<<<< HEAD
-=======
-
-
 		} else {
 			this.time = 0;
->>>>>>> e49eafaf4078fcb6168205686a55a0d777f8d2b6
 		}
 	}
 

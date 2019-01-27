@@ -177,6 +177,9 @@ class Level {
                         break;
                 }
             }
+            else {
+                this.time = 0;
+            }
         };
         this.limitAt = (pos, size) => {
             let xStart = Math.floor(pos.x);
