@@ -155,11 +155,11 @@ class CanvasDisplay {
 		this.cx.fillStyle = "black";
 		let p = this.level.actors[0];
 		if (p instanceof Player) {
-			var score: string = p.score.toString();
-			while (score.length < 7) {
-				score = "0" + score;
+			var power: string = p.power.toString();
+			while (power.length < 7) {
+				power = "0" + power;
 			}
-			this.cx.fillText("SCORE:" + score, scale * 19.5, scale * -10);
+			this.cx.fillText("POWER:" + power, scale * 19.5, scale * -10);
 		}
 
 		var bomb: HTMLImageElement = document.createElement("img");

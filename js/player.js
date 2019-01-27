@@ -11,7 +11,7 @@ class Player extends Actor {
         this.inertia = 1 / scale;
         this.numberBomb = 3;
         this.controls = [false, false, false, false, false, false];
-        this.score = 0;
+        this.power = 0;
         this.moveX = (step, level) => {
             if (this.controls[2] && !this.controls[3]) {
                 this.speed.x = this.speed.x - this.moveSpeed * this.inertia > -this.moveSpeed ? this.speed.x - this.moveSpeed * this.inertia : -this.moveSpeed;

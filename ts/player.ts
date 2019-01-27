@@ -13,7 +13,7 @@ class Player extends Actor {
 	public numberBomb: number = 3;
 
 	public controls: Array<boolean> = [false, false, false, false, false, false];
-	public score: number = 0;
+	public power: number = 0;
 
 	constructor(pos: Vector2D, size: Vector2D, sprites: string) {
 		super(pos.plus(new Vector2D(size.x * 1.5, size.y * 1.5)), size, sprites);
