@@ -114,11 +114,21 @@ class Player extends Actor {
                 keys.get("focus"),
             ];
             if (this.status === null) {
+                let attack;
                 this.checkFocus(step, level);
                 this.moveX(step, level);
                 this.moveY(step, level);
                 this.bomb(step, level);
-                this.shoot(step, level, [new Vector2D(0, -0.4)]);
+                if (this.power < 1000) {
+                    attack = [new Vector2D(0, -0.4)];
+                }
+                else if (this.power >= 1000 && this.power < 2000) {
+                    attack = [new Vector2D(-0.01, -0.4), new Vector2D(0.015, -0.4)];
+                }
+                else if (this.power >= 2000) {
+                    attack = [new Vector2D(-0.01, -0.4), new Vector2D(0, -0.4), new Vector2D(0.015, -0.4)];
+                }
+                this.shoot(step, level, attack);
                 let obstacle = level.actorAt(this);
                 if (obstacle && obstacle instanceof Enemy) {
                     this.status = "dead";
